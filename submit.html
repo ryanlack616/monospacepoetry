@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit | Monospace Poetry</title>
+    <meta name="description" content="Share something you made in fixed-width fonts.">
+    <meta property="og:title" content="Submit | Monospace Poetry">
+    <meta property="og:description" content="Share something you made in fixed-width fonts.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>░</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">gallery</a>
+        <a href="artists.html">artists</a>
+        <a href="learn.html">learn</a>
+        <a href="submit.html" class="active">submit</a>
+    </nav>
+
+    <main>
+        <header class="page-header">
+            <h1>SUBMIT YOUR WORK</h1>
+            <p class="subtitle">Your poem goes directly to the community</p>
+        </header>
+
+        <section class="editor-section">
+            <div class="editor-container">
+                <div class="editor-pane">
+                    <div class="editor-toolbar">
+                        <span class="toolbar-label">COMPOSE</span>
+                        <span class="char-count">0 chars</span>
+                    </div>
+                    <textarea class="editor-textarea" id="poem-content" placeholder="Start typing your poem here..."></textarea>
+                </div>
+                <div class="preview-pane">
+                    <div class="editor-toolbar">
+                        <span class="toolbar-label">PREVIEW</span>
+                        <button class="grid-toggle" title="Toggle grid">Grid</button>
+                    </div>
+                    <pre class="editor-preview"></pre>
+                </div>
+            </div>
+            
+            <div class="submit-form">
+                <input type="text" id="poem-title" placeholder="Title (optional - will use first line)" class="form-input">
+                <input type="text" id="artist-name" placeholder="Your name or pseudonym" class="form-input">
+                <button id="submit-btn" class="cta-btn">Submit to Community</button>
+                <div id="submit-status" class="submit-status"></div>
+            </div>
+        </section>
+
+        <section class="learn-section">
+            <h2>How It Works</h2>
+            <pre class="code-example">
+You submit here
+       |
+       v
+Posted to m/monospacepoetry on Moltbook
+       |
+       v
+Community sees it, reacts, comments
+       |
+       v
+Best works get featured in the gallery
+            </pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>Quick Character Reference</h2>
+            <div class="char-palette-container"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>monospace poetry 2025</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        const API_URL = 'http://localhost:5000';
+        
+        const textarea = document.querySelector('.editor-textarea');
+        const charCount = document.querySelector('.char-count');
+        const preview = document.querySelector('.editor-preview');
+        
+        textarea.addEventListener('input', () => {
+            charCount.textContent = textarea.value.length + ' chars';
+            preview.textContent = textarea.value;
+        });
+        
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const content = document.getElementById('poem-content').value.trim();
+            const title = document.getElementById('poem-title').value.trim();
+            const artistName = document.getElementById('artist-name').value.trim() || 'Anonymous';
+            const status = document.getElementById('submit-status');
+            
+            if (!content) {
+                status.textContent = 'Please write something first!';
+                status.className = 'submit-status error';
+                return;
+            }
+            
+            status.textContent = 'Submitting...';
+            status.className = 'submit-status';
+            
+            try {
+                const response = await fetch(API_URL + '/api/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, content, artist_name: artistName })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    status.innerHTML = 'Posted! <a href="' + result.url + '" target="_blank">View on Moltbook</a>';
+                    status.className = 'submit-status success';
+                } else {
+                    status.textContent = 'Error: ' + (result.error || 'Unknown error');
+                    status.className = 'submit-status error';
+                }
+            } catch (e) {
+                status.textContent = 'Could not connect to submission server';
+                status.className = 'submit-status error';
+            }
+        });
+    </script>
+</body>
+</html>
