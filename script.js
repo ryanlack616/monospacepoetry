@@ -52,16 +52,40 @@ function updateToggleIcon(toggle) {
 function initRandomButton() {
     const btn = document.querySelector('.random-btn');
     if (!btn) return;
-    
-    btn.addEventListener('click', () => {
-        const items = document.querySelectorAll('.gallery-item');
-        if (items.length > 0) {
-            const randomItem = items[Math.floor(Math.random() * items.length)];
-            randomItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            randomItem.classList.add('focused');
-            setTimeout(() => randomItem.classList.remove('focused'), 2000);
+
+    const items = Array.from(document.querySelectorAll('.gallery-item'));
+    if (items.length === 0) return;
+
+    const VISIBLE_COUNT = 8;
+
+    // Shuffle and show initial 8
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
-    });
+        return array;
+    }
+
+    function showRandomSet() {
+        // Hide all
+        items.forEach(item => item.style.display = 'none');
+        
+        // Shuffle and show 8
+        const shuffled = shuffle([...items]);
+        shuffled.slice(0, VISIBLE_COUNT).forEach(item => {
+            item.style.display = 'block';
+        });
+        
+        // Scroll to top of gallery
+        document.querySelector('.gallery-controls')?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Show initial set on page load
+    showRandomSet();
+
+    // Random button shows new set
+    btn.addEventListener('click', showRandomSet);
 }
 
 // ═══════════════════════════════════════════════════════════
