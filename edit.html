@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create - Monospace Poetry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .editor-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .editor-state {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .state-indicator {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: 1px solid var(--border);
+    }
+    
+    .state-draft { border-color: var(--dim); color: var(--dim); }
+    .state-finished { border-color: var(--text); }
+    .state-sealed { border-color: #4a9eff; color: #4a9eff; }
+    .state-burned { border-color: #ff4444; color: #ff4444; }
+    
+    .editor-title {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px dashed var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1.5rem;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      margin-bottom: 1rem;
+    }
+    
+    .editor-title:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    
+    .editor-body {
+      width: 100%;
+      min-height: 400px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 1rem;
+      resize: vertical;
+    }
+    
+    .editor-body:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    
+    .editor-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+    }
+    
+    .meta-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    
+    .meta-label {
+      font-size: 0.75rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .meta-input {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+    
+    .meta-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    
+    .confidence-slider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .confidence-slider input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+    }
+    
+    .confidence-value {
+      min-width: 3rem;
+      text-align: right;
+    }
+    
+    .editor-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .action-btn {
+      padding: 0.75rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    
+    .action-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    
+    .action-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .action-btn.primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    
+    .action-btn.primary:hover:not(:disabled) {
+      background: transparent;
+      color: var(--accent);
+    }
+    
+    .action-btn.danger {
+      border-color: #ff4444;
+      color: #ff4444;
+    }
+    
+    .action-btn.danger:hover:not(:disabled) {
+      background: #ff4444;
+      color: #fff;
+    }
+    
+    .editor-info {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 1px dashed var(--border);
+      font-size: 0.8rem;
+      color: var(--dim);
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+    }
+    
+    .validation-error {
+      color: #ff4444;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+    
+    .scarcity-warning {
+      background: rgba(255, 170, 0, 0.1);
+      border: 1px solid var(--warning);
+      color: var(--warning);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .lineage-info {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+    }
+    
+    .lineage-info h4 {
+      font-size: 0.75rem;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    
+    .lineage-link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    .width-indicator {
+      font-size: 0.75rem;
+      color: var(--dim);
+      margin-top: 0.5rem;
+    }
+    
+    .width-indicator.warning {
+      color: var(--warning);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">gallery</a>
+    <a href="artists.html">artists</a>
+    <a href="learn.html">learn</a>
+    <a href="submit.html">submit</a>
+    <a href="edit.html" class="active">create</a>
+  </nav>
+  
+  <main>
+    <header class="site-header">
+      <div class="logo-text">CREATE</div>
+      <p class="tagline">memory substrate editor</p>
+    </header>
+    
+    <div id="scarcity-status"></div>
+    
+    <div class="editor-container">
+      <div class="editor-header">
+        <div class="editor-state">
+          <span id="state-indicator" class="state-indicator state-draft">○ DRAFT</span>
+          <span id="autosave-status" style="font-size: 0.75rem; color: var(--dim);">not saved</span>
+        </div>
+      </div>
+      
+      <input type="text" id="title" class="editor-title" placeholder="untitled" maxlength="100">
+      
+      <textarea id="body" class="editor-body" placeholder="write here..."></textarea>
+      <div id="width-indicator" class="width-indicator"></div>
+      <div id="validation-errors" class="validation-error"></div>
+      
+      <div class="editor-meta">
+        <div class="meta-field">
+          <label class="meta-label">Epistemic Mode</label>
+          <select id="epistemic-mode" class="meta-input">
+            <option value="">— not specified —</option>
+            <option value="assertion">● assertion</option>
+            <option value="speculation">○ speculation</option>
+            <option value="question">? question</option>
+            <option value="memory">◎ memory</option>
+            <option value="dream">~ dream</option>
+          </select>
+        </div>
+        
+        <div class="meta-field">
+          <label class="meta-label">Confidence</label>
+          <div class="confidence-slider">
+            <input type="range" id="confidence" min="0" max="1" step="0.1" value="0.5">
+            <span id="confidence-value" class="confidence-value">50%</span>
+          </div>
+        </div>
+        
+        <div class="meta-field">
+          <label class="meta-label">Decay Date (optional)</label>
+          <input type="date" id="decay-date" class="meta-input">
+        </div>
+        
+        <div class="meta-field">
+          <label class="meta-label">Width (chars)</label>
+          <input type="number" id="width" class="meta-input" value="80" min="20" max="120">
+        </div>
+      </div>
+      
+      <div id="lineage-info" class="lineage-info" style="display: none;">
+        <h4>Lineage</h4>
+        <div id="lineage-content"></div>
+      </div>
+      
+      <div class="editor-actions">
+        <button id="save-btn" class="action-btn">Save Draft</button>
+        <button id="finish-btn" class="action-btn primary" disabled>Finish</button>
+        <button id="seal-btn" class="action-btn" disabled>Seal Forever</button>
+        <button id="burn-btn" class="action-btn danger" disabled>🔥 Burn</button>
+      </div>
+      
+      <div class="editor-info">
+        <div class="info-row">
+          <span>ID:</span>
+          <span id="work-id">—</span>
+        </div>
+        <div class="info-row">
+          <span>Hash:</span>
+          <span id="work-hash">—</span>
+        </div>
+        <div class="info-row">
+          <span>Created:</span>
+          <span id="work-created">—</span>
+        </div>
+        <div class="info-row">
+          <span>Witnesses:</span>
+          <span id="work-witnesses">0</span>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <script src="v2.js"></script>
+  <script>
+    const { WorksAPI, AuthorsAPI, showBurnConfirmation, showToast } = window.MonospaceV2;
+    
+    // Get author ID from localStorage or create one
+    let authorId = localStorage.getItem('mp_author_id');
+    
+    // DOM elements
+    const titleInput = document.getElementById('title');
+    const bodyInput = document.getElementById('body');
+    const epistemicSelect = document.getElementById('epistemic-mode');
+    const confidenceSlider = document.getElementById('confidence');
+    const confidenceValue = document.getElementById('confidence-value');
+    const decayInput = document.getElementById('decay-date');
+    const widthInput = document.getElementById('width');
+    const stateIndicator = document.getElementById('state-indicator');
+    const autosaveStatus = document.getElementById('autosave-status');
+    const widthIndicator = document.getElementById('width-indicator');
+    const validationErrors = document.getElementById('validation-errors');
+    const lineageInfo = document.getElementById('lineage-info');
+    const lineageContent = document.getElementById('lineage-content');
+    const scarcityStatus = document.getElementById('scarcity-status');
+    
+    const saveBtn = document.getElementById('save-btn');
+    const finishBtn = document.getElementById('finish-btn');
+    const sealBtn = document.getElementById('seal-btn');
+    const burnBtn = document.getElementById('burn-btn');
+    
+    let currentWork = null;
+    let isDirty = false;
+    
+    // Initialize
+    async function init() {
+      // Check for existing work ID in URL
+      const params = new URLSearchParams(window.location.search);
+      const workId = params.get('id');
+      
+      if (workId) {
+        await loadWork(workId);
+      }
+      
+      // Check scarcity status
+      if (authorId) {
+        await checkScarcity();
+      }
+      
+      // Set up event listeners
+      setupEventListeners();
+    }
+    
+    async function loadWork(id) {
+      try {
+        const work = await WorksAPI.get(id);
+        currentWork = work;
+        
+        titleInput.value = work.title || '';
+        bodyInput.value = work.body || '';
+        epistemicSelect.value = work.epistemic_mode || '';
+        confidenceSlider.value = work.confidence ?? 0.5;
+        confidenceValue.textContent = Math.round((work.confidence ?? 0.5) * 100) + '%';
+        widthInput.value = work.width || 80;
+        
+        if (work.decay_date) {
+          decayInput.value = work.decay_date.split('T')[0];
+        }
+        
+        updateStateUI(work.state);
+        updateInfo(work);
+        
+        // Show lineage if forked
+        if (work.forked_from) {
+          lineageInfo.style.display = 'block';
+          lineageContent.innerHTML = `
+            Forked from: <a href="?id=${work.forked_from}" class="lineage-link">${work.forked_from.substring(0, 8)}...</a>
+          `;
+        }
+        
+        // Update URL
+        history.replaceState(null, '', `?id=${work.id}`);
+        
+      } catch (err) {
+        showToast('Failed to load work: ' + err.message, 'error');
+      }
+    }
+    
+    async function checkScarcity() {
+      try {
+        const status = await AuthorsAPI.getStatus(authorId);
+        if (!status.can_post) {
+          scarcityStatus.innerHTML = `
+            <div class="scarcity-warning">
+              ◎ You are in a silence period. ${status.posts_remaining} posts remaining this epoch.<br>
+              You can create drafts but cannot finish works until: ${new Date(status.silence_until).toLocaleString()}
+            </div>
+          `;
+          finishBtn.disabled = true;
+        }
+      } catch (err) {
+        // Author not found, will be created on first save
+      }
+    }
+    
+    function setupEventListeners() {
+      // Confidence slider
+      confidenceSlider.addEventListener('input', () => {
+        confidenceValue.textContent = Math.round(confidenceSlider.value * 100) + '%';
+        isDirty = true;
+      });
+      
+      // Body input - check width
+      bodyInput.addEventListener('input', () => {
+        isDirty = true;
+        checkWidth();
+        validateBody();
+      });
+      
+      // Mark as dirty
+      [titleInput, epistemicSelect, decayInput, widthInput].forEach(el => {
+        el.addEventListener('input', () => { isDirty = true; });
+      });
+      
+      // Save button
+      saveBtn.addEventListener('click', saveDraft);
+      
+      // Finish button
+      finishBtn.addEventListener('click', finishWork);
+      
+      // Seal button
+      sealBtn.addEventListener('click', sealWork);
+      
+      // Burn button
+      burnBtn.addEventListener('click', burnWork);
+      
+      // Autosave
+      setInterval(() => {
+        if (isDirty && currentWork) {
+          saveDraft(true);
+        }
+      }, 30000);
+      
+      // Warn before leaving with unsaved changes
+      window.addEventListener('beforeunload', (e) => {
+        if (isDirty) {
+          e.preventDefault();
+          e.returnValue = '';
+        }
+      });
+    }
+    
+    function checkWidth() {
+      const width = parseInt(widthInput.value) || 80;
+      const lines = bodyInput.value.split('\n');
+      const maxLine = Math.max(...lines.map(l => l.length));
+      
+      if (maxLine > width) {
+        widthIndicator.textContent = `⚠ Line ${lines.findIndex(l => l.length === maxLine) + 1} exceeds width (${maxLine}/${width})`;
+        widthIndicator.className = 'width-indicator warning';
+      } else {
+        widthIndicator.textContent = `Max line width: ${maxLine}/${width}`;
+        widthIndicator.className = 'width-indicator';
+      }
+    }
+    
+    function validateBody() {
+      const body = bodyInput.value;
+      const errors = [];
+      
+      // Check for tabs
+      if (body.includes('\t')) {
+        errors.push('Contains tabs (use spaces)');
+      }
+      
+      // Check for smart quotes
+      if (/[""'']/g.test(body)) {
+        errors.push('Contains smart quotes (use straight quotes)');
+      }
+      
+      // Check for control characters
+      if (/[\x00-\x08\x0B\x0C\x0E-\x1F]/g.test(body)) {
+        errors.push('Contains control characters');
+      }
+      
+      validationErrors.textContent = errors.join(' · ');
+      return errors.length === 0;
+    }
+    
+    async function saveDraft(isAutosave = false) {
+      const data = {
+        title: titleInput.value || 'Untitled',
+        body: bodyInput.value,
+        epistemic_mode: epistemicSelect.value || null,
+        confidence: parseFloat(confidenceSlider.value),
+        width: parseInt(widthInput.value) || 80,
+        decay_date: decayInput.value ? new Date(decayInput.value).toISOString() : null,
+        authors: authorId ? [authorId] : ['anonymous']
+      };
+      
+      try {
+        if (currentWork) {
+          // Update existing
+          currentWork = await WorksAPI.update(currentWork.id, data);
+        } else {
+          // Create new
+          currentWork = await WorksAPI.create(data);
+          history.replaceState(null, '', `?id=${currentWork.id}`);
+        }
+        
+        isDirty = false;
+        updateInfo(currentWork);
+        updateStateUI(currentWork.state);
+        
+        if (isAutosave) {
+          autosaveStatus.textContent = 'autosaved ' + new Date().toLocaleTimeString();
+        } else {
+          showToast('Draft saved');
+        }
+        
+      } catch (err) {
+        showToast('Failed to save: ' + err.message, 'error');
+      }
+    }
+    
+    async function finishWork() {
+      if (!currentWork) {
+        await saveDraft();
+      }
+      
+      if (!validateBody()) {
+        showToast('Please fix validation errors first', 'error');
+        return;
+      }
+      
+      try {
+        currentWork = await WorksAPI.finish(currentWork.id);
+        updateStateUI('finished');
+        updateInfo(currentWork);
+        showToast('Work finished');
+        
+        // Check scarcity after finishing
+        await checkScarcity();
+        
+      } catch (err) {
+        showToast('Failed to finish: ' + err.message, 'error');
+      }
+    }
+    
+    async function sealWork() {
+      if (!currentWork || currentWork.state !== 'finished') return;
+      
+      if (!confirm('Seal this work forever? It cannot be edited after sealing.')) {
+        return;
+      }
+      
+      try {
+        currentWork = await WorksAPI.seal(currentWork.id);
+        updateStateUI('sealed');
+        updateInfo(currentWork);
+        showToast('Work sealed forever');
+      } catch (err) {
+        showToast('Failed to seal: ' + err.message, 'error');
+      }
+    }
+    
+    async function burnWork() {
+      if (!currentWork || !['finished', 'sealed'].includes(currentWork.state)) return;
+      
+      const confirmed = await showBurnConfirmation(currentWork);
+      if (!confirmed) return;
+      
+      try {
+        currentWork = await WorksAPI.burn(currentWork.id, true);
+        updateStateUI('burned');
+        updateInfo(currentWork);
+        bodyInput.value = '[BURNED]';
+        bodyInput.disabled = true;
+        showToast('Work burned forever');
+      } catch (err) {
+        showToast('Failed to burn: ' + err.message, 'error');
+      }
+    }
+    
+    function updateStateUI(state) {
+      const icons = { draft: '○', finished: '◎', sealed: '◆', burned: '◇' };
+      stateIndicator.className = `state-indicator state-${state}`;
+      stateIndicator.textContent = `${icons[state]} ${state.toUpperCase()}`;
+      
+      // Update button states
+      const isDraft = state === 'draft';
+      const isFinished = state === 'finished';
+      const isSealed = state === 'sealed';
+      const isBurned = state === 'burned';
+      
+      saveBtn.disabled = !isDraft;
+      finishBtn.disabled = !isDraft;
+      sealBtn.disabled = !isFinished;
+      burnBtn.disabled = !isFinished && !isSealed;
+      
+      titleInput.disabled = !isDraft;
+      bodyInput.disabled = !isDraft || isBurned;
+      epistemicSelect.disabled = !isDraft;
+      decayInput.disabled = !isDraft;
+      widthInput.disabled = !isDraft;
+    }
+    
+    function updateInfo(work) {
+      document.getElementById('work-id').textContent = work.id;
+      document.getElementById('work-hash').textContent = (work.body_hash || '—').substring(0, 16) + '...';
+      document.getElementById('work-created').textContent = work.created_at ? new Date(work.created_at).toLocaleString() : '—';
+      document.getElementById('work-witnesses').textContent = work.witness_count || 0;
+    }
+    
+    // Start
+    init();
+  </script>
+</body>
+</html>
