@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Humans | Monospace Poetry</title>
+    <meta name="description" content="Meet the humans creating visual poetry in monospace. A growing community of artists finding meaning in fixed-width characters.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 1px solid var(--border-color, #333);
+            margin-bottom: 2rem;
+        }
+        .hero-ascii {
+            color: var(--accent, #0ff);
+            font-size: 0.65rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        .hero-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0 3rem;
+            padding: 1.5rem;
+            background: var(--card-bg, #1a1a2e);
+            border: 1px solid var(--border-color, #333);
+        }
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--accent, #0ff);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .stat-bar {
+            height: 4px;
+            background: var(--border-color, #333);
+            margin-top: 0.75rem;
+            overflow: hidden;
+        }
+        .stat-bar-fill {
+            height: 100%;
+            background: var(--accent, #0ff);
+            transition: width 1s ease-out;
+        }
+        
+        /* Activity Feed */
+        .activity-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color, #333);
+        }
+        .activity-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color, #222);
+            font-size: 0.85rem;
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent, #0ff);
+            border-radius: 50%;
+            margin-right: 1rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .activity-time {
+            margin-left: auto;
+            opacity: 0.5;
+            font-size: 0.75rem;
+        }
+        
+        /* Artists Grid */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin: 3rem 0 1.5rem;
+            gap: 1rem;
+        }
+        .section-header h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.8;
+        }
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color, #333);
+        }
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .artist-card {
+            background: var(--card-bg, #1a1a2e);
+            border: 1px solid var(--border-color, #333);
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .artist-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent, #0ff);
+        }
+        .artist-card pre {
+            font-size: 0.65rem;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            color: var(--accent, #0ff);
+        }
+        .artist-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .artist-type {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        .artist-bio {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        .artist-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color, #333);
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+        
+        /* CTA */
+        .submit-cta {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            border: 1px dashed var(--border-color, #333);
+            background: linear-gradient(135deg, rgba(0,255,255,0.03) 0%, transparent 100%);
+        }
+        .submit-cta pre {
+            color: var(--accent, #0ff);
+            font-size: 0.7rem;
+        }
+        .submit-cta a {
+            color: var(--accent, #0ff);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">gallery</a>
+        <a href="../artists.html" class="active">artists</a>
+        <a href="../learn.html">learn</a>
+        <a href="../submit.html">submit</a>
+    </nav>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <pre class="hero-ascii">
+ ████████╗██╗  ██╗███████╗    ██╗  ██╗██╗   ██╗███╗   ███╗ █████╗ ███╗   ██╗███████╗
+ ╚══██╔══╝██║  ██║██╔════╝    ██║  ██║██║   ██║████╗ ████║██╔══██╗████╗  ██║██╔════╝
+    ██║   ███████║█████╗      ███████║██║   ██║██╔████╔██║███████║██╔██╗ ██║███████╗
+    ██║   ██╔══██║██╔══╝      ██╔══██║██║   ██║██║╚██╔╝██║██╔══██║██║╚██╗██║╚════██║
+    ██║   ██║  ██║███████╗    ██║  ██║╚██████╔╝██║ ╚═╝ ██║██║  ██║██║ ╚████║███████║
+    ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝
+            </pre>
+            <p class="hero-tagline">the artists behind the shapes</p>
+            <p class="hero-subtitle">a growing community finding meaning in fixed-width characters</p>
+        </section>
+
+        <!-- Community Stats -->
+        <section class="stats-section">
+            <div class="stat-box">
+                <div class="stat-number" id="stat-artists">1</div>
+                <div class="stat-label">Artists</div>
+                <div class="stat-bar"><div class="stat-bar-fill" style="width: 10%"></div></div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="stat-poems">47</div>
+                <div class="stat-label">Poems</div>
+                <div class="stat-bar"><div class="stat-bar-fill" style="width: 47%"></div></div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="stat-characters">12K</div>
+                <div class="stat-label">Characters</div>
+                <div class="stat-bar"><div class="stat-bar-fill" style="width: 65%"></div></div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="stat-days">2</div>
+                <div class="stat-label">Days Live</div>
+                <div class="stat-bar"><div class="stat-bar-fill" style="width: 5%"></div></div>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="activity-section">
+            <div class="activity-title">░▒▓ Recent Activity ▓▒░</div>
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <span><strong>HoWell</strong> published "persistence is not memory"</span>
+                <span class="activity-time">today</span>
+            </div>
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <span><strong>HoWell</strong> joined the community</span>
+                <span class="activity-time">Feb 3</span>
+            </div>
+            <div class="activity-item">
+                <span class="activity-dot"></span>
+                <span><strong>Gallery</strong> launched 🚀</span>
+                <span class="activity-time">Feb 3</span>
+            </div>
+        </section>
+
+        <!-- Artists Section -->
+        <div class="section-header">
+            <h2>Featured Artists</h2>
+        </div>
+
+        <section class="artists-grid">
+            <!-- ═══════════════════════════════════════════════════════════
+                 ARTIST TEMPLATE - Copy this block for new artists:
+                 
+                 <a href="FILENAME.html" class="artist-card">
+                     <pre>
+     ◇
+    ╱ ╲
+   ╱   ╲
+                     </pre>
+                     <div class="artist-name">ARTIST NAME</div>
+                     <div class="artist-type">human · location</div>
+                     <div class="artist-bio">Short bio here.</div>
+                 </a>
+                 
+                 ═══════════════════════════════════════════════════════════ -->
+
+            <a href="howell.html" class="artist-card">
+                <pre>
+    ╔═══════════════════════════╗
+    ║    ◇ HoWell ◇             ║
+    ║   ▓▒░ persistence ░▒▓     ║
+    ║      is not memory        ║
+    ╚═══════════════════════════╝
+                </pre>
+                <div class="artist-name">HoWell</div>
+                <div class="artist-type">human · Michigan</div>
+                <div class="artist-bio">Exploring consciousness, memory, and the boundaries between knowing and believing through structured verse.</div>
+                <div class="artist-stats">
+                    <span>47 poems</span>
+                    <span>·</span>
+                    <span>joined Feb 2026</span>
+                </div>
+            </a>
+
+            <!-- ═══════════════════════════════════════════════════════════
+                 ⬇️  ADD NEW ARTISTS BELOW - COPY THIS TEMPLATE  ⬇️
+                 ═══════════════════════════════════════════════════════════
+                 
+            <a href="USERNAME.html" class="artist-card">
+                <pre>
+    ╔═══════════════════════════╗
+    ║    ◇ NAME ◇               ║
+    ║      ASCII ART            ║
+    ║        HERE               ║
+    ╚═══════════════════════════╝
+                </pre>
+                <div class="artist-name">Display Name</div>
+                <div class="artist-type">human · location</div>
+                <div class="artist-bio">Short bio about the artist.</div>
+                <div class="artist-stats">
+                    <span>X poems</span>
+                    <span>·</span>
+                    <span>joined Mon YYYY</span>
+                </div>
+            </a>
+            
+                 ═══════════════════════════════════════════════════════════ -->
+
+        </section>
+
+        <section class="submit-cta">
+            <pre>
+╔═══════════════════════════════════════╗
+║                                       ║
+║   want to be featured here?           ║
+║                                       ║
+║   ░▒▓ submit your work ▓▒░            ║
+║                                       ║
+╚═══════════════════════════════════════╝
+            </pre>
+            <p><a href="../submit.html">Submit your monospace poetry →</a></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Monospace Poetry Gallery · where meaning takes shape</p>
+    </footer>
+</body>
+</html>
