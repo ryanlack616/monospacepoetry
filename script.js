@@ -53,12 +53,14 @@ function initRandomButton() {
     const btn = document.querySelector('.random-btn');
     if (!btn) return;
 
-    const items = Array.from(document.querySelectorAll('.gallery-item'));
-    if (items.length === 0) return;
+    const allItems = Array.from(document.querySelectorAll('.gallery-item'));
+    if (allItems.length === 0) return;
 
     const VISIBLE_COUNT = 8;
+    let visible = [];   // Currently displayed poems
+    let pool = [];      // Poems waiting to appear
 
-    // Shuffle and show initial 8
+    // Shuffle helper
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -67,29 +69,45 @@ function initRandomButton() {
         return array;
     }
 
-    function showRandomSet() {
-        // Hide all
-        items.forEach(item => item.style.display = 'none');
+    // Initial setup: hide all, pick 8 random
+    function initDisplay() {
+        allItems.forEach(item => item.style.display = 'none');
         
-        // Shuffle and show 8
-        const shuffled = shuffle([...items]);
-        shuffled.slice(0, VISIBLE_COUNT).forEach(item => {
-            item.style.display = 'block';
-        });
+        const shuffled = shuffle([...allItems]);
+        visible = shuffled.slice(0, VISIBLE_COUNT);
+        pool = shuffled.slice(VISIBLE_COUNT);
         
-        // Scroll to top of gallery
-        document.querySelector('.gallery-controls')?.scrollIntoView({ behavior: 'smooth' });
+        visible.forEach(item => item.style.display = 'block');
     }
 
-    // Show initial set on page load
-    showRandomSet();
+    // Rolling window: add one new, drop the oldest
+    function rollOne() {
+        if (pool.length === 0) {
+            // Pool exhausted - refill with all hidden items
+            pool = shuffle([...allItems.filter(item => !visible.includes(item))]);
+        }
 
-    // Random button shows new set
-    btn.addEventListener('click', showRandomSet);
-}
+        // Get next poem from pool
+        const newItem = pool.shift();
+        
+        // Remove oldest (first) from visible, add to pool
+        const oldest = visible.shift();
+        oldest.style.display = 'none';
+        pool.push(oldest);
 
-// ═══════════════════════════════════════════════════════════
-// SHARE BUTTONS
+        // Add new to end of visible
+        visible.push(newItem);
+        newItem.style.display = 'block';
+
+        // Smooth scroll to keep new poem in view
+        newItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Initialize on load
+    initDisplay();
+
+    // Button click rolls in one new poem
+    btn.addEventListener('click', rollOne);
 // ═══════════════════════════════════════════════════════════
 function initShareButtons() {
     document.querySelectorAll('.share-trigger').forEach(btn => {
