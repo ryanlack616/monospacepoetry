@@ -1103,3 +1103,11 @@ footer .key {
 .submit-status a { color: var(--accent); }
 
 @media (max-width: 600px) { .floating-submit { bottom: 1rem; right: 1rem; width: 48px; height: 48px; font-size: 1.5rem; } .modal-content { padding: 1.5rem; } .modal-content textarea { height: 150px; } }
+
+}
+
+
+/* CJK and Emoji spacing fix */
+.gallery-item pre {
+    font-family: 'JetBrains Mono', 'Noto Sans Mono CJK SC', 'Microsoft YaHei', 'Segoe UI Emoji', monospace;
+}

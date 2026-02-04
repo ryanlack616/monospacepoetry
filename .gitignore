@@ -1,8 +1,7 @@
-﻿*.py
+*.py
 *.pyc
 __pycache__/
 *.bat
 *.tex
 *.txt
-poems/
 .vscode/

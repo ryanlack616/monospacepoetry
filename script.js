@@ -205,16 +205,73 @@ function initCharPalette() {
     if (!container) return;
     
     const CHAR_PALETTE = {
-        "Blocks": "░▒▓█▀▄▌▐",
+        // Box Drawing
         "Box Light": "─│┌┐└┘├┤┬┴┼",
         "Box Heavy": "━┃┏┓┗┛┣┫┳┻╋",
         "Box Double": "═║╔╗╚╝╠╣╦╩╬",
-        "Arrows": "←→↑↓↔↕⇐⇒⇑⇓",
+        "Box Round": "╭╮╰╯",
+        
+        // Shading & Blocks
+        "Blocks": "░▒▓█▀▄▌▐▖▗▘▙▚▛▜▝▞▟",
+        
+        // Shapes
         "Shapes": "◇◆○●□■△▽▲▼◁▷◀▶",
-        "Stars": "★☆✦✧⋆∗✱✲✳",
-        "Symbols": "◈⊕⊗⊙⧫§¶†‡※",
-        "Dots": "·•●○◦◉◎⊙",
-        "Misc": "∞≈≠±×÷√∑"
+        "Circles": "◉◎◌◍◐◑◒◓◔◕",
+        "Stars": "★☆✦✧⋆∗✱✲✳✴✵✶✷✸✹",
+        
+        // Arrows
+        "Arrows": "←→↑↓↔↕↖↗↘↙",
+        "Arrows 2": "⇐⇒⇑⇓⇔⇕⟵⟶⟷",
+        "Arrows 3": "➔➜➝➞➟➠➡➢➣➤",
+        
+        // Math - Basic
+        "Math Basic": "±×÷·∙°′″",
+        "Math Equals": "=≠≈≡≢≃≄≅≆≇",
+        "Math Compare": "<>≤≥≦≧≪≫≮≯",
+        
+        // Math - Operations
+        "Math Ops": "∑∏∐∫∬∭∮∯∰",
+        "Math Calc": "∂∆∇√∛∜",
+        
+        // Math - Sets
+        "Sets": "∈∉∋∌⊂⊃⊄⊅⊆⊇⊈⊉",
+        "Sets 2": "∅∩∪⊎⊏⊐⊑⊒",
+        
+        // Math - Logic
+        "Logic": "∧∨¬⊻⊼⊽→←↔⇒⇐⇔",
+        "Logic 2": "∀∃∄∴∵∎",
+        
+        // Math - Relations
+        "Relations": "∝∞≀⊥∥∦∠∡∢",
+        
+        // Math - Operators
+        "Operators": "⊕⊖⊗⊘⊙⊚⊛⊜⊝",
+        "Operators 2": "⊞⊟⊠⊡⊢⊣⊤⊥",
+        
+        // Greek (common in math)
+        "Greek Lower": "αβγδεζηθικλμνξοπρστυφχψω",
+        "Greek Upper": "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ",
+        
+        // Subscripts & Superscripts
+        "Superscript": "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ",
+        "Subscript": "₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎",
+        
+        // Fractions
+        "Fractions": "½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞",
+        
+        // Dots & Bullets
+        "Dots": "·•●○◦◉◎⊙∘∙",
+        "Ellipsis": "…⋯⋮⋰⋱",
+        
+        // Brackets
+        "Brackets": "⟨⟩⟪⟫⌈⌉⌊⌋⟦⟧",
+        
+        // Misc Symbols
+        "Symbols": "◈⧫§¶†‡※℃℉℗©®™",
+        "Music": "♩♪♫♬♭♮♯",
+        "Cards": "♠♣♥♦♤♧♡♢",
+        "Chess": "♔♕♖♗♘♙♚♛♜♝♞♟",
+        "Misc": "∞∅∂∇⌀⌂⌐⌠⌡"
     };
     
     let html = '<div class="char-palette"><h3>░▒▓ Character Palette ▓▒░</h3>';
