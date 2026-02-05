@@ -420,27 +420,17 @@
             </div>
         </div>
         <div class="mapping-section">
-            <span class="slider-section-label">QUANTITY</span>
+            <span class="slider-section-label">COUNT</span>
             <div class="sliders-row">
                 <div class="slider-group">
                     <label class="human">Human</label>
-                    <input type="range" id="qty-human" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="qty-val-human">100%</span>
+                    <input type="range" id="count-human" min="1" max="30" value="12" orient="vertical">
+                    <span class="slider-value" id="count-val-human">12</span>
                 </div>
                 <div class="slider-group">
                     <label class="ai">AI</label>
-                    <input type="range" id="qty-ai" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="qty-val-ai">100%</span>
-                </div>
-                <div class="slider-group">
-                    <label class="artifact">Artifact</label>
-                    <input type="range" id="qty-artifact" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="qty-val-artifact">100%</span>
-                </div>
-                <div class="slider-group">
-                    <label class="fiber">Fiber</label>
-                    <input type="range" id="qty-fiber" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="qty-val-fiber">100%</span>
+                    <input type="range" id="count-ai" min="1" max="30" value="12" orient="vertical">
+                    <span class="slider-value" id="count-val-ai">12</span>
                 </div>
             </div>
         </div>
@@ -1026,59 +1016,54 @@
             });
         });
         
-        // ============ QUANTITY SLIDERS ============
-        function updateQuantitySlider(type, value) {
-            const pct = value / 100;
+        // ============ COUNT SLIDERS ============
+        function setPointCount(type, count) {
+            const points = type === 'human' ? humanPoints : aiPoints;
+            const color = type === 'human' ? colors.human : colors.ai;
             
-            switch(type) {
-                case 'human':
-                    const humanCount = Math.ceil(humanPoints.length * pct);
-                    humanPoints.forEach((p, i) => {
-                        p.visible = i < humanCount;
-                    });
-                    break;
-                    
-                case 'ai':
-                    const aiCount = Math.ceil(aiPoints.length * pct);
-                    aiPoints.forEach((p, i) => {
-                        p.visible = i < aiCount;
-                    });
-                    break;
-                    
-                case 'artifact':
-                    const artifactCount = Math.ceil(artifacts.length * pct);
-                    artifacts.forEach((a, i) => {
-                        // Always show the "Collaboration" artifact
-                        if (a.userData.name === 'Collaboration') {
-                            a.visible = true;
-                        } else {
-                            a.visible = i < artifactCount;
-                        }
-                    });
-                    break;
-                    
-                case 'fiber':
-                    const fiberCount = Math.ceil(allFibers.length * pct);
-                    allFibers.forEach((f, i) => {
-                        // Always show the current path
-                        if (f.userData.isCurrentPath) {
-                            f.visible = true;
-                        } else {
-                            f.visible = i < fiberCount;
-                        }
-                    });
-                    break;
+            // Remove excess points
+            while (points.length > count) {
+                const p = points.pop();
+                scene.remove(p);
+            }
+            
+            // Add new points if needed
+            while (points.length < count) {
+                const geometry = new THREE.SphereGeometry(0.3, 12, 12);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: color,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                
+                if (type === 'human') {
+                    sphere.position.set(
+                        (Math.random() - 0.5) * 40,
+                        -10 + Math.random() * 3,
+                        (Math.random() - 0.5) * 15
+                    );
+                } else {
+                    sphere.position.set(
+                        (Math.random() - 0.5) * 15,
+                        -10 + Math.random() * 3,
+                        (Math.random() - 0.5) * 40
+                    );
+                }
+                
+                scene.add(sphere);
+                points.push(sphere);
             }
         }
         
-        ['human', 'ai', 'artifact', 'fiber'].forEach(type => {
-            const slider = document.getElementById(`qty-${type}`);
-            const display = document.getElementById(`qty-val-${type}`);
+        ['human', 'ai'].forEach(type => {
+            const slider = document.getElementById(`count-${type}`);
+            const display = document.getElementById(`count-val-${type}`);
             
             slider.addEventListener('input', function() {
                 const val = parseInt(this.value);
-                display.textContent = `${val}%`;
-                updateQuantitySlider(type, val);
+                display.textContent = val;
+                setPointCount(type, val);
             });
         });
         
