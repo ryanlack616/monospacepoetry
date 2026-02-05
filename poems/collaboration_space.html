@@ -319,6 +319,28 @@
             color: #e8e8f0;
             font-weight: 500;
         }
+        
+        .slider-section-label {
+            font-size: 0.6rem;
+            color: #555566;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            padding-right: 0.5rem;
+            border-right: 1px solid #2a2a3a;
+        }
+        
+        .mapping-section {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .sliders-row {
+            display: flex;
+            gap: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -372,25 +394,55 @@
     </div>
     
     <div class="mapping-sliders">
-        <div class="slider-group">
-            <label class="human">Human</label>
-            <input type="range" id="slider-human" min="0" max="100" value="100" orient="vertical">
-            <span class="slider-value" id="val-human">100%</span>
+        <div class="mapping-section">
+            <span class="slider-section-label">INTENSITY</span>
+            <div class="sliders-row">
+                <div class="slider-group">
+                    <label class="human">Human</label>
+                    <input type="range" id="slider-human" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="val-human">100%</span>
+                </div>
+                <div class="slider-group">
+                    <label class="ai">AI</label>
+                    <input type="range" id="slider-ai" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="val-ai">100%</span>
+                </div>
+                <div class="slider-group">
+                    <label class="artifact">Artifact</label>
+                    <input type="range" id="slider-artifact" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="val-artifact">100%</span>
+                </div>
+                <div class="slider-group">
+                    <label class="fiber">Fiber</label>
+                    <input type="range" id="slider-fiber" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="val-fiber">100%</span>
+                </div>
+            </div>
         </div>
-        <div class="slider-group">
-            <label class="ai">AI</label>
-            <input type="range" id="slider-ai" min="0" max="100" value="100" orient="vertical">
-            <span class="slider-value" id="val-ai">100%</span>
-        </div>
-        <div class="slider-group">
-            <label class="artifact">Artifact</label>
-            <input type="range" id="slider-artifact" min="0" max="100" value="100" orient="vertical">
-            <span class="slider-value" id="val-artifact">100%</span>
-        </div>
-        <div class="slider-group">
-            <label class="fiber">Fiber</label>
-            <input type="range" id="slider-fiber" min="0" max="100" value="100" orient="vertical">
-            <span class="slider-value" id="val-fiber">100%</span>
+        <div class="mapping-section">
+            <span class="slider-section-label">QUANTITY</span>
+            <div class="sliders-row">
+                <div class="slider-group">
+                    <label class="human">Human</label>
+                    <input type="range" id="qty-human" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="qty-val-human">100%</span>
+                </div>
+                <div class="slider-group">
+                    <label class="ai">AI</label>
+                    <input type="range" id="qty-ai" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="qty-val-ai">100%</span>
+                </div>
+                <div class="slider-group">
+                    <label class="artifact">Artifact</label>
+                    <input type="range" id="qty-artifact" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="qty-val-artifact">100%</span>
+                </div>
+                <div class="slider-group">
+                    <label class="fiber">Fiber</label>
+                    <input type="range" id="qty-fiber" min="0" max="100" value="100" orient="vertical">
+                    <span class="slider-value" id="qty-val-fiber">100%</span>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -974,6 +1026,62 @@
             });
         });
         
+        // ============ QUANTITY SLIDERS ============
+        function updateQuantitySlider(type, value) {
+            const pct = value / 100;
+            
+            switch(type) {
+                case 'human':
+                    const humanCount = Math.ceil(humanPoints.length * pct);
+                    humanPoints.forEach((p, i) => {
+                        p.visible = i < humanCount;
+                    });
+                    break;
+                    
+                case 'ai':
+                    const aiCount = Math.ceil(aiPoints.length * pct);
+                    aiPoints.forEach((p, i) => {
+                        p.visible = i < aiCount;
+                    });
+                    break;
+                    
+                case 'artifact':
+                    const artifactCount = Math.ceil(artifacts.length * pct);
+                    artifacts.forEach((a, i) => {
+                        // Always show the "Collaboration" artifact
+                        if (a.userData.name === 'Collaboration') {
+                            a.visible = true;
+                        } else {
+                            a.visible = i < artifactCount;
+                        }
+                    });
+                    break;
+                    
+                case 'fiber':
+                    const fiberCount = Math.ceil(allFibers.length * pct);
+                    allFibers.forEach((f, i) => {
+                        // Always show the current path
+                        if (f.userData.isCurrentPath) {
+                            f.visible = true;
+                        } else {
+                            f.visible = i < fiberCount;
+                        }
+                    });
+                    break;
+            }
+        }
+        
+        ['human', 'ai', 'artifact', 'fiber'].forEach(type => {
+            const slider = document.getElementById(`qty-${type}`);
+            const display = document.getElementById(`qty-val-${type}`);
+            
+            slider.addEventListener('input', function() {
+                const val = parseInt(this.value);
+                display.textContent = `${val}%`;
+                updateQuantitySlider(type, val);
+            });
+        });
+        
         // ============ ANIMATION ============
         function animate() {
             requestAnimationFrame(animate);
@@ -1010,7 +1118,7 @@
         animate();
         updateTimeline(100);
         
-        console.log('Collaboration Space v3 loaded — with mapping sliders, sound, inverse gallery, and timeline');
+        console.log('Collaboration Space v4 loaded — with intensity sliders, quantity sliders, sound, inverse gallery, and timeline');
     </script>
 </body>
 </html>
