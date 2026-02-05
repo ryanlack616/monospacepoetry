@@ -204,11 +204,10 @@ function initCharPalette() {
     const container = document.querySelector('.char-palette-container');
     if (!container) return;
 
-    // Three different ways to think about the same characters
     const PALETTES = {
         technical: {
-            name: "Technical",
-            icon: "⚙",
+            name: "Reference",
+            icon: "◇",
             groups: {
                 "Box Light": "─│┌┐└┘├┤┬┴┼",
                 "Box Heavy": "━┃┏┓┗┛┣┫┳┻╋",
@@ -218,112 +217,143 @@ function initCharPalette() {
                 "Shapes": "◇◆○●□■△▽▲▼◁▷◀▶",
                 "Circles": "◉◎◌◍◐◑◒◓◔◕",
                 "Stars": "★☆✦✧⋆∗✱✲✳✴✵✶✷✸✹",
-                "Arrows": "←→↑↓↔↕↖↗↘↙",
-                "Arrows 2": "⇐⇒⇑⇓⇔⇕⟵⟶⟷",
-                "Arrows 3": "➔➜➝➞➟➠➡➢➣➤",
-                "Math Basic": "±×÷·∙°′″",
-                "Math Equals": "=≠≈≡≢≃≄≅≆≇",
-                "Math Compare": "<>≤≥≦≧≪≫≮≯",
-                "Math Ops": "∑∏∐∫∬∭∮∯∰",
-                "Math Calc": "∂∆∇√∛∜",
-                "Sets": "∈∉∋∌⊂⊃⊄⊅⊆⊇⊈⊉",
-                "Logic": "∧∨¬⊻⊼⊽→←↔⇒⇐⇔",
-                "Greek Lower": "αβγδεζηθικλμνξοπρστυφχψω",
-                "Greek Upper": "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ",
-                "Superscript": "⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ",
-                "Subscript": "₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎",
+                "Arrows": "←→↑↓↔↕↖↗↘↙⇐⇒⇑⇓⇔",
+                "Math": "±×÷·∙°≠≈≡∞√∑∫∂∆∇",
+                "Greek": "αβγδεζηθικλμνξπρστφχψω",
+                "Super/Sub": "⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉",
                 "Fractions": "½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞",
-                "Dots": "·•●○◦◉◎⊙∘∙",
-                "Ellipsis": "…⋯⋮⋰⋱",
-                "Brackets": "⟨⟩⟪⟫⌈⌉⌊⌋⟦⟧",
-                "Symbols": "◈⧫§¶†‡※℃℉℗©®™",
-                "Music": "♩♪♫♬♭♮♯",
-                "Cards": "♠♣♥♦♤♧♡♢",
-                "Chess": "♔♕♖♗♘♙♚♛♜♝♞♟"
+                "Dots": "·•●○◦◉◎⊙∘∙…⋯⋮",
+                "Brackets": "⟨⟩⟪⟫⌈⌉⌊⌋⟦⟧「」『』",
+                "Misc": "§¶†‡※♩♪♫♬♠♣♥♦"
             }
         },
-        mood: {
-            name: "By Mood",
+        threshold: {
+            name: "Thresholds",
             icon: "◐",
             groups: {
-                "Calm · Peaceful": "○◌·∙░─╌┄┈◦∘",
-                "Intense · Bold": "■█▓●★✦◆━┃║",
-                "Light · Airy": "☆✧◇○·°∘◦░⋆",
-                "Heavy · Dense": "█▓▒■●◆▲▼┃━",
-                "Soft · Gentle": "◌○◦∙·╭╮╰╯∿",
-                "Sharp · Edged": "◆■▲▼◀▶┏┓┗┛╬",
-                "Playful": "♠♣♥♦★☆♩♪♫♬⋆✧",
-                "Mysterious": "◐◑◒◓◔◕░▒▓∞∅",
-                "Melancholy": "▽○◌·…⋯↓↘↙│",
-                "Energetic": "★✦→↗↑⇒➔➤▲◆",
-                "Contemplative": "∞◯○◌·∙∘∴∵∃∀",
-                "Joyful": "★☆✦✧♪♫♬♥♡⋆✶✷"
+                "almost": "░·∙◌○◦∘",
+                "becoming": "░▒▓█",
+                "between": "│║┃╎╏┆┇┊┋",
+                "dissolving": "█▓▒░·∙◌○",
+                "the edge of": "─━═┄┈╌",
+                "what remains": "·∙○◌◦∘░",
+                "not yet": "◐◑◒◓◔◕",
+                "just after": "▓▒░·∙◌○◦",
+                "the space where": "　░◌○◦·∙",
+                "threshold": "│┃║▏▎╽╿",
+                "liminal": "░▒◌◍◐◑◒◓"
             }
         },
-        nature: {
-            name: "Nature",
+        memory: {
+            name: "Memory",
+            icon: "◌",
+            groups: {
+                "what I remember": "●◉○◌·∙◦",
+                "what I forgot": "░·∙◌◦∘　",
+                "it looked like": "□■◇◆○●△▽",
+                "the shape of": "╭╮╰╯◠◡∩∪",
+                "fragments": "▖▗▘▙▚▛▜▝▞▟",
+                "traces": "·∙┄┈╌╍···",
+                "echoes": "○◌◦∙·  ·∙",
+                "the feeling of": "░▒▓◐◑◒◓",
+                "half-remembered": "▓▒░·◌○◦∙",
+                "before I knew": "◌○◦·∙∘░　",
+                "palimpsest": "█▓▒░◌·∙◦○"
+            }
+        },
+        silence: {
+            name: "Silence",
+            icon: "·",
+            groups: {
+                "what I didn't say": "·∙◦○◌　░",
+                "the pause": "─···─···─",
+                "held breath": "○◌◦·∙∘",
+                "3am": "·∙★☆✦✧◌○",
+                "empty room": "│　　　　　│",
+                "after the door closed": "─┘　　　　└─",
+                "snow falling": "·∙°◦◌○∘",
+                "between words": "　···　···　",
+                "the weight of": "▓▒░·∙◌○◦",
+                "listening": "◯○◌◦·∙∘",
+                "what the house knows": "┌─────┐└─────┘"
+            }
+        },
+        motion: {
+            name: "Motion",
+            icon: "→",
+            groups: {
+                "leaving": "→⟶➔↦↗↘",
+                "arriving": "←⟵↤↖↙◁",
+                "falling": "↓↡↧⇓│┃║",
+                "rising": "↑↟↥⇑│┃║",
+                "spiraling": "◐◑◒◓↺↻⟳⟲",
+                "drifting": "～∿≋⌇∼∽",
+                "orbit": "○◌◦·∙◦◌○",
+                "breathing": "◌○◎◉◎○◌",
+                "pulse": "·∙●∙·∙●∙·",
+                "the way water": "～∿≋⌇╲╱∼",
+                "scatter": "·  ∙  ◦  ○  ◌"
+            }
+        },
+        weight: {
+            name: "Weight",
+            icon: "█",
+            groups: {
+                "heavy": "█■●▓◆▮",
+                "light": "○◌◦·∙∘☆",
+                "sinking": "·∙○●◉█↓",
+                "floating": "○◌·∙°◦☆",
+                "crushing": "█▓▒░···",
+                "lifting": "···░▒▓█",
+                "gravity": "↓↓↓●●●",
+                "held": "┃│├┤┼╋╬",
+                "released": "○◌◦·∙∘　",
+                "the anchor": "│┃║●◉◎",
+                "what carries": "═━─┄┈╌"
+            }
+        },
+        time: {
+            name: "Time",
             icon: "◎",
             groups: {
-                "Rain · Falling": "│┃║▏▎▌╽╿↓⋮",
-                "Stars · Night": "★☆✦✧⋆∗✱✲✳✴✵✶✷✸✹·",
-                "Moon Phases": "◐◑◒◓◔◕○●◌◎",
-                "Sun · Light": "○◉◎☆★✦✧°′″",
-                "Snow · Dots": "·∙°∘◦◌∗⋆✧✦",
-                "Waves · Water": "∿≋∼∽≈～⌇╲╱",
-                "Mountains": "▲△▵▴▾▿▼▽╱╲",
-                "Trees · Growth": "│┃║▏▎↑↟⇑┬┴",
-                "Stones · Earth": "○●◌◍□■◇◆▢▣",
-                "Wind · Movement": "→←↔⇒⇐⟶⟵∿～≋",
-                "Fire · Energy": "▲△◆◇★✦✧°∗✶",
-                "Void · Space": "∅○◌·∙∘░　◦"
+                "before": "◌○◦·∙∘　",
+                "during": "░▒▓█▓▒░",
+                "after": "·∙◦○◌　░",
+                "always": "∞◯○◎◉●",
+                "never": "∅○◌◦·∙◦◌○",
+                "the moment": "·●·",
+                "years": "─────────────",
+                "seasons": "◐◑◒◓◐◑◒◓",
+                "what lasts": "█■●◆★",
+                "what doesn't": "░·∙◦◌○　",
+                "meanwhile": "│　│　│　│"
             }
         },
-        texture: {
-            name: "Texture",
-            icon: "▒",
+        connection: {
+            name: "Between Us",
+            icon: "─",
             groups: {
-                "Solid Fill": "█■●◆▮▰",
-                "Dense": "▓▇▆▅▉",
-                "Medium": "▒▄▌▐▀",
-                "Light": "░▁▂▃",
-                "Empty": "○□◇△▽☆",
-                "Dotted": "·∙•◦∘⋅⁃",
-                "Dashed": "┄┅┈┉╌╍",
-                "Lines Thin": "─│┌┐└┘",
-                "Lines Thick": "━┃┏┓┗┛",
-                "Lines Double": "═║╔╗╚╝",
-                "Rounded": "╭╮╰╯◠◡",
-                "Gradient →": "░▒▓█",
-                "Gradient ↓": "▁▂▃▄▅▆▇█"
-            }
-        },
-        story: {
-            name: "Story",
-            icon: "✦",
-            groups: {
-                "Beginning": "◇○◌·┌╭「『",
-                "Journey →": "→⟶➔➜↦⇒➤≫",
-                "Obstacle": "█■▓┃║╬╳✕✖",
-                "Transformation": "◐◑◒◓↺↻⟳∿～",
-                "Climax": "★✦◆●▲◉✶✷!",
-                "Resolution": "○◌·∙◦∘…⋯",
-                "Ending": "◇○·」』┘╯──",
-                "Love": "♥♡❤♢◇○●◦",
-                "Conflict": "✕✖╳◆■▲⚔⌧",
-                "Growth": "↑⇑↟│║▲△·∴",
-                "Loss": "↓⇓▼▽○◌·∵↘",
-                "Connection": "─═━┼╋╬↔⇔∞"
+                "together": "││┃┃║║",
+                "apart": "│　　　　│",
+                "reaching": "─→　　←─",
+                "the distance": "·····∙∙∙∙∙",
+                "bridge": "═══════",
+                "thread": "─┄┈╌···",
+                "tangled": "╳╬┼╋┿╂",
+                "parallel": "═══\n═══",
+                "intersection": "┼╋╬✕✖",
+                "what holds": "┌──────┐│      ││      │└──────┘",
+                "letting go": "─┄┈╌···　"
             }
         }
     };
 
-    let currentPalette = 'technical';
+    let currentPalette = 'threshold';
 
     function renderPalette(paletteKey) {
         const palette = PALETTES[paletteKey];
         let html = '<div class="char-palette">';
         
-        // Tab bar
         html += '<div class="palette-tabs">';
         for (const [key, p] of Object.entries(PALETTES)) {
             const active = key === paletteKey ? ' active' : '';
@@ -331,14 +361,13 @@ function initCharPalette() {
         }
         html += '</div>';
 
-        // Groups
         for (const [group, chars] of Object.entries(palette.groups)) {
             html += `<div class="char-group">
                 <div class="char-group-name">${group}</div>
                 <div class="char-row">`;
 
             for (const char of chars) {
-                if (char !== ' ') {
+                if (char !== ' ' && char !== '\n') {
                     html += `<button class="char-btn" data-char="${char}">${char}</button>`;
                 }
             }
@@ -349,7 +378,6 @@ function initCharPalette() {
         html += '</div>';
         container.innerHTML = html;
 
-        // Tab click handlers
         container.querySelectorAll('.palette-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 currentPalette = tab.dataset.palette;
@@ -357,12 +385,11 @@ function initCharPalette() {
             });
         });
 
-        // Char click handlers
         container.querySelectorAll('.char-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const char = btn.dataset.char;
                 navigator.clipboard.writeText(char);
-                showToast(`Copied: ${char}`);
+                showToast(`${char}`);
 
                 const editor = document.querySelector('.editor-textarea');
                 if (editor) {
@@ -379,6 +406,7 @@ function initCharPalette() {
 
     renderPalette(currentPalette);
 }
+
 
 // LIVE PREVIEW EDITOR
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -540,4 +568,5 @@ styles.textContent = `
 .gallery-item.focused { border-color: var(--accent, #00ff88) !important; box-shadow: 0 0 30px var(--accent-dim, rgba(0, 255, 136, 0.15)); }
 `;
 document.head.appendChild(styles);
+
 
