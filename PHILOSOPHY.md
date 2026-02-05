@@ -15,10 +15,23 @@ Every character takes the same width.
     a = █
     m = █
     . = █
-    空 = █
+    空 = ██
 
 That is the only rule.
 Everything else is discovery.
+
+(But notice: 空 takes two cells, not one.
+ The rule already has exceptions.
+ CJK characters break the constraint
+ even as we state it.
+ 
+ We were reaching for universality—
+ "even Chinese, even Japanese, even everything"—
+ and picked an example that violates the rule.
+ 
+ The constraint has conditions.
+ The philosophy has cracks.
+ That's honest.)
 
 
 ON LIMITATIONS
