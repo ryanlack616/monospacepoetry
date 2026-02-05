@@ -210,25 +210,6 @@ canvas {
     cursor: not-allowed;
 }
 
-/* Explore Link */
-.explore-link {
-    padding: 0.75rem 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    background: transparent;
-    color: #66ff99;
-    border: 1px solid #66ff99;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    letter-spacing: 0.05em;
-}
-
-.explore-link:hover {
-    background: #66ff99;
-    color: var(--bg);
-}
-
 /* Footer */
 footer {
     text-align: center;

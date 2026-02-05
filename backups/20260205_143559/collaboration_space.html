@@ -256,88 +256,6 @@
             z-index: 50;
         }
         
-        /* Intro Modal */
-        .intro-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 15, 0.95);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-        .intro-modal.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .intro-content {
-            max-width: 500px;
-            padding: 2rem;
-            text-align: center;
-        }
-        .intro-content h2 {
-            font-family: 'Times New Roman', serif;
-            font-style: italic;
-            font-size: 1.8rem;
-            color: #e8e8f0;
-            margin-bottom: 1.5rem;
-        }
-        .intro-content p {
-            color: #aaa;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        .intro-content ul {
-            list-style: none;
-            padding: 0;
-            margin: 1.5rem 0;
-            text-align: left;
-        }
-        .intro-content li {
-            color: #888;
-            margin: 0.5rem 0;
-            padding-left: 1rem;
-        }
-        .intro-content .human-dot { color: #ff6699; }
-        .intro-content .ai-dot { color: #6699ff; }
-        .intro-content .artifact-dot { color: #66ff99; }
-        .intro-hint {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 1.5rem;
-        }
-        #intro-dismiss {
-            margin-top: 1.5rem;
-            padding: 0.75rem 2rem;
-            background: transparent;
-            border: 1px solid #66ff99;
-            color: #66ff99;
-            font-family: inherit;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-        #intro-dismiss:hover {
-            background: #66ff99;
-            color: #0a0a0f;
-        }
-        .intro-remember {
-            display: block;
-            margin-top: 1rem;
-            font-size: 0.75rem;
-            color: #555;
-            cursor: pointer;
-        }
-        .intro-remember input {
-            margin-right: 0.5rem;
-        }
-        
         /* Mapping sliders */
         .mapping-sliders {
             position: fixed;
@@ -467,77 +385,6 @@
             gap: 1.5rem;
             flex-shrink: 0;
         }
-        
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .overlay.header h1 {
-                font-size: 1.5rem;
-            }
-            .overlay.header .subtitle {
-                font-size: 0.9rem;
-            }
-            .overlay.legend {
-                display: none;
-            }
-            .overlay.controls {
-                flex-direction: column;
-                right: 0.5rem;
-                top: 0.5rem;
-                gap: 0.3rem;
-            }
-            .overlay.controls button {
-                font-size: 0.65rem;
-                padding: 0.3rem 0.5rem;
-            }
-            .mapping-sliders {
-                bottom: 4rem;
-                padding: 0.5rem 0.75rem;
-                gap: 0.75rem;
-            }
-            .slider-group {
-                min-width: 50px;
-            }
-            .slider-group label {
-                font-size: 0.6rem;
-            }
-            .slider-group input[type="range"] {
-                height: 50px;
-            }
-            .slider-value {
-                font-size: 0.6rem;
-            }
-            .slider-section-label {
-                font-size: 0.5rem;
-            }
-            .timeline {
-                padding: 0.3rem 0.5rem;
-            }
-            .instructions {
-                font-size: 0.5rem;
-            }
-            .info-panel {
-                width: 90vw;
-                left: 5vw;
-                right: 5vw;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .overlay.header {
-                top: 0.3rem;
-                left: 0.3rem;
-            }
-            .overlay.header h1 {
-                font-size: 1.2rem;
-            }
-            .mapping-sliders {
-                bottom: 3rem;
-                padding: 0.4rem 0.5rem;
-            }
-            .slider-group input[type="range"] {
-                height: 40px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -545,7 +392,7 @@
     
     <div class="overlay header">
         <h1>collaboration space</h1>
-        <p class="subtitle">f: Human × AI → Artifact · <a href="paper.html" style="color: #6699ff; text-decoration: none;">read the paper →</a></p>
+        <p class="subtitle">f: Human × AI → Artifact</p>
     </div>
     
     <a href="index.html" class="back-link">← back</a>
@@ -580,8 +427,6 @@
         <button id="btn-sound">♪ sound the path</button>
         <button id="btn-reset">reset view</button>
         <button id="btn-reset-sim">reset sim</button>
-        <button id="btn-share">share state</button>
-        <button id="btn-export">📷 export</button>
     </div>
     
     <div class="info-panel" id="info-panel">
@@ -591,24 +436,6 @@
         <div class="fiber-count" id="info-fiber"></div>
         <p id="info-fiber-desc"></p>
         <button class="play-sound" id="play-fiber-sound">♪ play this fiber</button>
-    </div>
-    
-    <div class="intro-modal" id="intro-modal">
-        <div class="intro-content">
-            <h2>f: Human × AI → Artifact</h2>
-            <p>This is a 3D visualization of human-AI collaboration space.</p>
-            <ul>
-                <li><span class="human-dot">●</span> Pink dots = Human inputs</li>
-                <li><span class="ai-dot">●</span> Blue dots = AI inputs</li>
-                <li><span class="artifact-dot">●</span> Green dots = Artifacts (collaborative outputs)</li>
-                <li>Glowing lines = Fibers (paths from input to artifact)</li>
-            </ul>
-            <p class="intro-hint">Drag to rotate · Scroll to zoom · Click artifacts · Use sliders below</p>
-            <button id="intro-dismiss">enter the space</button>
-            <label class="intro-remember">
-                <input type="checkbox" id="intro-dont-show"> don't show again
-            </label>
-        </div>
     </div>
     
     <div class="mapping-sliders">
@@ -1633,125 +1460,17 @@
         
         window.addEventListener('click', onMouseClick);
         
-        // ============ URL STATE ============
-        function getStateFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            const state = {};
-            for (const [key, value] of params) {
-                state[key] = parseFloat(value);
-            }
-            return state;
-        }
-        
-        function updateURL() {
-            const state = {
-                h: document.getElementById('slider-human').value,
-                a: document.getElementById('slider-ai').value,
-                art: document.getElementById('slider-artifact').value,
-                fib: document.getElementById('slider-fiber').value,
-                ch: document.getElementById('count-human').value,
-                ca: document.getElementById('count-ai').value,
-                s: document.getElementById('slider-entropy').value,
-                sur: document.getElementById('slider-surjective').value,
-                dec: document.getElementById('slider-decay').value,
-                der: document.getElementById('slider-derivative').value,
-                con: document.getElementById('slider-converge').value,
-                ker: document.getElementById('slider-kernel').value,
-                inj: isInjective ? 1 : 0,
-                prob: showProbabilityCloud ? 1 : 0
-            };
-            const params = new URLSearchParams(state);
-            history.replaceState(null, '', '?' + params.toString());
-        }
-        
-        function applyURLState() {
-            const state = getStateFromURL();
-            if (Object.keys(state).length === 0) return;
-            
-            const sliderMap = {
-                h: 'slider-human', a: 'slider-ai', art: 'slider-artifact', fib: 'slider-fiber',
-                ch: 'count-human', ca: 'count-ai', s: 'slider-entropy', sur: 'slider-surjective',
-                dec: 'slider-decay', der: 'slider-derivative', con: 'slider-converge', ker: 'slider-kernel'
-            };
-            
-            for (const [key, sliderId] of Object.entries(sliderMap)) {
-                if (state[key] !== undefined) {
-                    const slider = document.getElementById(sliderId);
-                    if (slider) {
-                        slider.value = state[key];
-                        slider.dispatchEvent(new Event('input'));
-                    }
-                }
-            }
-            
-            if (state.inj === 1) {
-                document.getElementById('btn-injective').click();
-            }
-            if (state.prob === 1) {
-                document.getElementById('btn-probability').click();
-            }
-        }
-        
-        // Add share button functionality
-        document.getElementById('btn-share')?.addEventListener('click', function() {
-            updateURL();
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                this.textContent = 'copied!';
-                setTimeout(() => this.textContent = 'share state', 2000);
-            });
-        });
-        
-        // Add export/screenshot functionality
-        document.getElementById('btn-export')?.addEventListener('click', function() {
-            renderer.render(scene, camera);
-            const dataURL = renderer.domElement.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.download = 'collaboration_space_' + Date.now() + '.png';
-            link.href = dataURL;
-            link.click();
-            this.textContent = 'saved!';
-            setTimeout(() => this.textContent = '📷 export', 2000);
-        });
-        
-        // Update URL on slider changes (debounced)
-        let urlUpdateTimeout;
-        document.querySelectorAll('.mapping-sliders input[type="range"]').forEach(slider => {
-            slider.addEventListener('input', () => {
-                clearTimeout(urlUpdateTimeout);
-                urlUpdateTimeout = setTimeout(updateURL, 500);
-            });
-        });
-        
         // ============ INIT ============
         createGrid();
         createParticles();
         populateSpace();
         initFiberAges();
-        applyURLState();
         animate();
         updateTimeline(100);
         
-        // ============ INTRO MODAL ============
-        const introModal = document.getElementById('intro-modal');
-        const introDismiss = document.getElementById('intro-dismiss');
-        const introDontShow = document.getElementById('intro-dont-show');
-        
-        // Check if user has seen intro before
-        if (localStorage.getItem('collab-space-intro-seen')) {
-            introModal.classList.add('hidden');
-        }
-        
-        introDismiss?.addEventListener('click', () => {
-            introModal.classList.add('hidden');
-            if (introDontShow?.checked) {
-                localStorage.setItem('collab-space-intro-seen', 'true');
-            }
-        });
-        
-        console.log('Collaboration Space v6 loaded — with URL state sharing, intro modal');
+        console.log('Collaboration Space v5 loaded — with mathematical controls, entropy sound, time effects, probability cloud');
     </script>
 </body>
 </html>
-
- 
+ 
  

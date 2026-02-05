@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>selfexecuting.art</title>
+    <meta name="description" content="Mathematical notation that performs itself. The formula is the score. The canvas is the orchestra.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="selfexecuting.art">
+    <meta property="og:description" content="Mathematical notation that performs itself. The formula is the score. The canvas is the orchestra.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://selfexecuting.art">
+    <meta name="twitter:card" content="summary">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --text: #e8e8f0;
+            --text-dim: #666677;
+            --accent: #6699ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+        }
+        
+        .formula {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 2s ease 0.5s forwards;
+        }
+        
+        .tagline {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 2;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeIn 2s ease 1s forwards;
+        }
+        
+        .tagline span {
+            display: block;
+        }
+        
+        .enter {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--accent);
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            text-decoration: none;
+            letter-spacing: 0.2em;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 2s ease 1.5s forwards;
+        }
+        
+        .enter:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 153, 255, 0.2);
+        }
+        
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .paper-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            animation: fadeIn 2s ease 2s forwards;
+            transition: color 0.2s ease;
+        }
+        
+        .paper-link:hover {
+            color: var(--accent);
+        }
+        
+        /* Floating notation particles */
+        .particle {
+            position: fixed;
+            color: var(--text-dim);
+            opacity: 0.15;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 0.1;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(5deg); 
+                opacity: 0.2;
+            }
+        }
+        
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(102, 153, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 153, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        footer {
+            position: fixed;
+            bottom: 2rem;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            opacity: 0;
+            animation: fadeIn 2s ease 2s forwards;
+        }
+        
+        footer a {
+            color: var(--text-dim);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            color: var(--accent);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                opacity: 1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particle" style="top: 15%; left: 10%; animation-delay: 0s;">∫</div>
+    <div class="particle" style="top: 70%; left: 85%; animation-delay: -5s;">∑</div>
+    <div class="particle" style="top: 25%; right: 15%; animation-delay: -10s;">∞</div>
+    <div class="particle" style="bottom: 20%; left: 20%; animation-delay: -15s;">→</div>
+    <div class="particle" style="top: 50%; right: 8%; animation-delay: -7s;">∃</div>
+    <div class="particle" style="bottom: 35%; right: 25%; animation-delay: -12s;">λ</div>
+    
+    <div class="container">
+        <h1>selfexecuting.art</h1>
+        
+        <div class="formula" id="main-formula"></div>
+        
+        <p class="tagline">
+            <span>the formula is the score</span>
+            <span>the canvas is the orchestra</span>
+        </p>
+        
+        <div class="nav-links">
+            <a href="notation_performs.html" class="enter">enter</a>
+            <a href="collaboration_space.html" class="paper-link">explore the space</a>
+            <a href="paper.html" class="paper-link">read the paper</a>
+            <a href="about.html" class="paper-link">about</a>
+        </div>
+    </div>
+    
+    <footer>
+        a collaboration between human and machine
+    </footer>
+    
+    <script>
+        // Render the main formula
+        document.addEventListener('DOMContentLoaded', () => {
+            katex.render(
+                "\\text{notation} \\xrightarrow{\\text{perform}} \\text{meaning}",
+                document.getElementById('main-formula'),
+                { displayMode: true, throwOnError: false }
+            );
+        });
+    </script>
+</body>
+</html>

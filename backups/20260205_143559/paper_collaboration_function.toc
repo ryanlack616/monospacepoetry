@@ -1,0 +1,44 @@
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Why This Matters Now}{4}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Definitions}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The Domain: Human $\times $ AI}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The Codomain: Artifact}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}The Function}{5}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Surjectivity: Every Artifact Can Be Reached}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}The Claim}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Implications}{5}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Non-Injectivity: Multiple Paths to the Same Place}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}The Claim}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Forms of Non-Injectivity}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Implications}{6}{subsection.4.3}%
+\contentsline {section}{\numberline {5}What $f$ Is Not}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Not a Sum}{6}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Not a Composition}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Not Commutative}{6}{subsection.5.3}%
+\contentsline {section}{\numberline {6}The Fiber: Paths to a Single Artifact}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Definition}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Fiber Structure}{7}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}The Question}{7}{subsection.6.3}%
+\contentsline {section}{\numberline {7}The Kernel: What Gets Lost}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Definition}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}What Lives in the Kernel}{7}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Implications for Credit and Attribution}{8}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Fixed Points and Invariants}{8}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Fixed Points}{8}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Invariants}{8}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Extensions and Open Questions}{9}{section.9}%
+\contentsline {subsection}{\numberline {9.1}The Iterated Function}{9}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}The Inverse Problem}{9}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}The Empty Human, The Empty AI}{9}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Consciousness and the Prior}{9}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Symmetry and Asymmetry}{10}{subsection.9.5}%
+\contentsline {section}{\numberline {10}Empirical Grounding: This Paper as Example}{10}{section.10}%
+\contentsline {section}{\numberline {11}Implications for Practice}{11}{section.11}%
+\contentsline {subsection}{\numberline {11.1}For Creators}{11}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}For Critics}{11}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}For Policymakers}{11}{subsection.11.3}%
+\contentsline {section}{\numberline {12}The Meta-Level: Self-Reference}{11}{section.12}%
+\contentsline {section}{\numberline {13}Conclusion}{12}{section.13}%
+\contentsline {section}{\numberline {A}Notation}{13}{appendix.A}%
+\contentsline {section}{\numberline {B}Visual Schema}{13}{appendix.B}%
+\contentsline {section}{\numberline {C}The Collaboration That Produced This Paper}{13}{appendix.C}%

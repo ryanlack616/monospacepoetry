@@ -1,0 +1,14 @@
+# IDE / Editor
+.vscode/
+.idea/
+
+# Testing / Automation
+.playwright-mcp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.bak
