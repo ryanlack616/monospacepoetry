@@ -295,6 +295,29 @@
         .slider-group label.fiber { color: #ffcc66; }
         .slider-group label.entropy { color: #cc99ff; }
         .slider-group label.surjective { color: #99ffcc; }
+        .slider-group label.decay { color: #ff9966; }
+        .slider-group label.converge { color: #66ccff; }
+        .slider-group label.kernel { color: #ff6666; }
+        .slider-group label.derivative { color: #ffff66; }
+        .slider-group label.injective { color: #66ffff; }
+        .slider-group label.probability { color: #ff66ff; }
+        
+        .toggle-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            padding: 0.3rem 0.5rem;
+            font-size: 0.65rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+        .toggle-btn.active {
+            background: rgba(102, 255, 255, 0.2);
+            border-color: #66ffff;
+            color: #66ffff;
+        }
         
         .slider-group input[type="range"] {
             width: 60px;
@@ -454,6 +477,49 @@
                 </div>
             </div>
         </div>
+        <div class="mapping-section">
+            <span class="slider-section-label">t</span>
+            <div class="sliders-row">
+                <div class="slider-group">
+                    <label class="decay">lim m→0</label>
+                    <input type="range" id="slider-decay" min="0" max="100" value="0" orient="vertical">
+                    <span class="slider-value" id="val-decay">0.0</span>
+                </div>
+                <div class="slider-group">
+                    <label class="derivative">∂f/∂t</label>
+                    <input type="range" id="slider-derivative" min="0" max="100" value="50" orient="vertical">
+                    <span class="slider-value" id="val-derivative">0.5</span>
+                </div>
+            </div>
+        </div>
+        <div class="mapping-section">
+            <span class="slider-section-label">f</span>
+            <div class="sliders-row">
+                <div class="slider-group">
+                    <label class="converge">Σ1/2ⁿ</label>
+                    <input type="range" id="slider-converge" min="0" max="100" value="0" orient="vertical">
+                    <span class="slider-value" id="val-converge">0.0</span>
+                </div>
+                <div class="slider-group">
+                    <label class="kernel">|ker|</label>
+                    <input type="range" id="slider-kernel" min="0" max="100" value="0" orient="vertical">
+                    <span class="slider-value" id="val-kernel">0</span>
+                </div>
+                <div class="slider-group">
+                    <label class="injective">1:1</label>
+                    <button id="btn-injective" class="toggle-btn">off</button>
+                </div>
+            </div>
+        </div>
+        <div class="mapping-section">
+            <span class="slider-section-label">?</span>
+            <div class="sliders-row">
+                <div class="slider-group">
+                    <label class="probability">P(?|φ)</label>
+                    <button id="btn-probability" class="toggle-btn">show</button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <div class="timeline">
@@ -497,8 +563,13 @@
             const gain = ctx.createGain();
             const panner = ctx.createStereoPanner();
             
-            osc.type = 'sine';
-            osc.frequency.value = frequency;
+            // Entropy affects timbre - higher entropy = more dissonant
+            const entropyEffect = typeof entropyValue !== 'undefined' ? entropyValue : 0.3;
+            osc.type = entropyEffect > 0.6 ? 'sawtooth' : (entropyEffect > 0.3 ? 'triangle' : 'sine');
+            
+            // Add frequency wobble based on entropy
+            const wobble = entropyEffect * 20 * (Math.random() - 0.5);
+            osc.frequency.value = frequency + wobble;
             
             gain.gain.setValueAtTime(0, ctx.currentTime + delay);
             gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + delay + 0.05);
@@ -1163,6 +1234,180 @@
             });
         }
         
+        // ============ TIME-BASED CONTROLS ============
+        let decayValue = 0;
+        let derivativeValue = 0.5;
+        let convergeValue = 0;
+        let kernelValue = 0;
+        let isInjective = false;
+        let showProbabilityCloud = false;
+        let probabilityCloud = null;
+        let fiberAges = new Map(); // track when fibers were created
+        let startTime = Date.now();
+        
+        // Initialize fiber ages
+        function initFiberAges() {
+            allFibers.forEach((f, i) => {
+                fiberAges.set(f, startTime - (allFibers.length - i) * 1000);
+            });
+        }
+        
+        // Decay slider - older fibers fade
+        document.getElementById('slider-decay').addEventListener('input', function() {
+            const val = parseInt(this.value);
+            decayValue = val / 100;
+            document.getElementById('val-decay').textContent = decayValue.toFixed(1);
+        });
+        
+        // Derivative slider - rate of change vs accumulated state
+        document.getElementById('slider-derivative').addEventListener('input', function() {
+            const val = parseInt(this.value);
+            derivativeValue = val / 100;
+            document.getElementById('val-derivative').textContent = derivativeValue.toFixed(1);
+        });
+        
+        // Convergence slider - points drift toward artifacts  
+        document.getElementById('slider-converge').addEventListener('input', function() {
+            const val = parseInt(this.value);
+            convergeValue = val / 100;
+            document.getElementById('val-converge').textContent = convergeValue.toFixed(1);
+        });
+        
+        // Kernel slider - failed collaborations (dim some points)
+        document.getElementById('slider-kernel').addEventListener('input', function() {
+            const val = parseInt(this.value);
+            kernelValue = val;
+            document.getElementById('val-kernel').textContent = val;
+            
+            // Mark some points as "in the kernel" (failed collaborations)
+            const allPoints = [...humanPoints, ...aiPoints];
+            allPoints.forEach((p, i) => {
+                if (i < val) {
+                    p.userData.inKernel = true;
+                    p.material.opacity = 0.15;
+                    p.material.color.setHex(0x444444);
+                } else {
+                    p.userData.inKernel = false;
+                    const isHuman = humanPoints.includes(p);
+                    p.material.opacity = 0.7;
+                    p.material.color.setHex(isHuman ? colors.human : colors.ai);
+                }
+            });
+        });
+        
+        // Injectivity toggle - one fiber per artifact
+        document.getElementById('btn-injective').addEventListener('click', function() {
+            isInjective = !isInjective;
+            this.textContent = isInjective ? '1:1' : 'off';
+            this.classList.toggle('active', isInjective);
+            
+            if (isInjective) {
+                // Hide all but one fiber per artifact
+                const seenArtifacts = new Set();
+                allFibers.forEach(f => {
+                    const art = f.userData.artifact;
+                    if (art && seenArtifacts.has(art)) {
+                        f.visible = false;
+                    } else if (art) {
+                        seenArtifacts.add(art);
+                        f.visible = true;
+                    }
+                });
+            } else {
+                // Show all fibers again
+                allFibers.forEach(f => f.visible = true);
+            }
+        });
+        
+        // Probability cloud toggle
+        document.getElementById('btn-probability').addEventListener('click', function() {
+            showProbabilityCloud = !showProbabilityCloud;
+            this.textContent = showProbabilityCloud ? 'P(?)' : 'show';
+            this.classList.toggle('active', showProbabilityCloud);
+            
+            if (showProbabilityCloud && !probabilityCloud) {
+                // Create probability cloud around current collaboration
+                const cloudGeometry = new THREE.SphereGeometry(5, 32, 32);
+                const cloudMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xff66ff,
+                    transparent: true,
+                    opacity: 0.15,
+                    wireframe: true
+                });
+                probabilityCloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
+                
+                const collabArtifact = artifacts.find(a => a.userData.name === 'Collaboration');
+                if (collabArtifact) {
+                    probabilityCloud.position.copy(collabArtifact.position);
+                }
+                scene.add(probabilityCloud);
+            }
+            
+            if (probabilityCloud) {
+                probabilityCloud.visible = showProbabilityCloud;
+            }
+        });
+        
+        // Apply time-based effects in animation
+        function applyTimeEffects() {
+            const now = Date.now();
+            
+            // Decay effect - older fibers fade
+            if (decayValue > 0) {
+                allFibers.forEach(f => {
+                    const age = fiberAges.get(f) || startTime;
+                    const ageSeconds = (now - age) / 1000;
+                    const decay = Math.exp(-decayValue * ageSeconds * 0.01);
+                    const baseOpacity = f.userData.isCurrentPath ? 0.9 : 0.08;
+                    f.material.opacity = baseOpacity * decay;
+                });
+            }
+            
+            // Derivative effect - recent changes glow brighter
+            if (derivativeValue > 0.5) {
+                const intensity = (derivativeValue - 0.5) * 2;
+                allFibers.forEach(f => {
+                    const age = fiberAges.get(f) || startTime;
+                    const ageSeconds = (now - age) / 1000;
+                    if (ageSeconds < 5) {
+                        f.material.opacity = Math.min(1, f.material.opacity + intensity * 0.3);
+                    }
+                });
+            }
+            
+            // Convergence effect - points drift toward nearest artifact
+            if (convergeValue > 0) {
+                [...humanPoints, ...aiPoints].forEach(p => {
+                    if (p.userData.inKernel) return;
+                    
+                    let nearestArt = null;
+                    let nearestDist = Infinity;
+                    artifacts.forEach(a => {
+                        const d = p.position.distanceTo(a.position);
+                        if (d < nearestDist) {
+                            nearestDist = d;
+                            nearestArt = a;
+                        }
+                    });
+                    
+                    if (nearestArt && nearestDist > 3) {
+                        const dir = nearestArt.position.clone().sub(p.position).normalize();
+                        p.position.add(dir.multiplyScalar(convergeValue * 0.02));
+                    }
+                });
+            }
+            
+            // Probability cloud pulsing
+            if (probabilityCloud && probabilityCloud.visible) {
+                const t = now * 0.001;
+                const scale = 1 + Math.sin(t * 1.5) * 0.3 + Math.random() * 0.1;
+                probabilityCloud.scale.set(scale, scale, scale);
+                probabilityCloud.rotation.x += 0.002;
+                probabilityCloud.rotation.y += 0.003;
+                probabilityCloud.material.opacity = 0.1 + Math.random() * 0.1;
+            }
+        }
+        
         // ============ ANIMATION ============
         function animate() {
             requestAnimationFrame(animate);
@@ -1170,6 +1415,9 @@
             
             // Apply entropy-based movement
             applyEntropyMovement();
+            
+            // Apply time-based effects
+            applyTimeEffects();
             
             const time = Date.now() * 0.001;
             const collabArtifact = artifacts.find(a => a.userData.name === 'Collaboration');
@@ -1199,10 +1447,11 @@
         createGrid();
         createParticles();
         populateSpace();
+        initFiberAges();
         animate();
         updateTimeline(100);
         
-        console.log('Collaboration Space v4 loaded — with intensity sliders, quantity sliders, sound, inverse gallery, and timeline');
+        console.log('Collaboration Space v5 loaded — with mathematical controls, entropy sound, time effects, probability cloud');
     </script>
 </body>
 </html>
