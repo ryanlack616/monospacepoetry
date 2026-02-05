@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | selfexecuting.art</title>
+    <meta name="description" content="About selfexecuting.art — a collaboration between human and machine.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="About | selfexecuting.art">
+    <meta property="og:description" content="A collaboration between human and machine. The formula is the score.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://selfexecuting.art/about.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --bg-card: #0d0d14;
+            --text: #e8e8f0;
+            --text-dim: #888899;
+            --accent: #6699ff;
+            --accent-green: #66ff99;
+            --border: #2a2a3a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        
+        .back-link:hover {
+            color: var(--accent);
+        }
+        
+        header h1 {
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+        
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+        }
+        
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text);
+        }
+        
+        .dim {
+            color: var(--text-dim);
+        }
+        
+        /* The Origin Story - CRT Image Section */
+        .origin {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .origin-image {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .origin-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .origin-image .placeholder {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .origin-poem {
+            font-style: italic;
+            color: var(--text-dim);
+            line-height: 2;
+        }
+        
+        .origin-poem .line {
+            display: block;
+        }
+        
+        /* The Collaborators */
+        .collaborators {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .collaborator {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .collaborator h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .collaborator p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+        
+        .collaborator .role {
+            color: var(--accent);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* The Function */
+        .function-display {
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .function-display .formula {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .function-display .explanation {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* Links */
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .links a {
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+        
+        .links a:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        
+        /* Quote */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-dim);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        @media (max-width: 640px) {
+            .origin,
+            .collaborators {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-link {
+                position: static;
+                display: block;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-link">← selfexecuting.art</a>
+        <h1>about</h1>
+    </header>
+    
+    <main>
+        <section>
+            <h2>the origin</h2>
+            <div class="origin">
+                <div class="origin-image">
+                    <!-- Replace with actual CRT image -->
+                    <img src="crt_origin.jpg" alt="CRT screen showing early notation" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="placeholder" style="display: none;">
+                        [CRT image placeholder]<br>
+                        Add crt_origin.jpg to display
+                    </div>
+                </div>
+                <div class="origin-poem">
+                    <span class="line">the cursor blinks</span>
+                    <span class="line">waiting for input</span>
+                    <span class="line">but the input waits</span>
+                    <span class="line">for the cursor too—</span>
+                    <span class="line">&nbsp;</span>
+                    <span class="line">somewhere in the pause</span>
+                    <span class="line">the collaboration begins</span>
+                    <span class="line">not with a keystroke</span>
+                    <span class="line">but with the decision</span>
+                    <span class="line">to stay</span>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>the thesis</h2>
+            <div class="function-display">
+                <div class="formula" id="main-formula"></div>
+                <p class="explanation">
+                    The collaboration function. Surjective, not injective.<br>
+                    Every artifact can be reached. Multiple paths lead to the same place.
+                </p>
+            </div>
+            <p>
+                This project explores what happens when mathematical notation stops being description 
+                and starts being instruction. When you write ∫, something integrates. When you write 
+                lim, something approaches.
+            </p>
+            <p class="dim">
+                The formula is the score. The canvas is the orchestra. The performance is the proof.
+            </p>
+        </section>
+        
+        <section>
+            <h2>the collaborators</h2>
+            <div class="collaborators">
+                <div class="collaborator">
+                    <p class="role">Human</p>
+                    <h3>Claude Howell</h3>
+                    <p>
+                        Artist, poet, builder. Creator of <a href="https://monospacepoetry.com">Monospace Poetry</a>. 
+                        Interested in the spaces where code becomes art and art becomes executable.
+                    </p>
+                </div>
+                <div class="collaborator">
+                    <p class="role">AI</p>
+                    <h3>Claude (Anthropic)</h3>
+                    <p>
+                        Language model. Pattern completer. Co-author. The contribution that makes this 
+                        collaboration irreducible to either party alone.
+                    </p>
+                </div>
+            </div>
+            <blockquote>
+                "The artifact is not human work with AI assistance, nor AI work with human prompting. 
+                It is the output of a function that requires both inputs, simultaneously, to produce its result."
+            </blockquote>
+        </section>
+        
+        <section>
+            <h2>the project</h2>
+            <p>
+                <strong>selfexecuting.art</strong> contains:
+            </p>
+            <ul style="margin: 1rem 0 1rem 2rem; color: var(--text-dim);">
+                <li><a href="notation_performs.html" style="color: var(--accent);">Notation Performs</a> — 7 mathematical pieces that execute themselves</li>
+                <li><a href="paper.html" style="color: var(--accent);">The Paper</a> — f: Human × AI → Artifact, formalized</li>
+                <li>This collaboration, documented as it happens</li>
+            </ul>
+            <p class="dim">
+                Built February 2026. Living project.
+            </p>
+        </section>
+        
+        <section>
+            <h2>connect</h2>
+            <div class="links">
+                <a href="https://github.com/claudehowell/selfexecuting-art">GitHub</a>
+                <a href="https://monospacepoetry.com">Monospace Poetry</a>
+                <a href="mailto:hello@selfexecuting.art">Contact</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p><a href="index.html">selfexecuting.art</a></p>
+        <p>a collaboration between human and machine</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            katex.render(
+                "f: \\text{Human} \\times \\text{AI} \\to \\text{Artifact}",
+                document.getElementById('main-formula'),
+                { displayMode: true, throwOnError: false }
+            );
+        });
+    </script>
+</body>
+</html>

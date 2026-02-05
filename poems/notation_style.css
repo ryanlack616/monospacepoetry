@@ -1,0 +1,267 @@
+/* Notation Performs — Style */
+/* The formula is the score / the canvas is the orchestra */
+
+:root {
+    --bg: #0a0a0f;
+    --bg-piece: #12121a;
+    --text: #e8e8f0;
+    --text-dim: #888899;
+    --accent: #6699ff;
+    --accent-dim: #4466aa;
+    --canvas-bg: #08080c;
+    --border: #2a2a3a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+}
+
+.back-link {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Main */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Intro Section */
+.intro {
+    text-align: center;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+}
+
+.intro p {
+    margin-bottom: 0.75rem;
+    color: var(--text-dim);
+}
+
+.intro code {
+    background: var(--bg-piece);
+    padding: 0.2em 0.5em;
+    border-radius: 3px;
+    color: var(--accent);
+    font-size: 0.95em;
+}
+
+/* Pieces */
+.piece {
+    background: var(--bg-piece);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+}
+
+.piece h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    letter-spacing: 0.05em;
+}
+
+/* Notation Display */
+.notation-display {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+}
+
+.katex-formula {
+    margin: 0.75rem 0;
+}
+
+.katex {
+    font-size: 1.3em;
+}
+
+/* Canvas */
+canvas {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    margin: 0 auto 1.5rem;
+    background: var(--canvas-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+/* Interpretation */
+.interpretation {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Piece Controls */
+.piece-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Perform Button */
+.perform-btn {
+    padding: 0.75rem 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.1em;
+}
+
+.perform-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+.perform-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.perform-btn.running {
+    background: var(--accent-dim);
+    border-color: var(--accent-dim);
+    color: var(--bg);
+}
+
+/* Reset Button */
+.reset-btn {
+    padding: 0.75rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.1em;
+}
+
+.reset-btn:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+}
+
+.reset-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    main {
+        padding: 1rem;
+    }
+    
+    .piece {
+        padding: 1.5rem;
+    }
+    
+    canvas {
+        height: 200px;
+    }
+    
+    .katex {
+        font-size: 1.1em;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    
+    .perform-btn {
+        transition: none;
+    }
+}

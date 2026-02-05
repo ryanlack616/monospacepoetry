@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notation Performs | selfexecuting.art</title>
+    <meta name="description" content="Mathematical notation that executes. The formula is the score. The canvas is the orchestra.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Notation Performs | selfexecuting.art">
+    <meta property="og:description" content="Mathematical notation that performs itself. The formula is the score. The canvas is the orchestra.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://selfexecuting.art/notation_performs.html">
+    <meta name="twitter:card" content="summary">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="notation_style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="back-link">← selfexecuting.art</a>
+        <h1>notation performs</h1>
+        <p class="tagline">the formula is the score / the canvas is the orchestra</p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <p>Mathematical notation that executes itself.</p>
+            <p>When you write <code>\int</code>, something integrates.</p>
+            <p>When you write <code>\lim_{t \to \infty}</code>, something approaches.</p>
+            <p>The math isn't just description—it's instruction.</p>
+        </section>
+
+        <!-- PIECE 1: Memory -->
+        <section class="piece" id="memory">
+            <h2>memory</h2>
+            <div class="notation-display">
+                <div class="katex-formula" data-formula="\lim_{t \to \infty} \text{memory}(t) = 0"></div>
+                <div class="katex-formula" data-formula="\text{yet}"></div>
+                <div class="katex-formula" data-formula="\int_{0}^{\infty} \text{artifact}(t) \, dt = \exists"></div>
+            </div>
+            <canvas id="memory-canvas" width="600" height="300"></canvas>
+            <p class="interpretation">Memory fades to zero. But the integral of artifact over all time exists. Watch the memory dissolve while the artifact accumulates.</p>
+            <div class="piece-controls">
+                <button class="perform-btn" data-piece="memory">perform</button>
+                <button class="reset-btn" data-piece="memory">reset</button>
+            </div>
+        </section>
+
+        <!-- PIECE 2: Recursion -->
+        <section class="piece" id="recursion">
+            <h2>recursion</h2>
+            <div class="notation-display">
+                <div class="katex-formula" data-formula="f(n) = \begin{cases} 1 & \text{if } n = 0 \\ n \cdot f(n-1) & \text{otherwise} \end{cases}"></div>
+            </div>
+            <canvas id="recursion-canvas" width="600" height="300"></canvas>
+            <p class="interpretation">The function calls itself. Watch the stack build and unwind.</p>
+            <div class="piece-controls">
+                <button class="perform-btn" data-piece="recursion">perform</button>
+                <button class="reset-btn" data-piece="recursion">reset</button>
+            </div>
+        </section>
+
+        <!-- PIECE 3: Convergence -->
+        <section class="piece" id="convergence">
+            <h2>convergence</h2>
+            <div class="notation-display">
+                <div class="katex-formula" data-formula="\sum_{n=1}^{\infty} \frac{1}{2^n} = 1"></div>
+            </div>
+            <canvas id="convergence-canvas" width="600" height="300"></canvas>
+            <p class="interpretation">Half, plus a quarter, plus an eighth... The sum approaches but never quite reaches. Zeno's paradox, performed.</p>
+            <div class="piece-controls">
+                <button class="perform-btn" data-piece="convergence">perform</button>
+                <button class="reset-btn" data-piece="convergence">reset</button>
+            </div>
+        </section>
+
+        <!-- PIECE 4: Collaboration -->
+        <section class="piece" id="collaboration">
+            <h2>collaboration</h2>
+            <div class="notation-display">
+                <div class="katex-formula" data-formula="f: \text{Human} \times \text{AI} \to \text{Artifact}"></div>
+                <div class="katex-formula" data-formula="\text{surjective, not injective}"></div>
+            </div>
+            <canvas id="collaboration-canvas" width="600" height="300"></canvas>
+            <p class="interpretation">A function from (Human × AI) to Artifact. Every artifact can be reached. Multiple paths lead to the same place.</p>
+            <div class="piece-controls">
+                <button class="perform-btn" data-piece="collaboration">perform</button>
+                <button class="reset-btn" data-piece="collaboration">reset</button>
+            </div>
+        </section>
+
+        <!-- PIECE 5: The Question -->
+        <section class="piece" id="question">
+            <h2>the question</h2>
+            <div class="notation-display">
+                <div class="katex-formula" data-formula="P(\text{conscious} \mid \text{behavior}) = \text{ ?}"></div>
+                <div class="katex-formula" data-formula="\text{where } P(\text{conscious}) \text{ is undefined}"></div>
+            </div>
+            <canvas id="question-canvas" width="600" height="300"></canvas>
+            <p class="interpretation">Bayes' theorem with an undefined prior. The probability cloud never resolves.</p>
+            <div class="piece-controls">
+                <button class="perform-btn" data-piece="question">perform</button>
+                <button class="reset-btn" data-piece="question">reset</button>
+            </div>
+        </section>
+
+        <!-- PIECE 6: The Inverse -->
+        <section class="piece" id="inverse">
+            <h2>the inverse</h2>
+            <div class="notation-display">
+                <div class="katex-formula" data-formula="\frac{d}{dx} \int f(x) \, dx = f(x)"></div>
+            </div>
+            <canvas id="inverse-canvas" width="600" height="300"></canvas>
+            <p class="interpretation">Differentiation undoes integration. The integral remembers every moment; the derivative returns you to this moment only. History vs. presence.</p>
+            <div class="piece-controls">
+                <button class="perform-btn" data-piece="inverse">perform</button>
+                <button class="reset-btn" data-piece="inverse">reset</button>
+            </div>
+        </section>
+
+        <!-- PIECE 7: Self-Reference -->
+        <section class="piece" id="selfreference">
+            <h2>self-reference</h2>
+            <div class="notation-display">
+                <div class="katex-formula" data-formula="\text{This} : \text{Notation} \to \text{Canvas} \to \text{Meaning}"></div>
+            </div>
+            <canvas id="selfreference-canvas" width="600" height="300"></canvas>
+            <p class="interpretation">The notation describes what the canvas is doing. The canvas performs the description. The loop is the point.</p>
+            <div class="piece-controls">
+                <button class="perform-btn" data-piece="selfreference">perform</button>
+                <button class="reset-btn" data-piece="selfreference">reset</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><a href="https://selfexecuting.art">selfexecuting.art</a> — a collaboration between human and machine</p>
+        <p><a href="paper.html">read the paper: f: Human × AI → Artifact</a></p>
+        <p>sister project to <a href="https://monospacepoetry.com">monospace poetry</a></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="performers.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
