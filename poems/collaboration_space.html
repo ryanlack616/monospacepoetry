@@ -283,16 +283,18 @@
         }
         
         .slider-group label {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             color: #888899;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
         }
         
         .slider-group label.human { color: #ff6699; }
         .slider-group label.ai { color: #6699ff; }
         .slider-group label.artifact { color: #66ff99; }
         .slider-group label.fiber { color: #ffcc66; }
+        .slider-group label.entropy { color: #cc99ff; }
+        .slider-group label.surjective { color: #99ffcc; }
         
         .slider-group input[type="range"] {
             width: 60px;
@@ -398,42 +400,57 @@
     
     <div class="mapping-sliders">
         <div class="mapping-section">
-            <span class="slider-section-label">INTENSITY</span>
+            <span class="slider-section-label">α</span>
             <div class="sliders-row">
                 <div class="slider-group">
-                    <label class="human">Human</label>
+                    <label class="human">α(H)</label>
                     <input type="range" id="slider-human" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="val-human">100%</span>
+                    <span class="slider-value" id="val-human">1.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="ai">AI</label>
+                    <label class="ai">α(A)</label>
                     <input type="range" id="slider-ai" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="val-ai">100%</span>
+                    <span class="slider-value" id="val-ai">1.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="artifact">Artifact</label>
+                    <label class="artifact">α(𝒜)</label>
                     <input type="range" id="slider-artifact" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="val-artifact">100%</span>
+                    <span class="slider-value" id="val-artifact">1.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="fiber">Fiber</label>
+                    <label class="fiber">α(Γ)</label>
                     <input type="range" id="slider-fiber" min="0" max="100" value="100" orient="vertical">
-                    <span class="slider-value" id="val-fiber">100%</span>
+                    <span class="slider-value" id="val-fiber">1.0</span>
                 </div>
             </div>
         </div>
         <div class="mapping-section">
-            <span class="slider-section-label">COUNT</span>
+            <span class="slider-section-label">| |</span>
             <div class="sliders-row">
                 <div class="slider-group">
-                    <label class="human">Human</label>
+                    <label class="human">|H|</label>
                     <input type="range" id="count-human" min="1" max="30" value="12" orient="vertical">
                     <span class="slider-value" id="count-val-human">12</span>
                 </div>
                 <div class="slider-group">
-                    <label class="ai">AI</label>
+                    <label class="ai">|A|</label>
                     <input type="range" id="count-ai" min="1" max="30" value="12" orient="vertical">
                     <span class="slider-value" id="count-val-ai">12</span>
+                </div>
+            </div>
+        </div>
+        <div class="mapping-section">
+            <span class="slider-section-label">ε</span>
+            <div class="sliders-row">
+                <div class="slider-group">
+                    <label class="entropy">S</label>
+                    <input type="range" id="slider-entropy" min="0" max="100" value="30" orient="vertical">
+                    <span class="slider-value" id="val-entropy">0.3</span>
+                </div>
+                <div class="slider-group">
+                    <label class="surjective">∀𝒜∃Γ</label>
+                    <input type="range" id="slider-surjective" min="0" max="100" value="50" orient="vertical">
+                    <span class="slider-value" id="val-surjective">0.5</span>
                 </div>
             </div>
         </div>
@@ -1045,8 +1062,39 @@
             
             slider.addEventListener('input', function() {
                 const val = parseInt(this.value);
-                display.textContent = `${val}%`;
+                display.textContent = (val / 100).toFixed(1);
                 updateMappingSlider(type, val);
+            });
+        });
+        
+        // ============ ENTROPY & SURJECTIVE SLIDERS ============
+        let entropyValue = 0.3;
+        let surjectiveValue = 0.5;
+        
+        document.getElementById('slider-entropy').addEventListener('input', function() {
+            const val = parseInt(this.value);
+            entropyValue = val / 100;
+            document.getElementById('val-entropy').textContent = entropyValue.toFixed(1);
+            
+            // Entropy affects point movement chaos
+            humanPoints.forEach(p => {
+                p.userData.entropy = entropyValue;
+            });
+            aiPoints.forEach(p => {
+                p.userData.entropy = entropyValue;
+            });
+        });
+        
+        document.getElementById('slider-surjective').addEventListener('input', function() {
+            const val = parseInt(this.value);
+            surjectiveValue = val / 100;
+            document.getElementById('val-surjective').textContent = surjectiveValue.toFixed(1);
+            
+            // Surjective: higher = more fibers visible to potential artifacts
+            artifacts.forEach(a => {
+                if (a.userData.name && a.userData.name.startsWith('Potential')) {
+                    a.material.opacity = 0.1 + surjectiveValue * 0.5;
+                }
             });
         });
         
@@ -1101,10 +1149,27 @@
             });
         });
         
+        // Add entropy-based movement to animation loop
+        function applyEntropyMovement() {
+            humanPoints.forEach(p => {
+                const e = p.userData.entropy || entropyValue;
+                p.position.x += (Math.random() - 0.5) * e * 0.1;
+                p.position.z += (Math.random() - 0.5) * e * 0.1;
+            });
+            aiPoints.forEach(p => {
+                const e = p.userData.entropy || entropyValue;
+                p.position.x += (Math.random() - 0.5) * e * 0.1;
+                p.position.z += (Math.random() - 0.5) * e * 0.1;
+            });
+        }
+        
         // ============ ANIMATION ============
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
+            
+            // Apply entropy-based movement
+            applyEntropyMovement();
             
             const time = Date.now() * 0.001;
             const collabArtifact = artifacts.find(a => a.userData.name === 'Collaboration');
