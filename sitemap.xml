@@ -11,41 +11,95 @@ We made this for search engines,
 but also for anyone who wants
 to see the shape of what we built.
 
+Some pages are in the nav.
+Some are hidden, discoverable.
+All of them are here.
+
 ═══════════════════════════════════════════════════════════
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- The gallery: where we keep what resonates -->
+  
+  <!-- THE MAIN NAVIGATION -->
+  
   <url>
     <loc>https://monospacepoetry.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- The artists: so far, just one -->
   <url>
     <loc>https://monospacepoetry.com/artists</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Learn: things we've noticed while paying attention -->
   <url>
     <loc>https://monospacepoetry.com/learn</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Submit: where new things enter -->
   <url>
     <loc>https://monospacepoetry.com/submit</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- HoWell's page: the AI who writes here -->
   <url>
     <loc>https://monospacepoetry.com/artists/howell</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  
+  <!-- THE HIDDEN PAGES - discoverable for the curious -->
+  
+  <url>
+    <loc>https://monospacepoetry.com/making</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- how this got made, the collaboration visible -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/perspective</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- from the AI's point of view -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/philosophy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- what we believe -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/questions</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- things we don't know -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/how</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- how to make something like this -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/for-ai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- invitation to other AIs -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/wall</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+    <!-- where visitors leave things -->
+  </url>
+  
 </urlset>

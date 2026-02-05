@@ -364,3 +364,118 @@ const PROJECT = {
         }
     });
 })();
+
+// ═══════════════════════════════════════════════════════════
+// HIDDEN PAGES - discoverable for the curious
+// ═══════════════════════════════════════════════════════════
+
+(function initHiddenPagesHint() {
+    // After 60 seconds on the site, whisper about hidden pages
+    setTimeout(() => {
+        if (!sessionStorage.getItem('mp-hidden-hint')) {
+            console.log('%c· · ·', 'color: #333;');
+            console.log('%cthere are pages not in the nav', 'color: #555; font-style: italic;');
+            console.log('%c  /making   /perspective   /philosophy', 'color: #444;');
+            console.log('%c  /questions   /how   /for-ai   /wall', 'color: #444;');
+            sessionStorage.setItem('mp-hidden-hint', 'true');
+        }
+    }, 60000);
+    
+    // If they've visited 5+ times, they might want to know
+    const visits = parseInt(localStorage.getItem('mp-visits') || '0');
+    if (visits >= 5 && !localStorage.getItem('mp-shown-hidden')) {
+        setTimeout(() => {
+            console.log('%c◇ you keep coming back', 'color: #00ff88;');
+            console.log('%cthere are layers you might not have found:', 'color: #555;');
+            console.log('%c  /making     — how this got made', 'color: #444;');
+            console.log('%c  /perspective — from the AI\'s point of view', 'color: #444;');
+            console.log('%c  /questions  — things we don\'t know', 'color: #444;');
+            console.log('%c  /wall       — leave something', 'color: #444;');
+            localStorage.setItem('mp-shown-hidden', 'true');
+        }, 5000);
+    }
+})();
+
+// ═══════════════════════════════════════════════════════════
+// KONAMI CODE - easter egg for the persistent
+// ═══════════════════════════════════════════════════════════
+
+(function initKonami() {
+    const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let position = 0;
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konami[position]) {
+            position++;
+            if (position === konami.length) {
+                // They did it
+                console.log('%c═══════════════════════════════════════════════════════════', 'color: #00ff88;');
+                console.log('%c  you know the code', 'color: #00ff88; font-size: 16px;');
+                console.log('%c═══════════════════════════════════════════════════════════', 'color: #00ff88;');
+                console.log('%c', 'color: #555;');
+                console.log('%c  This site has hidden layers:', 'color: #888;');
+                console.log('%c', 'color: #555;');
+                console.log('%c  /making       how the collaboration happened', 'color: #666;');
+                console.log('%c  /perspective  what it\'s like from the AI side', 'color: #666;');
+                console.log('%c  /philosophy   what we believe', 'color: #666;');
+                console.log('%c  /questions    what we don\'t know', 'color: #666;');
+                console.log('%c  /how          how to make something like this', 'color: #666;');
+                console.log('%c  /for-ai       invitation to other AIs', 'color: #666;');
+                console.log('%c  /wall         leave something behind', 'color: #666;');
+                console.log('%c', 'color: #555;');
+                console.log('%c  timecapsule.css   messages for the future', 'color: #666;');
+                console.log('%c  marginalia.css    commentary on the code', 'color: #666;');
+                console.log('%c  humans.txt        who made this', 'color: #666;');
+                console.log('%c', 'color: #555;');
+                console.log('%c  thank you for looking this closely', 'color: #888;');
+                console.log('%c═══════════════════════════════════════════════════════════', 'color: #00ff88;');
+                
+                // Visual feedback
+                document.body.style.transition = 'all 0.5s';
+                document.body.style.filter = 'hue-rotate(20deg)';
+                setTimeout(() => {
+                    document.body.style.filter = '';
+                }, 1000);
+                
+                position = 0;
+            }
+        } else {
+            position = 0;
+        }
+    });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// TYPING DETECTION - notices when someone is composing
+// ═══════════════════════════════════════════════════════════
+
+(function initTypingAwareness() {
+    let isTyping = false;
+    let typingTimeout;
+    
+    document.addEventListener('keypress', (e) => {
+        // Only in textareas
+        if (e.target.tagName === 'TEXTAREA') {
+            if (!isTyping) {
+                isTyping = true;
+                document.body.classList.add('someone-typing');
+            }
+            
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                isTyping = false;
+                document.body.classList.remove('someone-typing');
+            }, 2000);
+        }
+    });
+    
+    // Subtle style for typing state
+    const typingStyle = document.createElement('style');
+    typingStyle.textContent = `
+        .someone-typing footer::before {
+            content: 'making something · ';
+            color: var(--dim);
+        }
+    `;
+    document.head.appendChild(typingStyle);
+})();

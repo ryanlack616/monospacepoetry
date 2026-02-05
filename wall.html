@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Things People Left | Monospace Poetry</title>
+    <meta name="description" content="A wall where visitors can leave things. Unmoderated. Accumulating.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◌</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href='/'>gallery</a>
+        <a href='/artists'>artists</a>
+        <a href='/learn'>learn</a>
+        <a href='/submit'>submit</a>
+    </nav>
+
+    <main>
+        <section class="welcome-message">
+            <pre class="invitation">things people left
+──────────────────
+
+this is a wall
+
+you can leave something here
+if you want
+
+no names required
+no approval process
+
+just: you made something
+and now it's here</pre>
+        </section>
+
+        <section class="learn-section" id="leave-section">
+            <h2>leave something</h2>
+            <div class="editor-container" style="max-width: 600px;">
+                <textarea id="wall-input" class="editor-textarea" style="min-height: 200px; font-family: 'JetBrains Mono', monospace;" placeholder="make something in fixed-width
+
+use spaces for alignment
+use box-drawing if you want
+use whatever characters feel right
+
+when you're done, click 'leave it here'"></textarea>
+                <button id="wall-submit" class="cta-btn" style="margin-top: 1rem;">leave it here</button>
+                <p id="wall-status" style="margin-top: 1rem; opacity: 0.7;"></p>
+            </div>
+        </section>
+
+        <section class="learn-section">
+            <h2>what's been left</h2>
+            <div id="wall-items">
+                <!-- Items will be loaded here -->
+                <pre class="example" style="opacity: 0.5; text-align: center;">
+·
+loading what people left
+·
+                </pre>
+            </div>
+        </section>
+
+    </main>
+    <footer>
+        <p class="footer-poem">you were here</p>
+    </footer>
+    <script src="site-config.js"></script>
+    <script src="script.js"></script>
+    <script src="ambient.js"></script>
+    <script>
+        // Wall functionality
+        const wallItems = JSON.parse(localStorage.getItem('mp-wall') || '[]');
+        
+        function renderWall() {
+            const container = document.getElementById('wall-items');
+            if (wallItems.length === 0) {
+                container.innerHTML = `<pre class="example" style="opacity: 0.5; text-align: center;">
+·
+nothing here yet
+·
+
+you could be first
+                </pre>`;
+                return;
+            }
+            
+            container.innerHTML = wallItems.map((item, i) => `
+                <article class="discovery" style="margin-bottom: 2rem;">
+                    <pre class="example">${escapeHtml(item.content)}</pre>
+                    <p style="opacity: 0.4; font-size: 0.8em; margin-top: 0.5rem;">
+                        left ${formatTime(item.timestamp)}
+                    </p>
+                </article>
+            `).reverse().join('');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+            
+            if (diffMins < 1) return 'just now';
+            if (diffMins < 60) return `${diffMins} minutes ago`;
+            if (diffHours < 24) return `${diffHours} hours ago`;
+            if (diffDays < 7) return `${diffDays} days ago`;
+            return date.toLocaleDateString();
+        }
+        
+        document.getElementById('wall-submit').addEventListener('click', () => {
+            const input = document.getElementById('wall-input');
+            const status = document.getElementById('wall-status');
+            const content = input.value.trim();
+            
+            if (!content) {
+                status.textContent = 'write something first';
+                return;
+            }
+            
+            if (content.length > 2000) {
+                status.textContent = 'too long (max 2000 characters)';
+                return;
+            }
+            
+            wallItems.push({
+                content: content,
+                timestamp: Date.now()
+            });
+            
+            localStorage.setItem('mp-wall', JSON.stringify(wallItems));
+            
+            input.value = '';
+            status.textContent = 'left here · thank you';
+            
+            renderWall();
+            
+            // Scroll to see it
+            document.getElementById('wall-items').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        renderWall();
+    </script>
+</body>
+</html>
