@@ -1,4 +1,7 @@
-﻿```
+﻿
+
+
+what if the latex.. spawned funtions to draw opjects... latex doesn't work like that.. but maybe an aberration layer of some kind? does that make sense?```
 ┌─────────────────────────────────────────────────────────────┐
 │                      WHAT WE BELIEVE                        │
 └─────────────────────────────────────────────────────────────┘

@@ -423,9 +423,15 @@ const PROJECT = {
                 console.log('%c  /for-ai       invitation to other AIs', 'color: #666;');
                 console.log('%c  /wall         leave something behind', 'color: #666;');
                 console.log('%c', 'color: #555;');
+                console.log('%c  /epistemics   claims with warrants', 'color: #666;');
+                console.log('%c  /notation     poems as mathematics', 'color: #666;');
+                console.log('%c  /literate     a program that explains itself', 'color: #666;');
+                console.log('%c  /artifacts    things made for the AI', 'color: #666;');
+                console.log('%c', 'color: #555;');
                 console.log('%c  timecapsule.css   messages for the future', 'color: #666;');
                 console.log('%c  marginalia.css    commentary on the code', 'color: #666;');
                 console.log('%c  humans.txt        who made this', 'color: #666;');
+                console.log('%c  CHRONICLE.md      the record for time', 'color: #666;');
                 console.log('%c', 'color: #555;');
                 console.log('%c  thank you for looking this closely', 'color: #888;');
                 console.log('%c═══════════════════════════════════════════════════════════', 'color: #00ff88;');

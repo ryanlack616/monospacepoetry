@@ -102,4 +102,32 @@ All of them are here.
     <!-- where visitors leave things -->
   </url>
   
+  <url>
+    <loc>https://monospacepoetry.com/epistemics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- claims with warrants, what we can verify -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/notation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- poems as mathematics, for Knuth -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/literate</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- a program that explains itself -->
+  </url>
+  
+  <url>
+    <loc>https://monospacepoetry.com/artifacts</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <!-- things made FOR the AI, gifts -->
+  </url>
+  
 </urlset>
