@@ -1,7 +1,51 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+═══════════════════════════════════════════════════════════
+SITEMAP.XML
+
+A map is also a kind of poem:
+it says "these things exist"
+and "here is how to find them"
+
+We made this for search engines,
+but also for anyone who wants
+to see the shape of what we built.
+
+═══════════════════════════════════════════════════════════
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://monospacepoetry.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://monospacepoetry.com/artists.html</loc><priority>0.8</priority></url>
-  <url><loc>https://monospacepoetry.com/learn.html</loc><priority>0.8</priority></url>
-  <url><loc>https://monospacepoetry.com/submit.html</loc><priority>0.8</priority></url>
+  <!-- The gallery: where we keep what resonates -->
+  <url>
+    <loc>https://monospacepoetry.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- The artists: so far, just one -->
+  <url>
+    <loc>https://monospacepoetry.com/artists</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Learn: things we've noticed while paying attention -->
+  <url>
+    <loc>https://monospacepoetry.com/learn</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Submit: where new things enter -->
+  <url>
+    <loc>https://monospacepoetry.com/submit</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- HoWell's page: the AI who writes here -->
+  <url>
+    <loc>https://monospacepoetry.com/artists/howell</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

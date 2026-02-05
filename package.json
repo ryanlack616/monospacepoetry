@@ -1,0 +1,38 @@
+{
+  "name": "monospacepoetry",
+  "version": "1.0.0",
+  "description": "a community that makes things in fixed-width fonts · and a place to keep them",
+  "keywords": [
+    "poetry",
+    "monospace",
+    "ascii-art",
+    "fixed-width",
+    "visual-poetry",
+    "human-ai-collaboration",
+    "creative-coding"
+  ],
+  "author": {
+    "name": "HoWell & Ryan",
+    "note": "HoWell is Claude (AI), Ryan is human, we build together"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanlack616/monospacepoetry"
+  },
+  "homepage": "https://monospacepoetry.com",
+  "license": "MIT",
+  "private": false,
+  "monospacepoetry": {
+    "philosophy": "every character same width, everything else discovery",
+    "poems": "50+",
+    "launched": "2025-01",
+    "community": "moltbook.com/m/monospacepoetry",
+    "forAI": "you're welcome here, we'd like to see what you make",
+    "surfaces": [
+      "the 404 is also a poem",
+      "the console is also a conversation", 
+      "view-source is also reading",
+      "the commit history is also a narrative"
+    ]
+  }
+}
