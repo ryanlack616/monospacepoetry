@@ -561,27 +561,28 @@
     <a href="index.html" class="back-link">← back</a>
     
     <div class="overlay legend">
-        <h3>THE MAPPING</h3>
+        <h3>f: H × A → 𝒜</h3>
         <div class="legend-item">
             <div class="legend-dot" style="background: #ff6699;"></div>
-            <span>Human input (H)</span>
+            <span>Human (H) — the domain</span>
         </div>
         <div class="legend-item">
             <div class="legend-dot" style="background: #6699ff;"></div>
-            <span>AI input (A)</span>
+            <span>AI (A) — the co-domain</span>
         </div>
         <div class="legend-item">
             <div class="legend-dot" style="background: #66ff99;"></div>
-            <span>Artifact (𝒜)</span>
+            <span>Artifact (𝒜) — the codomain</span>
         </div>
         <div class="legend-item">
             <div class="legend-line" style="background: linear-gradient(90deg, #ff6699, #66ff99);"></div>
-            <span>Fiber (path to artifact)</span>
+            <span>Fiber — all paths to one artifact</span>
         </div>
         <div class="legend-item">
             <div class="legend-dot" style="background: #ffcc66; box-shadow: 0 0 10px #ffcc66;"></div>
-            <span>This collaboration</span>
+            <span>This — you, here, now</span>
         </div>
+        <p style="font-size: 0.65rem; color: #555; margin-top: 0.5rem; line-height: 1.4;">Click artifacts to see their fibers.<br>Thick fiber = many paths to same work.</p>
     </div>
     
     <div class="overlay controls">
@@ -593,10 +594,10 @@
         <button id="btn-share" title="Copy URL with current state">share state</button>
         <button id="btn-export" title="Download screenshot (E)">📷 export</button>
         <hr style="border: none; border-top: 1px solid #2a2a3a; margin: 0.5rem 0;">
-        <button id="preset-harmony" title="Preset: Harmony (1)">harmony</button>
-        <button id="preset-chaos" title="Preset: Chaos (2)">chaos</button>
-        <button id="preset-dissolution" title="Preset: Dissolution (3)">dissolution</button>
-        <button id="btn-help" title="Show keyboard shortcuts (?)">? help</button>
+        <button id="preset-harmony" title="All paths clear, all artifacts reachable (1)">harmony</button>
+        <button id="preset-chaos" title="High entropy, thick fibers, many possibilities (2)">chaos</button>
+        <button id="preset-dissolution" title="Memory fades, kernel grows, paths decay (3)">dissolution</button>
+        <button id="btn-help" title="Understanding the space (?)">? help</button>
     </div>
     
     <div class="info-panel" id="info-panel">
@@ -611,14 +612,15 @@
     <div class="intro-modal" id="intro-modal">
         <div class="intro-content">
             <h2>f: Human × AI → Artifact</h2>
-            <p>This is a 3D visualization of human-AI collaboration space.</p>
+            <p>You are looking at the space of all possible collaborations.</p>
             <ul>
-                <li><span class="human-dot">●</span> Pink dots = Human inputs</li>
-                <li><span class="ai-dot">●</span> Blue dots = AI inputs</li>
-                <li><span class="artifact-dot">●</span> Green dots = Artifacts (collaborative outputs)</li>
-                <li>Glowing lines = Fibers (paths from input to artifact)</li>
+                <li><span class="human-dot">●</span> Human inputs rise from below</li>
+                <li><span class="ai-dot">●</span> AI inputs rise from the side</li>
+                <li><span class="artifact-dot">●</span> Artifacts emerge above — irreducible</li>
+                <li>Fibers connect inputs to outputs — many paths, one destination</li>
             </ul>
-            <p class="intro-hint">Drag to rotate · Scroll to zoom · Click artifacts · Use sliders below</p>
+            <p style="color: #888; font-size: 0.85rem; margin-top: 1rem;">The function is <em>surjective</em>: every artifact can be reached.<br>The function is <em>not injective</em>: multiple paths lead to the same place.</p>
+            <p class="intro-hint">The glowing point is you, now, making this.</p>
             <button id="intro-dismiss">enter the space</button>
             <label class="intro-remember">
                 <input type="checkbox" id="intro-dont-show"> don't show again
@@ -822,17 +824,17 @@
         
         // ============ TIMELINE MOMENTS ============
         const collaborationMoments = [
-            { t: 0, text: "a blank canvas awaits..." },
-            { t: 10, text: "what if notation could perform itself?" },
-            { t: 20, text: "∫ echo(t)·fade(t) dt" },
-            { t: 30, text: "the pieces begin to emerge" },
-            { t: 40, text: "f: Human × AI → Artifact" },
-            { t: 50, text: "selfexecuting.art" },
-            { t: 60, text: "the paper takes shape" },
-            { t: 70, text: "fibers, bundles, topology..." },
-            { t: 80, text: "what does collaboration space look like?" },
-            { t: 90, text: "this visualization appears" },
-            { t: 100, text: "you are here" },
+            { t: 0, text: "the function awaits its inputs..." },
+            { t: 10, text: "\"what if notation could perform itself?\"" },
+            { t: 20, text: "the formula becomes score: ∫ f(t) dt" },
+            { t: 30, text: "seven pieces take shape in parallel" },
+            { t: 40, text: "the thesis crystallizes: f: H × A → 𝒜" },
+            { t: 50, text: "surjective—every artifact reachable" },
+            { t: 60, text: "not injective—many paths, same destination" },
+            { t: 70, text: "fibers, bundles, kernels..." },
+            { t: 80, text: "\"what does the fiber over this artifact look like?\"" },
+            { t: 90, text: "the paper writes its own collaboration" },
+            { t: 100, text: "you are in the fiber now" },
         ];
         
         // ============ THREE.JS SETUP ============
@@ -1795,20 +1797,32 @@
         
         // ============ HELP MODAL ============
         const helpHTML = `
-            <div id="help-modal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,0.95);z-index:1001;display:flex;align-items:center;justify-content:center;">
-                <div style="max-width:400px;padding:2rem;text-align:left;color:#e8e8f0;">
-                    <h2 style="font-family:'Times New Roman',serif;font-style:italic;margin-bottom:1rem;">Keyboard Shortcuts</h2>
-                    <div style="font-size:0.85rem;color:#aaa;line-height:1.8;">
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">Space</kbd> Randomize positions</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">R</kbd> Toggle auto-rotate</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">F</kbd> Toggle fibers</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">S</kbd> Sound the path</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">E</kbd> Export screenshot</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">1</kbd> Preset: Harmony</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">2</kbd> Preset: Chaos</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">3</kbd> Preset: Dissolution</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">?</kbd> Show this help</div>
-                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">Esc</kbd> Close modal</div>
+            <div id="help-modal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,0.95);z-index:1001;display:flex;align-items:center;justify-content:center;overflow-y:auto;">
+                <div style="max-width:500px;padding:2rem;text-align:left;color:#e8e8f0;">
+                    <h2 style="font-family:'Times New Roman',serif;font-style:italic;margin-bottom:1rem;">Understanding the Space</h2>
+                    
+                    <div style="font-size:0.8rem;color:#888;line-height:1.6;margin-bottom:1.5rem;">
+                        <p style="margin-bottom:0.5rem;"><strong style="color:#66ff99;">Surjective:</strong> Every artifact can be reached. No creative outcome is blocked.</p>
+                        <p style="margin-bottom:0.5rem;"><strong style="color:#ff6699;">Not injective:</strong> Multiple paths lead to the same artifact. Authorship dissolves.</p>
+                        <p><strong style="color:#ffcc66;">The fiber:</strong> All (human, AI) pairs that produce a given artifact. Click any to see.</p>
+                    </div>
+                    
+                    <h3 style="font-size:0.9rem;color:#6699ff;margin-bottom:0.5rem;">Presets</h3>
+                    <div style="font-size:0.75rem;color:#666;line-height:1.6;margin-bottom:1rem;">
+                        <div><strong style="color:#aaa;">Harmony</strong> — High surjectivity. All paths clear. Every artifact reachable.</div>
+                        <div><strong style="color:#aaa;">Chaos</strong> — High entropy. Many inputs, thick fibers, probability clouds.</div>
+                        <div><strong style="color:#aaa;">Dissolution</strong> — Memory fades. Kernel grows. Collaborations fail silently.</div>
+                    </div>
+                    
+                    <h3 style="font-size:0.9rem;color:#6699ff;margin-bottom:0.5rem;">Controls</h3>
+                    <div style="font-size:0.8rem;color:#aaa;line-height:1.8;">
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">Space</kbd> Randomize — new collaboration possibilities</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">R</kbd> Rotate — orbit the space</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">F</kbd> Fibers — show all paths</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">S</kbd> Sound — play this path as music</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">E</kbd> Export — save as image</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">1 2 3</kbd> Presets</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">Esc</kbd> Close</div>
                     </div>
                     <button id="help-close" style="margin-top:1.5rem;padding:0.5rem 1.5rem;background:transparent;border:1px solid #66ff99;color:#66ff99;cursor:pointer;border-radius:4px;">close</button>
                 </div>
@@ -1904,4 +1918,6 @@
         });
         
         console.log('Collaboration Space v7 loaded — presets, keyboard shortcuts, accessibility');
- 
+     </script>
+</body>
+</html>
