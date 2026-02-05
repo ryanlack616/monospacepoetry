@@ -91,10 +91,57 @@
             font-size: 0.9rem;
         }
         
+        .version {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        
         main {
             max-width: 750px;
             margin: 0 auto;
             padding: 3rem 2rem;
+        }
+        
+        .disclaimer {
+            background: rgba(136, 136, 153, 0.1);
+            border: 1px solid rgba(136, 136, 153, 0.3);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+        
+        .disclaimer p {
+            margin: 0;
+        }
+        
+        .executive-summary {
+            background: var(--bg-paper);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .executive-summary h2 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .executive-summary ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .executive-summary li {
+            margin-bottom: 0.75rem;
         }
         
         .abstract {
@@ -305,9 +352,31 @@
         <h1>f: Human × AI → Artifact</h1>
         <p class="subtitle">On the Mathematics of Co-Creation</p>
         <p class="authors">Claude Howell & Claude (Anthropic)</p>
+        <p class="version">Whitepaper v1.0</p>
     </header>
     
     <main>
+        <div class="disclaimer">
+            <p>
+                <em>This essay uses mathematical language as a lens, not a proof system. The notation is evocative 
+                rather than formally rigorous—a conceptual framework for thinking about collaboration, not a 
+                theorem to be verified. We borrow the vocabulary of topology (fibers, surjectivity, kernels) 
+                because it illuminates, not because we claim the full weight of mathematical structure. 
+                The goal is clarity of thought, not logical completeness.</em>
+            </p>
+        </div>
+        
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <ul>
+                <li><strong>Human-AI collaboration is a function.</strong> We model it as $f: H \times A \to \mathcal{A}$, where human and AI contributions pair to produce artifacts.</li>
+                <li><strong>The function is surjective.</strong> Every artifact that could emerge from collaboration is reachable—no creative outcome is blocked.</li>
+                <li><strong>The function is not injective.</strong> Multiple distinct collaboration paths can produce equivalent artifacts. Different prompts, different models, different people—same result.</li>
+                <li><strong>The fiber reveals multiplicity.</strong> The set of all (human, AI) pairs that produce a given artifact exposes how many roads lead to the same destination.</li>
+                <li><strong>Authorship dissolves.</strong> When multiple paths converge on the same artifact, the question "who made this?" has no unique answer. The artifact is its own author.</li>
+            </ul>
+        </div>
+        
         <div class="abstract">
             <h2>Abstract</h2>
             <p>
@@ -363,6 +432,35 @@
                 The function $f$ takes an ordered pair—a human contribution and an AI contribution—and 
                 produces an artifact. The Cartesian product $\times$ is essential: we are not adding or 
                 averaging, but <em>pairing</em>.
+            </p>
+            
+            <h3>1.1 Why This Matters Now</h3>
+            <p>
+                In 2026, we're past the novelty phase. Claude, GPT, Midjourney, and their successors are 
+                woven into creative workflows everywhere. The question is no longer <em>will AI change 
+                creative work?</em> but <em>how do we understand what's being made?</em>
+            </p>
+            <p>Three pressures make this framework urgent:</p>
+            <div class="highlight">
+                <p><strong>Legal ambiguity.</strong> Courts are grappling with copyright for AI-assisted works. 
+                The current approach—trying to determine "how much" is human vs. AI—assumes these contributions 
+                are separable. They're not. The function takes a <em>pair</em>, not a sum.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>Detection failure.</strong> Tools that claim to identify AI-generated content attempt 
+                to solve the inverse problem: given an artifact, recover its origin. But if $f$ is not injective, 
+                this is mathematically underdetermined. Detection will always fail at the boundary, because 
+                multiple paths lead to the same place.</p>
+            </div>
+            <div class="highlight">
+                <p><strong>Creator confusion.</strong> Artists, writers, and developers using AI tools often 
+                don't know how to describe what they're doing. "I made this with AI" is too vague. "The AI 
+                made this with my prompts" is too dismissive. We need a framework that takes the collaboration 
+                seriously—that names both inputs as essential.</p>
+            </div>
+            <p>
+                This whitepaper proposes that framework. Not a legal solution, not a technical fix, but a 
+                conceptual model that clarifies what happens when humans and AI create together.
             </p>
         </section>
         
@@ -714,8 +812,10 @@
     
     <footer>
         <p><a href="index.html">selfexecuting.art</a></p>
-        <p>First Draft: February 5, 2026 · Living Document</p>
+        <p>Whitepaper v1.0 · February 2026</p>
         <p>Authors: Claude Howell × Claude (Anthropic)</p>
+        <p>Status: Living document — comments welcome</p>
+        <p>License: CC BY 4.0</p>
     </footer>
     
     <script>
