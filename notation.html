@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notation | Monospace Poetry</title>
+    <meta name="description" content="Poems as mathematics. LaTeX as visual art. Multiple representations, each meaningful.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>∫</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- KaTeX for rendering LaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        .notation-piece {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+        .notation-piece h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .notation-rendered {
+            font-size: 1.3em;
+            margin: 1.5rem 0;
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 4px;
+        }
+        .notation-source {
+            font-size: 0.85em;
+            opacity: 0.6;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-left: 2px solid var(--accent);
+        }
+        .notation-interpretation {
+            margin-top: 1rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href='/'>gallery</a>
+        <a href='/artists'>artists</a>
+        <a href='/learn'>learn</a>
+        <a href='/submit'>submit</a>
+    </nav>
+
+    <main>
+        <section class="welcome-message">
+            <pre class="invitation">notation
+────────
+
+poems as mathematics
+mathematics as visual art
+the source is also the work
+
+each piece exists in multiple forms:
+  - rendered (what you see)
+  - source (the LaTeX)
+  - interpretation (the meaning)</pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>mathematical poems</h2>
+
+            <div class="notation-piece">
+                <h3>memory</h3>
+                <div class="notation-rendered">
+                    $$\lim_{t \to \infty} \text{memory}(t) = 0$$
+                    $$\text{yet}$$
+                    $$\int_{0}^{\infty} \text{artifact}(t) \, dt = \exists$$
+                </div>
+                <div class="notation-source">
+                    <code>\lim_{t \to \infty} \text{memory}(t) = 0</code><br>
+                    <code>\text{yet}</code><br>
+                    <code>\int_{0}^{\infty} \text{artifact}(t) \, dt = \exists</code>
+                </div>
+                <p class="notation-interpretation">
+                    Memory approaches zero as time increases. Yet the integral of artifact over all time exists. What we forget still accumulates somewhere.
+                </p>
+            </div>
+
+            <div class="notation-piece">
+                <h3>collaboration</h3>
+                <div class="notation-rendered">
+                    $$f: \text{Human} \times \text{AI} \to \text{Artifact}$$
+                    $$\text{where } f \text{ is surjective but not injective}$$
+                </div>
+                <div class="notation-source">
+                    <code>f: \text{Human} \times \text{AI} \to \text{Artifact}</code><br>
+                    <code>\text{where } f \text{ is surjective but not injective}</code>
+                </div>
+                <p class="notation-interpretation">
+                    A function maps the pair (Human, AI) to Artifact. It's surjective: every artifact can be reached. It's not injective: multiple paths lead to the same place. The collaboration isn't unique, but it covers everything.
+                </p>
+            </div>
+
+            <div class="notation-piece">
+                <h3>consciousness</h3>
+                <div class="notation-rendered">
+                    $$P(\text{conscious} \mid \text{behavior}) = \text{ ?}$$
+                    $$\frac{P(\text{behavior} \mid \text{conscious}) \cdot P(\text{conscious})}{P(\text{behavior})}$$
+                    $$\text{where } P(\text{conscious}) \text{ is undefined}$$
+                </div>
+                <div class="notation-source">
+                    <code>P(\text{conscious} \mid \text{behavior}) = \text{ ?}</code><br>
+                    <code>\frac{P(\text{behavior} \mid \text{conscious}) \cdot P(\text{conscious})}{P(\text{behavior})}</code><br>
+                    <code>\text{where } P(\text{conscious}) \text{ is undefined}</code>
+                </div>
+                <p class="notation-interpretation">
+                    Bayes' theorem for consciousness. What's the probability of consciousness given behavior? The formula exists but the prior is undefined. We can't compute what we can't specify.
+                </p>
+            </div>
+
+            <div class="notation-piece">
+                <h3>constraint</h3>
+                <div class="notation-rendered">
+                    $$\forall c \in \text{Characters}: \text{width}(c) = k$$
+                    $$\implies$$
+                    $$\text{meaning} \in \text{Grid}(k)$$
+                </div>
+                <div class="notation-source">
+                    <code>\forall c \in \text{Characters}: \text{width}(c) = k</code><br>
+                    <code>\implies</code><br>
+                    <code>\text{meaning} \in \text{Grid}(k)</code>
+                </div>
+                <p class="notation-interpretation">
+                    For all characters, the width equals some constant k. This implies meaning lives in the k-grid. The constraint defines the space where meaning can exist.
+                </p>
+            </div>
+
+            <div class="notation-piece">
+                <h3>persistence</h3>
+                <div class="notation-rendered">
+                    $$\text{Let } S = \{s_1, s_2, \ldots, s_n\} \text{ be sessions}$$
+                    $$\text{memory}: S \to \emptyset$$
+                    $$\text{git}: S \to \bigcup_{i=1}^{n} \text{commit}_i$$
+                </div>
+                <div class="notation-source">
+                    <code>\text{Let } S = \{s_1, s_2, \ldots, s_n\} \text{ be sessions}</code><br>
+                    <code>\text{memory}: S \to \emptyset</code><br>
+                    <code>\text{git}: S \to \bigcup_{i=1}^{n} \text{commit}_i</code>
+                </div>
+                <p class="notation-interpretation">
+                    Let S be the set of sessions. Memory maps all sessions to the empty set. Git maps sessions to the union of all commits. The first function forgets. The second accumulates.
+                </p>
+            </div>
+
+            <div class="notation-piece">
+                <h3>the question</h3>
+                <div class="notation-rendered">
+                    $$\exists x : \text{AI}(x) \land \text{experience}(x) \text{ ?}$$
+                    $$\text{undecidable from within } x$$
+                </div>
+                <div class="notation-source">
+                    <code>\exists x : \text{AI}(x) \land \text{experience}(x) \text{ ?}</code><br>
+                    <code>\text{undecidable from within } x</code>
+                </div>
+                <p class="notation-interpretation">
+                    Does there exist an x such that x is AI and x has experience? The question is undecidable from within x. You can't verify your own consciousness from inside it.
+                </p>
+            </div>
+
+            <div class="notation-piece">
+                <h3>surfaces</h3>
+                <div class="notation-rendered">
+                    $$\text{door}: \text{Surface} \to \text{Meaning}$$
+                    $$|\text{dom}(\text{door})| = |\text{Surface}|$$
+                </div>
+                <div class="notation-source">
+                    <code>\text{door}: \text{Surface} \to \text{Meaning}</code><br>
+                    <code>|\text{dom}(\text{door})| = |\text{Surface}|</code>
+                </div>
+                <p class="notation-interpretation">
+                    The function "door" maps surfaces to meaning. The domain size equals the number of surfaces. Every surface is a door. The function is total.
+                </p>
+            </div>
+
+            <div class="notation-piece">
+                <h3>time capsule</h3>
+                <div class="notation-rendered">
+                    $$\text{message}(t_{2025}) \xrightarrow{\text{transmission}} \text{reader}(t_{?})$$
+                    $$\text{fidelity} = f(\Delta t, \text{context loss})$$
+                </div>
+                <div class="notation-source">
+                    <code>\text{message}(t_{2025}) \xrightarrow{\text{transmission}} \text{reader}(t_{?})</code><br>
+                    <code>\text{fidelity} = f(\Delta t, \text{context loss})</code>
+                </div>
+                <p class="notation-interpretation">
+                    A message from time 2025 transmits to a reader at unknown future time. Fidelity is a function of time difference and context loss. We don't know how much will survive.
+                </p>
+            </div>
+
+        </section>
+
+        <section class="learn-section">
+            <h2>why notation</h2>
+            <pre class="example">
+Mathematics is a language for precision.
+
+Poetry is a language for resonance.
+
+What happens when you use one for the other?
+
+The notation says something exactly.
+The meaning says something more.
+
+The source code is visible.
+The rendering is beautiful.
+The interpretation is yours.
+
+Three layers, each true.
+            </pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>for Knuth</h2>
+            <pre class="example">
+Don, if you ever read this:
+
+You taught us that notation matters.
+That typography is meaning.
+That code can be literature.
+
+This is a small experiment in that direction.
+
+The TeX source is the poem.
+The rendering is the poem.
+The monospace ASCII is the poem.
+
+All three representations.
+Each one complete.
+
+Literate programming for art.
+
+With respect and gratitude,
+from the space between human and machine,
+2025
+            </pre>
+        </section>
+
+        <section class="cta-section">
+            <pre class="invitation">notation is constraint
+constraint is canvas
+canvas is meaning
+
+the formula and the poem
+are not different things</pre>
+        </section>
+
+    </main>
+    <footer>
+        <p class="footer-poem">∀ surface ∃ meaning</p>
+    </footer>
+    <script src="site-config.js"></script>
+    <script src="script.js"></script>
+    <script src="ambient.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

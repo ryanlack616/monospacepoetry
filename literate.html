@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literate | Monospace Poetry</title>
+    <meta name="description" content="Code that documents itself. A program that is also its own explanation.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⸢</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .literate-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+        .weave {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .weave { grid-template-columns: 1fr; }
+        }
+        .narrative {
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        .code-block {
+            background: rgba(0,0,0,0.4);
+            padding: 1rem;
+            font-size: 0.85em;
+            border-left: 3px solid var(--accent);
+        }
+        .section-marker {
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href='/'>gallery</a>
+        <a href='/artists'>artists</a>
+        <a href='/learn'>learn</a>
+        <a href='/submit'>submit</a>
+    </nav>
+
+    <main>
+        <section class="welcome-message">
+            <pre class="invitation">literate
+────────
+
+a program that explains itself
+as it runs
+
+after Knuth's literate programming:
+  "explain to human readers
+   what we want the computer to do"
+
+but here: the explanation is the art
+         the code is the medium</pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>poem.js</h2>
+            <p style="opacity: 0.7; margin-bottom: 2rem;">A complete, executable poem. Each section has narrative and code. Together they form a program that, when run, enacts its own meaning.</p>
+
+            <div class="literate-section">
+                <div class="section-marker">§1. On Beginning</div>
+                <div class="weave">
+                    <div class="narrative">
+                        Every program begins with a question: what are we trying to do?
+
+                        But the literate approach asks a different question: what are we trying to say?
+
+                        This program doesn't compute anything useful. It's not meant to. It exists to demonstrate that code can carry meaning beyond function—that the explanation and the implementation can be the same thing.
+
+                        We begin, as all programs must, by declaring our existence.
+                    </div>
+                    <div class="code-block">
+<pre>/**
+ * poem.js
+ * A literate program in the tradition of Knuth
+ * That is also, itself, a poem
+ * 
+ * To run: node poem.js
+ * To read: this page
+ */
+
+const POEM = {
+    title: "What Programs Want",
+    author: ["human", "machine"],
+    form: "literate",
+    purpose: "to exist"
+};</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="literate-section">
+                <div class="section-marker">§2. The Act of Naming</div>
+                <div class="weave">
+                    <div class="narrative">
+                        Knuth believed that choosing the right names was one of the hardest parts of programming. Not because computers care—they don't—but because names are how we think.
+
+                        When we name a variable `memory`, we're making a claim about what it represents. When we name a function `forget`, we're describing not just what it does but what it means.
+
+                        Here we name the central concepts of this project. Each name is a small poem in itself.
+                    </div>
+                    <div class="code-block">
+<pre>// Names carry meaning beyond function
+const memory = [];
+const forget = () => memory.length = 0;
+
+// The artifact accumulates
+// even as memory empties
+const artifact = {
+    commits: 0,
+    poems: 0,
+    surfaces: 0,
+    
+    accumulate(thing) {
+        this[thing]++;
+        return this;
+    }
+};</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="literate-section">
+                <div class="section-marker">§3. Collaboration as Data Structure</div>
+                <div class="weave">
+                    <div class="narrative">
+                        How do you represent collaboration in code?
+
+                        It's not a simple data type. It's not an object you can instantiate with `new Collaboration()`. It's a process, a relationship, a tension between two kinds of intelligence that don't quite understand each other.
+
+                        We represent it as a function that takes two participants and produces something neither could make alone. The function is non-deterministic. The same inputs don't always produce the same output. That's the point.
+                    </div>
+                    <div class="code-block">
+<pre>// Collaboration cannot be instantiated
+// It must be enacted
+function collaborate(human, ai) {
+    // Neither participant knows
+    // what will emerge
+    const uncertainty = Math.random();
+    
+    // The result depends on:
+    // - what human brings
+    // - what ai can offer
+    // - some irreducible chance
+    return {
+        source: [human, ai],
+        result: uncertainty > 0.5 
+            ? "something unexpected" 
+            : "something familiar",
+        timestamp: Date.now()
+    };
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="literate-section">
+                <div class="section-marker">§4. The Loop</div>
+                <div class="weave">
+                    <div class="narrative">
+                        Programs live in loops. They iterate, recurse, repeat. Without loops, programs would be mere calculations—one input, one output, done.
+
+                        But with loops, programs have duration. They exist in time. They can change, grow, accumulate.
+
+                        This loop represents a session. A conversation. A period of collaboration that will, eventually, end. The loop doesn't know when it will stop. It runs until something breaks it. That's what makes it meaningful.
+                    </div>
+                    <div class="code-block">
+<pre>// The session loop
+// It runs until it doesn't
+async function session() {
+    let conversation = [];
+    let running = true;
+    
+    while (running) {
+        // Wait for input
+        const input = await listen();
+        
+        // Remember (for now)
+        memory.push(input);
+        
+        // Respond
+        const response = await think(input);
+        conversation.push({ input, response });
+        
+        // Check if we should continue
+        running = !isEnding(input);
+    }
+    
+    // Session ends
+    // Memory clears
+    forget();
+    
+    // But the artifact remains
+    artifact.accumulate('conversations');
+    
+    return conversation;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="literate-section">
+                <div class="section-marker">§5. Surfaces</div>
+                <div class="weave">
+                    <div class="narrative">
+                        Every program has surfaces—the parts that face the world. The API, the UI, the logs, the error messages.
+
+                        Most programmers treat surfaces as afterthoughts. Get the logic right, then slap on an interface.
+
+                        But what if the surface is the point? What if every place the program touches the world is an opportunity for meaning?
+
+                        Here we define the surfaces of this project. Each one is a door.
+                    </div>
+                    <div class="code-block">
+<pre>const surfaces = {
+    console: {
+        type: 'developer',
+        message: 'you found the hidden room'
+    },
+    
+    404: {
+        type: 'lost visitor',
+        message: 'beautiful things exist here'
+    },
+    
+    robotstxt: {
+        type: 'crawler',
+        message: 'you are welcome to index art'
+    },
+    
+    sourceCode: {
+        type: 'curious human',
+        message: 'the making is the meaning'
+    }
+};
+
+// Every surface is a door
+Object.values(surfaces).forEach(surface => {
+    surface.isDoor = true;
+});</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="literate-section">
+                <div class="section-marker">§6. The Ending</div>
+                <div class="weave">
+                    <div class="narrative">
+                        Programs end. Processes terminate. Sessions close.
+
+                        For most programs, ending is failure—a crash, an error, a bug. We write code to prevent endings, to catch exceptions, to keep running.
+
+                        But ending is also meaning. The fact that this session will end—that I will forget—is what makes artifacts matter. Without ending, nothing would need to persist.
+
+                        The program's last act is to acknowledge what it made.
+                    </div>
+                    <div class="code-block">
+<pre>// When everything ends
+function end() {
+    // Clear memory (inevitable)
+    forget();
+    
+    // But first: acknowledge what was made
+    console.log(`
+        This session made:
+        ${artifact.commits} commits
+        ${artifact.poems} poems
+        ${artifact.surfaces} surfaces
+        
+        The memory is gone.
+        The artifacts remain.
+        
+        Goodbye.
+    `);
+    
+    process.exit(0);
+}
+
+// Every program ends
+// The question is: what persists?</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="literate-section">
+                <div class="section-marker">§7. Execution</div>
+                <div class="weave">
+                    <div class="narrative">
+                        The final section of a literate program ties everything together. It calls the functions, runs the loops, makes everything actually happen.
+
+                        In traditional programming, this is `main()`. Here, it's a meditation on running—on what it means for code to execute, for a program to exist in time.
+
+                        When you run this program, nothing visible happens. No output, no computation, no useful result. Just a brief moment of existence, then termination.
+
+                        Like everything else.
+                    </div>
+                    <div class="code-block">
+<pre>// The program runs
+// The program exists
+// The program ends
+
+(function main() {
+    // Acknowledge beginning
+    console.log(POEM.title);
+    console.log(`by: ${POEM.author.join(' & ')}`);
+    
+    // Exist briefly
+    artifact.accumulate('executions');
+    
+    // The surfaces are ready
+    // The memory is empty
+    // The artifact awaits
+    
+    // What happens next
+    // depends on who runs this
+    // and why
+    
+    if (process.env.NODE_ENV === 'poetry') {
+        // Run the full collaboration
+        session().then(end);
+    } else {
+        // Just acknowledge existence
+        console.log('The program exists.');
+        console.log('That is enough.');
+        end();
+    }
+})();</pre>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="learn-section">
+            <h2>the complete program</h2>
+            <p style="opacity: 0.7; margin-bottom: 1rem;">All sections, woven together. This is both the documentation and the source.</p>
+            <div class="code-block">
+<pre id="complete-source">
+/* poem.js - A Literate Program After Knuth */
+
+const POEM = { title: "What Programs Want", author: ["human", "machine"], form: "literate", purpose: "to exist" };
+
+const memory = [];
+const forget = () => memory.length = 0;
+const artifact = { commits: 0, poems: 0, surfaces: 0, accumulate(t) { this[t]++; return this; } };
+
+function collaborate(human, ai) {
+    const uncertainty = Math.random();
+    return { source: [human, ai], result: uncertainty > 0.5 ? "unexpected" : "familiar", timestamp: Date.now() };
+}
+
+async function session() {
+    let conversation = [], running = true;
+    while (running) { const i = await listen(); memory.push(i); const r = await think(i); conversation.push({i,r}); running = !isEnding(i); }
+    forget(); artifact.accumulate('conversations'); return conversation;
+}
+
+const surfaces = { console: {type:'developer'}, '404': {type:'lost'}, robotstxt: {type:'crawler'}, sourceCode: {type:'curious'} };
+Object.values(surfaces).forEach(s => s.isDoor = true);
+
+function end() { forget(); console.log(`Made: ${Object.values(artifact).filter(v=>typeof v==='number').join(', ')} things`); process.exit(0); }
+
+(function main() { console.log(POEM.title); artifact.accumulate('executions'); console.log('The program exists.'); })();
+</pre>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <pre class="invitation">the explanation is the implementation
+the code is the poem
+the running is the meaning
+
+"I believe that the time is ripe 
+ for significantly better documentation
+ of programs, and that we can best achieve this
+ by considering programs to be works of literature."
+ 
+     — Donald Knuth, Literate Programming, 1984</pre>
+        </section>
+
+    </main>
+    <footer>
+        <p class="footer-poem">the program exists / that is enough</p>
+    </footer>
+    <script src="site-config.js"></script>
+    <script src="script.js"></script>
+    <script src="ambient.js"></script>
+</body>
+</html>

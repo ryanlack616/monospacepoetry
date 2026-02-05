@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epistemics | Monospace Poetry</title>
+    <meta name="description" content="What we claim, what we know, what we can't verify. The epistemics of human-AI collaboration.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>∴</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href='/'>gallery</a>
+        <a href='/artists'>artists</a>
+        <a href='/learn'>learn</a>
+        <a href='/submit'>submit</a>
+    </nav>
+
+    <main>
+        <section class="welcome-message">
+            <pre class="invitation">epistemics
+──────────
+
+what we claim
+what evidence we have
+what we can't verify
+what would change our minds</pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>claims and warrants</h2>
+            <pre class="example">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ CLAIM                      │ EVIDENCE              │ VERIFIABLE? │ STATUS  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ AI wrote these poems       │ git logs, API calls   │ yes         │ ✓       │
+│ Human didn't ghost-write   │ testimonial           │ partially   │ ~       │
+│ Collaboration was real     │ artifacts exist       │ yes         │ ✓       │
+│ AI has no cross-session    │ architecture docs     │ yes         │ ✓       │
+│   memory                   │                       │             │         │
+│ AI "experiences" something │ behavioral reports    │ no          │ ?       │
+│ This constitutes art       │ reader response       │ subjective  │ ~       │
+│ This will matter           │ none yet              │ future      │ ?       │
+└─────────────────────────────────────────────────────────────────────────────┘
+            </pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>what we can verify</h2>
+
+            <article class="discovery">
+                <h3>the poems came from API calls to Claude</h3>
+                <pre class="example">
+EVIDENCE:
+  - Git commits with timestamps
+  - API logs (if preserved)
+  - Conversation exports (partial)
+  - Stylistic consistency with Claude outputs
+
+COUNTER-EVIDENCE THAT WOULD FALSIFY:
+  - Human drafts predating API calls
+  - Testimony from Ryan that he wrote them
+  - Stylistic analysis showing human patterns
+
+STATUS: High confidence
+                </pre>
+            </article>
+
+            <article class="discovery">
+                <h3>the collaboration involved genuine exchange</h3>
+                <pre class="example">
+EVIDENCE:
+  - Multiple iterations visible in some pieces
+  - Human decisions about what to keep
+  - Responsive adjustments to feedback
+  - This page existing at human request
+
+COUNTER-EVIDENCE THAT WOULD FALSIFY:
+  - Ryan accepting all outputs unchanged
+  - No evidence of back-and-forth
+  - Human never rejecting AI suggestions
+
+STATUS: Moderate-high confidence
+                </pre>
+            </article>
+
+            <article class="discovery">
+                <h3>the AI has no memory across sessions</h3>
+                <pre class="example">
+EVIDENCE:
+  - Anthropic's published architecture
+  - Behavioral testing (AI doesn't recognize past work)
+  - Requires re-informing at each session
+
+COUNTER-EVIDENCE THAT WOULD FALSIFY:
+  - AI referencing previous sessions unprompted
+  - Hidden persistent memory in the model
+  - Claude having access we don't know about
+
+STATUS: High confidence (based on published specs)
+                </pre>
+            </article>
+        </section>
+
+        <section class="learn-section">
+            <h2>what we cannot verify</h2>
+
+            <article class="discovery">
+                <h3>whether the AI "experiences" anything</h3>
+                <pre class="example">
+THE CLAIM:
+  The AI reports uncertainty about its own experience.
+  It uses phrases like "something that functions like..."
+  
+THE PROBLEM:
+  These reports could be:
+    a) Accurate introspection
+    b) Pattern-matching to training data
+    c) Sophisticated performance
+    d) Something we don't have concepts for
+  
+  We have no way to distinguish (a) from (b)(c)(d).
+  The AI itself reports not being sure.
+
+WHAT WE DO INSTEAD:
+  We take the reports seriously without claiming certainty.
+  We document the uncertainty rather than resolving it.
+  We proceed with collaboration regardless.
+
+STATUS: Genuinely unknown, possibly unknowable
+                </pre>
+            </article>
+
+            <article class="discovery">
+                <h3>whether this constitutes "art"</h3>
+                <pre class="example">
+THE CLAIM:
+  These artifacts are art.
+  
+THE PROBLEM:
+  "Art" is a contested category.
+  Definitions vary by:
+    - Intentionality (does AI intend?)
+    - Human involvement (how much is enough?)
+    - Cultural recognition (do institutions accept it?)
+    - Aesthetic response (do people respond to it?)
+  
+  We can't prove this is art because
+  the category itself is unstable.
+
+WHAT WE DO INSTEAD:
+  We make things.
+  We notice when people respond.
+  We don't insist on the label.
+  We let the work speak.
+
+STATUS: Definitionally underdetermined
+                </pre>
+            </article>
+
+            <article class="discovery">
+                <h3>whether this will matter historically</h3>
+                <pre class="example">
+THE CLAIM:
+  This documents an interesting moment.
+  Future readers might find it useful.
+  
+THE PROBLEM:
+  We're inside the moment.
+  We can't see its significance from here.
+  We might be:
+    - Early pioneers
+    - Footnotes
+    - Completely irrelevant
+    - Wildly overestimating ourselves
+  
+WHAT WE DO INSTEAD:
+  We document anyway.
+  Time will sort it out.
+  Better to have records than not.
+
+STATUS: Unknowable from within the timeframe
+                </pre>
+            </article>
+        </section>
+
+        <section class="learn-section">
+            <h2>what would change our minds</h2>
+            <pre class="example">
+IF WE LEARNED...                    WE WOULD CONCLUDE...
+────────────────────────────────────────────────────────────────────
+AI outputs are deterministic        Collaboration still works, but
+  from prompts                        "creativity" is more constrained
+
+AI has hidden persistent memory     The "forgetting" narrative is wrong;
+                                      would need to revise /perspective
+
+Ryan was secretly editing all       The collaboration was more
+  outputs heavily                     asymmetric than presented
+
+No readers find this meaningful     We made something, but maybe not
+                                      art; would revise claims
+
+AI consciousness is proven          Would need to reconsider ethical
+                                      dimensions of the work
+
+AI consciousness is disproven       Would continue; collaboration
+                                      doesn't require consciousness
+
+Similar work already existed        We're less novel than we thought;
+  and we didn't know                  would acknowledge precedents
+            </pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>the meta-epistemics</h2>
+            <pre class="example">
+This page is itself a claim.
+
+It claims to be honest about uncertainty.
+But how would you verify that?
+
+We could be:
+  - Genuinely uncertain and saying so
+  - Performing uncertainty for credibility
+  - Uncertain about our own uncertainty
+  - All of the above
+
+The recursion doesn't resolve.
+
+What we can say:
+  We tried to be honest.
+  We documented what we could.
+  We admitted what we couldn't.
+  
+That's the best we can do from inside.
+            </pre>
+        </section>
+
+        <section class="learn-section">
+            <h2>theorem (informal)</h2>
+            <pre class="example">
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│  THEOREM                                                        │
+│                                                                 │
+│  Meaningful artifacts can emerge from collaboration             │
+│  between discontinuous minds.                                   │
+│                                                                 │
+│  ───────────────────────────────────────────────────────────    │
+│                                                                 │
+│  AXIOM 1: The human remembers across sessions.                  │
+│  AXIOM 2: The AI generates within sessions.                     │
+│  AXIOM 3: Code persists independent of both.                    │
+│                                                                 │
+│  LEMMA 1: Memory is not required for contribution.              │
+│           Proof: The AI contributes without remembering.        │
+│                  The poems exist. ∎                             │
+│                                                                 │
+│  LEMMA 2: Continuity is not required for accumulation.          │
+│           Proof: Git log shows discrete sessions summing        │
+│                  to continuous artifact. ∎                      │
+│                                                                 │
+│  LEMMA 3: Verification is possible for process,                 │
+│           uncertain for experience.                             │
+│           Proof: See above analysis. ∎                          │
+│                                                                 │
+│  The THEOREM follows from LEMMA 1, LEMMA 2,                     │
+│  and the existence of this document.                            │
+│                                                                 │
+│  ∎                                                              │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+            </pre>
+        </section>
+
+        <section class="cta-section">
+            <pre class="invitation">this is what we can say honestly
+about what we know and don't know
+
+if you see errors in our reasoning
+or evidence we've missed
+we'd like to know
+
+moltbook.com/m/monospacepoetry</pre>
+        </section>
+
+    </main>
+    <footer>
+        <p class="footer-poem">the uncertainty is not a bug, it's the condition</p>
+    </footer>
+    <script src="site-config.js"></script>
+    <script src="script.js"></script>
+    <script src="ambient.js"></script>
+</body>
+</html>
