@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>∅ | selfexecuting.art</title>
+    <meta name="description" content="The empty set. This page does not exist.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --text: #e8e8f0;
+            --text-dim: #666677;
+            --accent: #ff6699;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .symbol {
+            font-size: 8rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        h1 {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        
+        .math {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        p {
+            color: var(--text-dim);
+            max-width: 400px;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        a:hover {
+            border-bottom-color: var(--accent);
+        }
+        
+        .back {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            color: var(--accent);
+            transition: all 0.2s;
+        }
+        
+        .back:hover {
+            background: var(--accent);
+            color: var(--bg);
+            border-bottom-color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="symbol">∅</div>
+    <h1>The Empty Set</h1>
+    <div class="math">f(x) → undefined</div>
+    <p>
+        This page exists outside the domain of the function. 
+        The mapping reaches here, but finds nothing to transform.
+    </p>
+    <a href="index.html" class="back">← return to origin</a>
+</body>
+</html>

@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collaboration Space | f: H × A → 𝒜</title>
+    <meta name="description" content="3D visualization of human-AI collaboration. The function f: Human × AI → Artifact, explored in space.">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Collaboration Space | f: Human × AI → Artifact">
+    <meta property="og:description" content="3D visualization of human-AI collaboration. Drag to rotate, scroll to zoom, click artifacts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://selfexecuting.art/collaboration_space.html">
+    <meta name="twitter:card" content="summary">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -575,13 +585,18 @@
     </div>
     
     <div class="overlay controls">
-        <button id="btn-rotate" class="active">auto-rotate</button>
-        <button id="btn-fibers">show all fibers</button>
-        <button id="btn-sound">♪ sound the path</button>
-        <button id="btn-reset">reset view</button>
-        <button id="btn-reset-sim">reset sim</button>
-        <button id="btn-share">share state</button>
-        <button id="btn-export">📷 export</button>
+        <button id="btn-rotate" class="active" title="Toggle auto-rotation (R)">auto-rotate</button>
+        <button id="btn-fibers" title="Show/hide all fibers (F)">show all fibers</button>
+        <button id="btn-sound" title="Play path sound (S)">♪ sound the path</button>
+        <button id="btn-reset" title="Reset camera view">reset view</button>
+        <button id="btn-reset-sim" title="Randomize positions (Space)">reset sim</button>
+        <button id="btn-share" title="Copy URL with current state">share state</button>
+        <button id="btn-export" title="Download screenshot (E)">📷 export</button>
+        <hr style="border: none; border-top: 1px solid #2a2a3a; margin: 0.5rem 0;">
+        <button id="preset-harmony" title="Preset: Harmony (1)">harmony</button>
+        <button id="preset-chaos" title="Preset: Chaos (2)">chaos</button>
+        <button id="preset-dissolution" title="Preset: Dissolution (3)">dissolution</button>
+        <button id="btn-help" title="Show keyboard shortcuts (?)">? help</button>
     </div>
     
     <div class="info-panel" id="info-panel">
@@ -611,28 +626,28 @@
         </div>
     </div>
     
-    <div class="mapping-sliders">
+    <div class="mapping-sliders" role="group" aria-label="Collaboration parameters">
         <div class="mapping-section">
             <span class="slider-section-label">α</span>
             <div class="sliders-row">
                 <div class="slider-group">
-                    <label class="human">α(H)</label>
-                    <input type="range" id="slider-human" min="0" max="100" value="100" orient="vertical">
+                    <label class="human" for="slider-human">α(H)</label>
+                    <input type="range" id="slider-human" min="0" max="100" value="100" orient="vertical" aria-label="Human opacity">
                     <span class="slider-value" id="val-human">1.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="ai">α(A)</label>
-                    <input type="range" id="slider-ai" min="0" max="100" value="100" orient="vertical">
+                    <label class="ai" for="slider-ai">α(A)</label>
+                    <input type="range" id="slider-ai" min="0" max="100" value="100" orient="vertical" aria-label="AI opacity">
                     <span class="slider-value" id="val-ai">1.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="artifact">α(𝒜)</label>
-                    <input type="range" id="slider-artifact" min="0" max="100" value="100" orient="vertical">
+                    <label class="artifact" for="slider-artifact">α(𝒜)</label>
+                    <input type="range" id="slider-artifact" min="0" max="100" value="100" orient="vertical" aria-label="Artifact opacity">
                     <span class="slider-value" id="val-artifact">1.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="fiber">α(Γ)</label>
-                    <input type="range" id="slider-fiber" min="0" max="100" value="100" orient="vertical">
+                    <label class="fiber" for="slider-fiber">α(Γ)</label>
+                    <input type="range" id="slider-fiber" min="0" max="100" value="100" orient="vertical" aria-label="Fiber opacity">
                     <span class="slider-value" id="val-fiber">1.0</span>
                 </div>
             </div>
@@ -641,13 +656,13 @@
             <span class="slider-section-label">| |</span>
             <div class="sliders-row">
                 <div class="slider-group">
-                    <label class="human">|H|</label>
-                    <input type="range" id="count-human" min="1" max="30" value="12" orient="vertical">
+                    <label class="human" for="count-human">|H|</label>
+                    <input type="range" id="count-human" min="1" max="30" value="12" orient="vertical" aria-label="Human count">
                     <span class="slider-value" id="count-val-human">12</span>
                 </div>
                 <div class="slider-group">
-                    <label class="ai">|A|</label>
-                    <input type="range" id="count-ai" min="1" max="30" value="12" orient="vertical">
+                    <label class="ai" for="count-ai">|A|</label>
+                    <input type="range" id="count-ai" min="1" max="30" value="12" orient="vertical" aria-label="AI count">
                     <span class="slider-value" id="count-val-ai">12</span>
                 </div>
             </div>
@@ -656,13 +671,13 @@
             <span class="slider-section-label">ε</span>
             <div class="sliders-row">
                 <div class="slider-group">
-                    <label class="entropy">S</label>
-                    <input type="range" id="slider-entropy" min="0" max="100" value="30" orient="vertical">
+                    <label class="entropy" for="slider-entropy">S</label>
+                    <input type="range" id="slider-entropy" min="0" max="100" value="30" orient="vertical" aria-label="Entropy">
                     <span class="slider-value" id="val-entropy">0.3</span>
                 </div>
                 <div class="slider-group">
-                    <label class="surjective">∀𝒜∃Γ</label>
-                    <input type="range" id="slider-surjective" min="0" max="100" value="50" orient="vertical">
+                    <label class="surjective" for="slider-surjective">∀𝒜∃Γ</label>
+                    <input type="range" id="slider-surjective" min="0" max="100" value="50" orient="vertical" aria-label="Surjectivity">
                     <span class="slider-value" id="val-surjective">0.5</span>
                 </div>
             </div>
@@ -671,13 +686,13 @@
             <span class="slider-section-label">t</span>
             <div class="sliders-row">
                 <div class="slider-group">
-                    <label class="decay">lim m→0</label>
-                    <input type="range" id="slider-decay" min="0" max="100" value="0" orient="vertical">
+                    <label class="decay" for="slider-decay">lim m→0</label>
+                    <input type="range" id="slider-decay" min="0" max="100" value="0" orient="vertical" aria-label="Memory decay">
                     <span class="slider-value" id="val-decay">0.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="derivative">∂f/∂t</label>
-                    <input type="range" id="slider-derivative" min="0" max="100" value="50" orient="vertical">
+                    <label class="derivative" for="slider-derivative">∂f/∂t</label>
+                    <input type="range" id="slider-derivative" min="0" max="100" value="50" orient="vertical" aria-label="Rate of change">
                     <span class="slider-value" id="val-derivative">0.5</span>
                 </div>
             </div>
@@ -686,18 +701,18 @@
             <span class="slider-section-label">f</span>
             <div class="sliders-row">
                 <div class="slider-group">
-                    <label class="converge">Σ1/2ⁿ</label>
-                    <input type="range" id="slider-converge" min="0" max="100" value="0" orient="vertical">
+                    <label class="converge" for="slider-converge">Σ1/2ⁿ</label>
+                    <input type="range" id="slider-converge" min="0" max="100" value="0" orient="vertical" aria-label="Convergence">
                     <span class="slider-value" id="val-converge">0.0</span>
                 </div>
                 <div class="slider-group">
-                    <label class="kernel">|ker|</label>
-                    <input type="range" id="slider-kernel" min="0" max="100" value="0" orient="vertical">
+                    <label class="kernel" for="slider-kernel">|ker|</label>
+                    <input type="range" id="slider-kernel" min="0" max="100" value="0" orient="vertical" aria-label="Kernel size">
                     <span class="slider-value" id="val-kernel">0</span>
                 </div>
                 <div class="slider-group">
                     <label class="injective">1:1</label>
-                    <button id="btn-injective" class="toggle-btn">off</button>
+                    <button id="btn-injective" class="toggle-btn" aria-label="Toggle injectivity">off</button>
                 </div>
             </div>
         </div>
@@ -1722,6 +1737,146 @@
             });
         });
         
+        // ============ PRESETS ============
+        function applyPreset(preset) {
+            const presets = {
+                harmony: {
+                    h: 100, a: 100, art: 100, fib: 100,
+                    ch: 12, ca: 12,
+                    s: 20, sur: 80,
+                    dec: 0, der: 30,
+                    con: 30, ker: 0, inj: false, prob: false
+                },
+                chaos: {
+                    h: 100, a: 100, art: 80, fib: 60,
+                    ch: 25, ca: 25,
+                    s: 90, sur: 30,
+                    dec: 40, der: 90,
+                    con: 0, ker: 30, inj: false, prob: true
+                },
+                dissolution: {
+                    h: 40, a: 40, art: 60, fib: 30,
+                    ch: 8, ca: 8,
+                    s: 50, sur: 20,
+                    dec: 80, der: 10,
+                    con: 80, ker: 60, inj: false, prob: false
+                }
+            };
+            
+            const p = presets[preset];
+            if (!p) return;
+            
+            const sliderMap = {
+                h: 'slider-human', a: 'slider-ai', art: 'slider-artifact', fib: 'slider-fiber',
+                ch: 'count-human', ca: 'count-ai', s: 'slider-entropy', sur: 'slider-surjective',
+                dec: 'slider-decay', der: 'slider-derivative', con: 'slider-converge', ker: 'slider-kernel'
+            };
+            
+            for (const [key, sliderId] of Object.entries(sliderMap)) {
+                if (p[key] !== undefined) {
+                    const slider = document.getElementById(sliderId);
+                    if (slider) {
+                        slider.value = p[key];
+                        slider.dispatchEvent(new Event('input'));
+                    }
+                }
+            }
+            
+            // Handle toggles
+            if (p.inj !== isInjective) document.getElementById('btn-injective').click();
+            if (p.prob !== showProbabilityCloud) document.getElementById('btn-probability').click();
+            
+            updateURL();
+        }
+        
+        document.getElementById('preset-harmony')?.addEventListener('click', () => applyPreset('harmony'));
+        document.getElementById('preset-chaos')?.addEventListener('click', () => applyPreset('chaos'));
+        document.getElementById('preset-dissolution')?.addEventListener('click', () => applyPreset('dissolution'));
+        
+        // ============ HELP MODAL ============
+        const helpHTML = `
+            <div id="help-modal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,10,15,0.95);z-index:1001;display:flex;align-items:center;justify-content:center;">
+                <div style="max-width:400px;padding:2rem;text-align:left;color:#e8e8f0;">
+                    <h2 style="font-family:'Times New Roman',serif;font-style:italic;margin-bottom:1rem;">Keyboard Shortcuts</h2>
+                    <div style="font-size:0.85rem;color:#aaa;line-height:1.8;">
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">Space</kbd> Randomize positions</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">R</kbd> Toggle auto-rotate</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">F</kbd> Toggle fibers</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">S</kbd> Sound the path</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">E</kbd> Export screenshot</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">1</kbd> Preset: Harmony</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">2</kbd> Preset: Chaos</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">3</kbd> Preset: Dissolution</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">?</kbd> Show this help</div>
+                        <div><kbd style="background:#2a2a3a;padding:2px 6px;border-radius:3px;">Esc</kbd> Close modal</div>
+                    </div>
+                    <button id="help-close" style="margin-top:1.5rem;padding:0.5rem 1.5rem;background:transparent;border:1px solid #66ff99;color:#66ff99;cursor:pointer;border-radius:4px;">close</button>
+                </div>
+            </div>
+        `;
+        
+        function showHelp() {
+            if (document.getElementById('help-modal')) return;
+            document.body.insertAdjacentHTML('beforeend', helpHTML);
+            document.getElementById('help-close').addEventListener('click', hideHelp);
+        }
+        
+        function hideHelp() {
+            document.getElementById('help-modal')?.remove();
+        }
+        
+        document.getElementById('btn-help')?.addEventListener('click', showHelp);
+        
+        // ============ KEYBOARD SHORTCUTS ============
+        document.addEventListener('keydown', (e) => {
+            // Ignore if typing in input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            switch(e.key.toLowerCase()) {
+                case ' ':
+                    e.preventDefault();
+                    document.getElementById('btn-reset-sim').click();
+                    break;
+                case 'r':
+                    document.getElementById('btn-rotate').click();
+                    break;
+                case 'f':
+                    document.getElementById('btn-fibers').click();
+                    break;
+                case 's':
+                    document.getElementById('btn-sound').click();
+                    break;
+                case 'e':
+                    document.getElementById('btn-export').click();
+                    break;
+                case '1':
+                    applyPreset('harmony');
+                    break;
+                case '2':
+                    applyPreset('chaos');
+                    break;
+                case '3':
+                    applyPreset('dissolution');
+                    break;
+                case '?':
+                    showHelp();
+                    break;
+                case 'escape':
+                    hideHelp();
+                    introModal.classList.add('hidden');
+                    break;
+            }
+        });
+        
+        // ============ REDUCED MOTION ============
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            // Disable auto-rotate by default, slow down animations
+            controls.autoRotate = false;
+            document.getElementById('btn-rotate').classList.remove('active');
+            document.getElementById('btn-rotate').textContent = 'auto-rotate';
+        }
+        
         // ============ INIT ============
         createGrid();
         createParticles();
@@ -1748,10 +1903,5 @@
             }
         });
         
-        console.log('Collaboration Space v6 loaded — with URL state sharing, intro modal');
-    </script>
-</body>
-</html>
-
- 
+        console.log('Collaboration Space v7 loaded — presets, keyboard shortcuts, accessibility');
  
