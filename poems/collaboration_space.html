@@ -268,10 +268,25 @@
             border-radius: 8px;
             padding: 1rem 1.5rem;
             display: flex;
+            flex-wrap: nowrap;
             gap: 1.5rem;
             pointer-events: auto;
-            max-width: 90vw;
-            overflow-x: auto;
+            max-width: 95vw;
+            overflow-x: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: #444 #1a1a2a;
+        }
+        
+        .mapping-sliders::-webkit-scrollbar {
+            height: 8px;
+        }
+        .mapping-sliders::-webkit-scrollbar-track {
+            background: #1a1a2a;
+            border-radius: 4px;
+        }
+        .mapping-sliders::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
         }
         
         .slider-group {
@@ -362,11 +377,13 @@
             display: flex;
             gap: 1rem;
             align-items: center;
+            flex-shrink: 0;
         }
         
         .sliders-row {
             display: flex;
             gap: 1.5rem;
+            flex-shrink: 0;
         }
     </style>
 </head>
