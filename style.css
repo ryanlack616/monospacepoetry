@@ -1111,3 +1111,32 @@ footer .key {
 .gallery-item pre {
     font-family: 'JetBrains Mono', 'Noto Sans Mono CJK SC', 'Microsoft YaHei', 'Segoe UI Emoji', monospace;
 }
+
+/* Palette Tabs */
+.palette-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border, #333);
+    padding-bottom: 1rem;
+}
+.palette-tab {
+    background: transparent;
+    border: 1px solid var(--border, #333);
+    color: var(--dim, #888);
+    padding: 0.4rem 0.8rem;
+    font-family: inherit;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.palette-tab:hover {
+    border-color: var(--accent, #00ff88);
+    color: var(--text, #eee);
+}
+.palette-tab.active {
+    background: var(--accent-dim, rgba(0, 255, 136, 0.1));
+    border-color: var(--accent, #00ff88);
+    color: var(--accent, #00ff88);
+}
