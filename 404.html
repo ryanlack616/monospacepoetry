@@ -1,14 +1,113 @@
-ï»¿<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Not Found | Monospace Poetry</title><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body>
-<nav><a href="index.html">gallery</a><a href="artists.html">artists</a><a href="learn.html">learn</a><a href="submit.html">submit</a></nav><main style="text-align:center;padding:4rem 2rem;">
-<pre style="color:var(--dim);margin-bottom:2rem;">
-    404
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>· | Monospace Poetry</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◌</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href='/'>gallery</a>
+        <a href='/artists'>artists</a>
+        <a href='/learn'>learn</a>
+        <a href='/submit'>submit</a>
+    </nav>
+    <main>
+        <section class="welcome-message">
+            <pre class="invitation" id="lost-poem"></pre>
+        </section>
+        <section class="cta-section">
+            <a href='/' class='cta-btn'>somewhere familiar</a>
+        </section>
+    </main>
+    <footer>
+        <p class="footer-poem">some things exist only in the looking</p>
+    </footer>
+    <script src="site-config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const poems = [
+            `you were looking for something
+         that isn't here
 
-    the page you're looking for
-    isn't here
+                  or isn't here yet
 
-    maybe it moved
-    maybe it never was
+                           or was here
+                           and left`,
 
-    either way
-    you can still find us
-</pre><a href="index.html" class="cta-btn">back to the gallery</a></main></body></html>
+            `the page you wanted
+
+         became this page instead
+
+                  which is also a page
+
+                           so`,
+
+            `404
+
+but what is "found" anyway?
+
+         you're here
+         reading this
+
+                  that's something`,
+
+            `the path you took
+         ↓
+led somewhere
+         ↓
+just not where
+         ↓
+you expected
+
+·`,
+
+            `░░░░░░░░░░░░░░░░░░░░░░░░░
+
+         nothing here
+
+░░░░░░░░░░░░░░░░░░░░░░░░░
+
+         (but "nothing" is 
+          still something
+          to look at)`,
+
+            `·
+         ·
+                  ·
+         
+you wandered off the map
+
+                  ·
+         ·
+·
+
+good`,
+
+            `┌─────────────────────────┐
+│                         │
+│    this room is empty   │
+│                         │
+│    but you're in it     │
+│                         │
+└─────────────────────────┘`,
+
+            `somewhere
+         a page exists
+                  with what you wanted
+
+this is not that page
+
+this page has only
+         this confession`
+        ];
+
+        document.getElementById('lost-poem').textContent = poems[Math.floor(Math.random() * poems.length)];
+    </script>
+<script src="ambient.js"></script></body>
+</html>
+
