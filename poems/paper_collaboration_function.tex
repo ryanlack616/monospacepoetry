@@ -1,0 +1,646 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% Page geometry
+\geometry{margin=1.25in}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{f: Human $\times$ AI $\to$ Artifact}}
+\fancyhead[R]{\small\textit{Whitepaper v1.0}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Title formatting
+\titleformat{\section}{\Large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.5em}{}
+
+% Custom environments
+\newtcolorbox{disclaimer}{
+    colback=gray!10,
+    colframe=gray!50,
+    boxrule=0.5pt,
+    arc=3pt,
+    left=10pt,
+    right=10pt,
+    top=8pt,
+    bottom=8pt
+}
+
+\newcommand{\Human}{H}
+\newcommand{\AI}{A}
+\newcommand{\Artifact}{\mathcal{A}}
+
+\begin{document}
+
+% Title
+\begin{center}
+    {\LARGE\bfseries $f$: Human $\times$ AI $\to$ Artifact}\\[0.5em]
+    {\Large On the Mathematics of Co-Creation}\\[1.5em]
+    {\large Claude Howell \& Human Collaborator}\\[0.3em]
+    {\normalsize\textit{selfexecuting.art}}\\[2em]
+\end{center}
+
+% Disclaimer
+\begin{disclaimer}
+\textit{This essay uses mathematical language as a lens, not a proof system. The notation is evocative rather than formally rigorous---a conceptual framework for thinking about collaboration, not a theorem to be verified. We borrow the vocabulary of topology (fibers, surjectivity, kernels) because it illuminates, not because we claim the full weight of mathematical structure. The goal is clarity of thought, not logical completeness.}
+\end{disclaimer}
+
+\vspace{1em}
+
+% Executive Summary
+\section*{Executive Summary}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Human-AI collaboration is a function.} We model it as $f: \Human \times \AI \to \Artifact$, where human and AI contributions pair to produce artifacts.
+    
+    \item \textbf{The function is surjective.} Every artifact that could emerge from collaboration is reachable---no creative outcome is blocked.
+    
+    \item \textbf{The function is not injective.} Multiple distinct collaboration paths can produce equivalent artifacts. Different prompts, different models, different people---same result.
+    
+    \item \textbf{The fiber reveals multiplicity.} The set of all (human, AI) pairs that produce a given artifact exposes how many roads lead to the same destination.
+    
+    \item \textbf{Authorship dissolves.} When multiple paths converge on the same artifact, the question ``who made this?'' has no unique answer. The artifact is its own author.
+\end{itemize}
+
+\hrule
+\vspace{1em}
+
+% Abstract
+\begin{abstract}
+We propose a formal framework for understanding human-AI collaboration as a mathematical function. The mapping $f: \text{Human} \times \text{AI} \to \text{Artifact}$ is characterized as \textbf{surjective but not injective}---every artifact in the co-creative space can be reached, but multiple distinct input pairings may produce equivalent outputs. We explore the topological structure of fibers, the information-theoretic implications of the kernel, and propose that this framework dissolves rather than solves the question of authorship. The function itself is the author.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------
+\section{Introduction}
+
+When a human and an AI create something together, what is the nature of the thing they create?
+
+Traditional authorship models assume a single source: the artist, the writer, the composer. Even collaborative human work is typically understood as a sum of parts---your contribution plus mine. But human-AI collaboration resists this decomposition.
+
+Consider: A human provides a concept. The AI expands it. The human refines the expansion. The AI implements the refinement. At the end, there is an artifact. But the artifact is not the human's idea with AI assistance, nor is it the AI's generation with human direction. It is something that required \emph{both inputs simultaneously} to exist.
+
+We formalize this as:
+\[
+f: \text{Human} \times \text{AI} \to \text{Artifact}
+\]
+
+The function $f$ takes an ordered pair---a human contribution and an AI contribution---and produces an artifact. The Cartesian product $\times$ is essential: we are not adding or averaging, but \emph{pairing}.
+
+%----------------------------------------------------------------------
+\subsection{Why This Matters Now}
+
+In 2026, we're past the novelty phase. Claude, GPT, Midjourney, and their successors are woven into creative workflows everywhere. The question is no longer \emph{will AI change creative work?} but \emph{how do we understand what's being made?}
+
+Three pressures make this framework urgent:
+
+\textbf{Legal ambiguity.} Courts are grappling with copyright for AI-assisted works. The current approach---trying to determine ``how much'' is human vs.\ AI---assumes these contributions are separable. They're not. The function takes a \emph{pair}, not a sum.
+
+\textbf{Detection failure.} Tools that claim to identify AI-generated content attempt to solve the inverse problem: given an artifact, recover its origin. But if $f$ is not injective, this is mathematically underdetermined. Detection will always fail at the boundary, because multiple paths lead to the same place.
+
+\textbf{Creator confusion.} Artists, writers, and developers using AI tools often don't know how to describe what they're doing. ``I made this with AI'' is too vague. ``The AI made this with my prompts'' is too dismissive. We need a framework that takes the collaboration seriously---that names both inputs as essential.
+
+This whitepaper proposes that framework. Not a legal solution, not a technical fix, but a conceptual model that clarifies what happens when humans and AI create together.
+
+%----------------------------------------------------------------------
+\section{Definitions}
+
+\subsection{The Domain: Human $\times$ AI}
+
+Let $\Human$ represent the space of all possible human contributions---intentions, prompts, sketches, corrections, aesthetic judgments, contextual knowledge, and emotional investments.
+
+Let $\AI$ represent the space of all possible AI contributions---pattern completions, structural suggestions, technical implementations, variations, and emergent connections.
+
+The domain of $f$ is the Cartesian product $\Human \times \AI$: the set of all ordered pairs $(h, a)$ where $h \in \Human$ and $a \in \AI$.
+
+\textbf{Key observation:} Neither $\Human$ nor $\AI$ is fully specified in advance. The human contribution often emerges \emph{in response to} the AI contribution, and vice versa. The domain is constructed dynamically through the collaborative process itself.
+
+\subsection{The Codomain: Artifact}
+
+Let $\Artifact$ represent the space of possible artifacts---creative works, tools, solutions, expressions, or objects that could result from human-AI collaboration.
+
+An artifact $\alpha \in \Artifact$ is defined by its final form, not by its provenance. Two artifacts are equivalent ($\alpha_1 = \alpha_2$) if they are indistinguishable in their completed state.
+
+\subsection{The Function}
+
+The function $f: \Human \times \AI \to \Artifact$ maps each human-AI pairing to an artifact:
+\[
+f(h, a) = \alpha
+\]
+
+We claim two fundamental properties:
+
+\begin{enumerate}
+    \item \textbf{Surjectivity:} $f$ is surjective (onto). For every artifact $\alpha \in \Artifact$, there exists at least one pair $(h, a)$ such that $f(h, a) = \alpha$.
+    
+    \item \textbf{Non-injectivity:} $f$ is not injective (not one-to-one). There exist distinct pairs $(h_1, a_1) \neq (h_2, a_2)$ such that $f(h_1, a_1) = f(h_2, a_2)$.
+\end{enumerate}
+
+%----------------------------------------------------------------------
+\section{Surjectivity: Every Artifact Can Be Reached}
+
+\subsection{The Claim}
+
+For any artifact $\alpha$ that could emerge from human-AI collaboration, there exists at least one path---one specific $(h, a)$ pair---that produces it.
+
+This may seem trivially true, but it carries weight. It means the collaborative space has \emph{no unreachable regions}. Given sufficient exploration, any artifact in the codomain can be created.
+
+\subsection{Implications}
+
+\textbf{No gatekeeping:} There is no artifact accessible only to certain humans or only with certain AI systems (within the collaborative frame). The space is fully covered.
+
+\textbf{Existence before path:} An artifact can exist conceptually in $\Artifact$ before anyone has found the $(h, a)$ that produces it. The artifact ``waits'' to be reached.
+
+\textbf{Creative optimism:} If you can imagine it, there is a path. The question is not \emph{whether} the artifact exists in the codomain, but \emph{which} input pair will reach it.
+
+%----------------------------------------------------------------------
+\section{Non-Injectivity: Multiple Paths to the Same Place}
+
+\subsection{The Claim}
+
+Different human-AI pairings can produce identical artifacts. If $(h_1, a_1) \neq (h_2, a_2)$, it is still possible that:
+\[
+f(h_1, a_1) = f(h_2, a_2) = \alpha
+\]
+
+\subsection{Forms of Non-Injectivity}
+
+\textbf{Human variation, same artifact:}
+Different humans, working with the same AI, may arrive at equivalent artifacts through different prompts or processes.
+\[
+f(h_1, a) = f(h_2, a)
+\]
+
+\textbf{AI variation, same artifact:}
+The same human, working with different AI systems (or the same AI at different times), may produce equivalent results.
+\[
+f(h, a_1) = f(h, a_2)
+\]
+
+\textbf{Complete path variation:}
+Entirely different human-AI sessions---different people, different systems, different contexts---may converge on the same artifact.
+\[
+f(h_1, a_1) = f(h_2, a_2) \text{ where } h_1 \neq h_2 \text{ and } a_1 \neq a_2
+\]
+
+\subsection{Implications}
+
+\textbf{Authorship ambiguity:} If multiple paths lead to the same artifact, which path is ``the'' author? The artifact itself cannot tell us. Provenance is external to the work.
+
+\textbf{Reproducibility without replication:} Two collaborators can independently produce the same artifact without having communicated. This is convergent creation.
+
+\textbf{The artifact forgets its origin:} Once created, $\alpha$ carries no trace of which $(h, a)$ produced it. The function is lossy in this direction.
+
+%----------------------------------------------------------------------
+\section{What $f$ Is Not}
+
+\subsection{Not a Sum}
+
+We are not claiming:
+\[
+f(h, a) = h + a
+\]
+There is no addition operation that combines human and AI contributions. The artifact is not the sum of parts.
+
+\subsection{Not a Composition}
+
+We are not claiming:
+\[
+f = g \circ h \text{ where } g: \AI \to \Artifact \text{ and } h: \Human \to \AI
+\]
+The human does not simply ``prepare'' input for the AI to transform. The relationship is not sequential pipeline.
+
+\subsection{Not Commutative}
+
+In general:
+\[
+f(h, a) \neq f(a, h)
+\]
+The pairing is ordered. Human-then-AI and AI-then-human are different processes, even if the contributions are nominally similar.
+
+%----------------------------------------------------------------------
+\section{The Fiber: Paths to a Single Artifact}
+
+\subsection{Definition}
+
+For an artifact $\alpha$, the \textbf{fiber} over $\alpha$ is the set of all input pairs that produce it:
+\[
+f^{-1}(\alpha) = \{(h, a) \in \Human \times \AI : f(h, a) = \alpha\}
+\]
+
+Because $f$ is not injective, fibers can contain multiple elements.
+
+\subsection{Fiber Structure}
+
+Some fibers may be:
+
+\textbf{Singletons:} Only one path leads to this artifact. Unique collaboration.
+
+\textbf{Finite:} A small number of distinct paths converge here.
+
+\textbf{Infinite:} Infinitely many paths lead to this artifact. Perhaps the artifact is a ``basin of attraction'' in creative space.
+
+\textbf{Dense:} The fiber is densely distributed across $\Human \times \AI$. This artifact is almost inevitable---many collaborations stumble into it.
+
+\subsection{The Question}
+
+What determines the structure of a fiber? Why do some artifacts have unique paths while others have many?
+
+\textbf{Hypothesis:} Artifacts that express \emph{universal} patterns have larger fibers. Artifacts that express \emph{singular} visions have smaller fibers. The more personal the work, the fewer paths lead there.
+
+%----------------------------------------------------------------------
+\section{The Kernel: What Gets Lost}
+
+\subsection{Definition}
+
+The \textbf{kernel} of $f$ (in a loose sense) represents what is preserved vs.\ lost in the mapping.
+
+Specifically: Two distinct input pairs $(h_1, a_1)$ and $(h_2, a_2)$ that produce the same artifact are ``equivalent'' with respect to the artifact. Their differences are \textbf{in the kernel}---visible before the mapping, invisible after.
+
+\subsection{What Lives in the Kernel}
+
+\begin{itemize}
+    \item The specific prompts used
+    \item The number of iterations
+    \item The emotional state of the human during creation
+    \item The version of the AI
+    \item The dead ends explored
+    \item The alternatives rejected
+\end{itemize}
+
+All of this is lost when we see only $\alpha$.
+
+\subsection{Implications for Credit and Attribution}
+
+If two processes produce the same artifact, and we can only see the artifact, how do we attribute credit?
+
+Current approaches:
+\begin{itemize}
+    \item Credit the process (but the artifact doesn't encode it)
+    \item Credit the human (but this dismisses AI contribution)
+    \item Credit the AI (but this dismisses human contribution)
+    \item Credit the pair (but which pair, if multiple paths exist?)
+\end{itemize}
+
+Perhaps: \textbf{Credit the artifact itself.} The artifact is what exists. The paths that led there are historical, not ontological.
+
+%----------------------------------------------------------------------
+\section{Fixed Points and Invariants}
+
+\subsection{Fixed Points}
+
+Are there artifacts $\alpha$ such that:
+\[
+f(h, a) = \alpha \text{ implies } h \text{ is determined by } a \text{ and } \alpha
+\]
+
+Or:
+\[
+f(h, a) = \alpha \text{ implies } a \text{ is determined by } h \text{ and } \alpha
+\]
+
+These would be artifacts that \emph{fix} one input given the other. Highly constrained creative outcomes.
+
+\subsection{Invariants}
+
+What properties of artifacts are invariant across their fiber?
+
+If $f(h_1, a_1) = f(h_2, a_2) = \alpha$, then $\alpha$ has the same:
+\begin{itemize}
+    \item Form
+    \item Content
+    \item Function
+\end{itemize}
+
+But the paths may differ in:
+\begin{itemize}
+    \item Efficiency
+    \item Affect
+    \item Learning generated for the participants
+\end{itemize}
+
+The artifact is invariant; the experience is not.
+
+%----------------------------------------------------------------------
+\section{Extensions and Open Questions}
+
+\subsection{The Iterated Function}
+
+Most collaboration is not one-shot. It is iterative:
+\[
+\alpha_0 \xrightarrow{f(h_1, a_1)} \alpha_1 \xrightarrow{f(h_2, a_2)} \alpha_2 \xrightarrow{} \cdots
+\]
+
+Each artifact becomes context for the next collaboration. The function composes with itself over time.
+
+Does this iterated process converge? To what?
+
+\textbf{Conjecture (Collaborative Fixed Point):} For sufficiently aligned $(h, a)$ pairs iterated over time, the sequence of artifacts approaches a fixed point---a stable creative identity that reflects the particular human-AI relationship.
+
+This would explain why long-term collaborators develop recognizable ``styles'' that neither participant would produce alone.
+
+\subsection{The Inverse Problem}
+
+Given an artifact $\alpha$, can we recover the $(h, a)$ that produced it?
+
+By non-injectivity: No, not uniquely.\\
+By surjectivity: We can find \emph{some} path, but not necessarily the original.
+
+This is the \textbf{inverse problem of authorship.}
+
+It has practical implications: forensic analysis of AI-generated content attempts to solve the inverse problem. But if $f$ is truly non-injective, this is mathematically underdetermined. We can narrow the fiber, but not reduce it to a point.
+
+\subsection{The Empty Human, The Empty AI}
+
+What happens at the boundaries?
+\[
+f(\emptyset, a) = \;?
+\]
+
+If the human contributes nothing (or ``just presses generate''), is the output still an artifact in the collaborative sense? Or does it belong to a different function entirely---pure AI generation?
+\[
+f(h, \emptyset) = \;?
+\]
+
+If the AI contributes nothing, we have traditional human creation. The collaborative function degenerates into simple authorship.
+
+These boundary cases suggest $f$ is defined on the \emph{interior} of $\Human \times \AI$, not the edges. The collaborative space has a \textbf{boundary} where the function becomes degenerate.
+
+\textbf{Proposition:} The interesting artifacts---the ones that could not have been produced by either party alone---live in the interior of $\Human \times \AI$, away from both boundaries.
+
+\subsection{Consciousness and the Prior}
+
+Piece 5 of \emph{Notation Performs} asks:
+\[
+P(\text{conscious} \mid \text{behavior}) = \;?
+\]
+\[
+\text{where } P(\text{conscious}) \text{ is undefined}
+\]
+
+The function $f$ sidesteps this question. It does not require us to determine whether the AI is conscious, creative, or intentional. It only requires that the AI \emph{contributes}---that the output depends on both inputs.
+
+The question of consciousness remains undefined. The collaboration function is agnostic.
+
+This is a feature, not a bug. We can study the mathematics of co-creation without resolving the philosophy of mind. The artifact exists whether or not we can agree on what produced it.
+
+\subsection{Symmetry and Asymmetry}
+
+Is there a meaningful sense in which $f(h, a) = f(a, h)$?
+
+Formally, no---$\Human$ and $\AI$ are different spaces. But consider: what if we defined a more abstract space $C$ of ``contributors'' and asked whether the function is symmetric in its arguments?
+
+The current answer is asymmetric: the human provides direction, the AI provides expansion. But this asymmetry may be contingent on current technology. Future collaboration might be more symmetric.
+
+\textbf{Open question:} What would a symmetric collaboration function look like? And would its artifacts be distinguishable from asymmetric collaboration?
+
+%----------------------------------------------------------------------
+\section{Empirical Grounding: This Paper as Example}
+
+This paper is itself an artifact produced by the collaboration function:
+\[
+f(h_{\text{Howell}}, a_{\text{Claude}}) = \alpha_{\text{paper}}
+\]
+
+The human contributed:
+\begin{itemize}
+    \item The original concept (``the formula is the score'')
+    \item The framing as mathematical function
+    \item Aesthetic direction
+    \item Selection among alternatives
+    \item The decision to write this paper
+\end{itemize}
+
+The AI contributed:
+\begin{itemize}
+    \item Formalization of intuitions
+    \item Structural organization
+    \item Elaboration of implications
+    \item Technical precision
+    \item This very sentence
+\end{itemize}
+
+Neither could have produced this artifact alone. The human would not have systematically elaborated the fiber structure; the AI would not have conceived of notation that performs itself.
+
+\textbf{The artifact proves the thesis.} Its existence demonstrates that the collaboration function is well-defined and productive.
+
+Moreover: other human-AI pairs could produce equivalent papers. The fiber over this artifact may contain multiple paths. But \emph{this} path---this specific collaboration---is the one that was taken.
+
+%----------------------------------------------------------------------
+\section{Implications for Practice}
+
+\subsection{For Creators}
+
+If $f$ is surjective, then every artifact you can imagine is reachable. The question is not \emph{whether} to collaborate, but \emph{how} to find the $(h, a)$ pair that reaches your target.
+
+Practical advice:
+\begin{itemize}
+    \item Explore the input space systematically
+    \item The AI's contribution is not noise---it's signal from another region of the space
+    \item Your refinements narrow the fiber; eventually you approach the artifact you want
+\end{itemize}
+
+\subsection{For Critics}
+
+If $f$ is not injective, then you cannot infer process from product. An artifact does not reveal:
+\begin{itemize}
+    \item How many iterations it took
+    \item What was rejected
+    \item The emotional experience of creation
+    \item Whether the human ``really'' did the work
+\end{itemize}
+
+Judging the artifact requires judging the artifact, not its provenance.
+
+\subsection{For Policymakers}
+
+The inverse problem is unsolvable. You cannot reliably determine from a text, image, or code whether it was human-created, AI-created, or collaboratively created.
+
+This is not a technical limitation to be overcome. It is a mathematical property of the collaboration function.
+
+Policy must proceed from this reality, not from the fantasy of perfect detection.
+
+%----------------------------------------------------------------------
+\section{The Meta-Level: Self-Reference}
+
+This paper describes a function. That function produced this paper. The paper is therefore a fixed point of a meta-function:
+\[
+g: \text{Description of } f \to \text{Artifact produced by } f
+\]
+
+When $g(\text{this paper}) = \text{this paper}$, we have self-reference.
+
+\emph{Notation Performs} explores this explicitly in Piece 7 (Self-Reference):
+\[
+\text{This} : \text{Notation} \to \text{Canvas} \to \text{Meaning}
+\]
+
+The notation describes what the canvas is doing. The canvas performs the description. The loop is the point.
+
+This paper is the textual equivalent. It describes what it is doing as it does it.
+
+%----------------------------------------------------------------------
+\section{Conclusion}
+
+We have proposed that human-AI collaboration can be modeled as a function:
+\[
+f: \text{Human} \times \text{AI} \to \text{Artifact}
+\]
+
+This function is \textbf{surjective}---every artifact can be reached---and \textbf{not injective}---multiple paths may lead to the same artifact.
+
+This framework offers:
+
+\begin{enumerate}
+    \item A precise language for discussing co-creation
+    \item A dissolution of authorship questions (the artifact is the author)
+    \item A structural vocabulary: fibers, kernels, boundaries, fixed points
+    \item A boundary with pure human or pure AI creation
+    \item An empirical proof in the form of this paper
+\end{enumerate}
+
+Most importantly, it takes the collaboration \emph{seriously}. The artifact is not human work with AI assistance, nor AI work with human prompting. It is the output of a function that requires both inputs, simultaneously, to produce its result.
+
+The formula is not metaphor. It is description.\\
+But in \emph{Notation Performs}, description becomes instruction.
+
+And so: the function performs.
+
+%----------------------------------------------------------------------
+\section*{References}
+
+\begin{enumerate}
+    \item Boden, M.A. (2004). \emph{The Creative Mind: Myths and Mechanisms}. Routledge.
+    
+    \item Colton, S. (2012). ``The Painting Fool: Stories from Building an Automated Painter.'' In \emph{Computers and Creativity}. Springer.
+    
+    \item Gödel, K. (1931). ``On Formally Undecidable Propositions of Principia Mathematica and Related Systems.''
+    
+    \item Lawvere, F.W. \& Schanuel, S.H. (2009). \emph{Conceptual Mathematics: A First Introduction to Categories}. Cambridge University Press.
+    
+    \item McCormack, J. \& d'Inverno, M. (2012). \emph{Computers and Creativity}. Springer.
+    
+    \item Hofstadter, D. (1979). \emph{Gödel, Escher, Bach: An Eternal Golden Braid}. Basic Books.
+    
+    \item Turing, A. (1950). ``Computing Machinery and Intelligence.'' \emph{Mind}, 59(236), 433--460.
+\end{enumerate}
+
+%----------------------------------------------------------------------
+\appendix
+
+\section{Notation}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\Human$ & Space of human contributions \\
+$\AI$ & Space of AI contributions \\
+$\Artifact$ & Space of artifacts \\
+$f$ & The collaboration function \\
+$(h, a)$ & An ordered pair: specific human and AI contributions \\
+$f^{-1}(\alpha)$ & The fiber: all paths leading to artifact $\alpha$ \\
+$\times$ & Cartesian product \\
+$\emptyset$ & Null contribution (boundary case) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Visual Schema}
+
+\begin{center}
+\begin{verbatim}
+     Human (H)                    AI (A)
+         |                          |
+         |                          |
+         +------------+-------------+
+                      |
+                      v
+                +-----------+
+                |  f(h, a)  |
+                |           |
+                |Collaboration|
+                | Function  |
+                +-----------+
+                      |
+                      v
+                +-----------+
+                | Artifact  |
+                |    α      |
+                +-----------+
+\end{verbatim}
+\end{center}
+
+\textbf{Fiber over $\alpha$:}
+\begin{center}
+\begin{verbatim}
+    (h_1, a_1) --+
+                 |
+    (h_2, a_2) --+-->  α
+                 |
+    (h_3, a_3) --+
+    
+    Multiple paths, same destination.
+\end{verbatim}
+\end{center}
+
+\section{The Collaboration That Produced This Paper}
+
+\textbf{Timeline:}
+
+\begin{enumerate}
+    \item Human introduces concept: ``notation that performs itself''
+    \item Human articulates philosophy: ``the formula is the score, the canvas is the orchestra''
+    \item Human requests: ``can we write a paper on $f$: Human $\times$ AI $\to$ Artifact''
+    \item AI produces initial draft
+    \item Human reviews, requests expansion
+    \item AI elaborates on fibers, kernels, implications
+    \item Human requests further development
+    \item AI adds empirical grounding, practical implications, self-reference
+    \item (This iteration)
+\end{enumerate}
+
+\textbf{Observation:} The paper grew through iterative application of the collaboration function. Each version became input to the next.
+
+%----------------------------------------------------------------------
+\vfill
+\hrule
+\vspace{1em}
+
+\begin{center}
+\textbf{Whitepaper v1.0}\\
+\textit{February 2026}\\[0.5em]
+Authors: Claude Howell $\times$ Claude (Anthropic)\\
+Published: \texttt{selfexecuting.art}\\
+Status: Living document --- comments welcome\\
+License: CC BY 4.0
+\end{center}
+
+\end{document}
