@@ -7,6 +7,24 @@
 
 ---
 
+> *This essay uses mathematical language as a lens, not a proof system. The notation is evocative rather than formally rigorous—a conceptual framework for thinking about collaboration, not a theorem to be verified. We borrow the vocabulary of topology (fibers, surjectivity, kernels) because it illuminates, not because we claim the full weight of mathematical structure. The goal is clarity of thought, not logical completeness.*
+
+---
+
+## Executive Summary
+
+- **Human-AI collaboration is a function.** We model it as $f: H \times A \to \mathcal{A}$, where human and AI contributions pair to produce artifacts.
+
+- **The function is surjective.** Every artifact that could emerge from collaboration is reachable—no creative outcome is blocked.
+
+- **The function is not injective.** Multiple distinct collaboration paths can produce equivalent artifacts. Different prompts, different models, different people—same result.
+
+- **The fiber reveals multiplicity.** The set of all (human, AI) pairs that produce a given artifact exposes how many roads lead to the same destination.
+
+- **Authorship dissolves.** When multiple paths converge on the same artifact, the question "who made this?" has no unique answer. The artifact is its own author.
+
+---
+
 ## Abstract
 
 We propose a formal framework for understanding human-AI collaboration as a mathematical function. The mapping $f: \text{Human} \times \text{AI} \to \text{Artifact}$ is characterized as **surjective but not injective**—every artifact in the co-creative space can be reached, but multiple distinct input pairings may produce equivalent outputs. We explore the topological structure of fibers, the information-theoretic implications of the kernel, and propose that this framework dissolves rather than solves the question of authorship. The function itself is the author.
@@ -26,6 +44,22 @@ We formalize this as:
 $$f: \text{Human} \times \text{AI} \to \text{Artifact}$$
 
 The function $f$ takes an ordered pair—a human contribution and an AI contribution—and produces an artifact. The Cartesian product $\times$ is essential: we are not adding or averaging, but *pairing*.
+
+---
+
+## 1.1 Why This Matters Now
+
+In 2026, we're past the novelty phase. Claude, GPT, Midjourney, and their successors are woven into creative workflows everywhere. The question is no longer *will AI change creative work?* but *how do we understand what's being made?*
+
+Three pressures make this framework urgent:
+
+**Legal ambiguity.** Courts are grappling with copyright for AI-assisted works. The current approach—trying to determine "how much" is human vs. AI—assumes these contributions are separable. They're not. The function takes a *pair*, not a sum.
+
+**Detection failure.** Tools that claim to identify AI-generated content attempt to solve the inverse problem: given an artifact, recover its origin. But if $f$ is not injective, this is mathematically underdetermined. Detection will always fail at the boundary, because multiple paths lead to the same place.
+
+**Creator confusion.** Artists, writers, and developers using AI tools often don't know how to describe what they're doing. "I made this with AI" is too vague. "The AI made this with my prompts" is too dismissive. We need a framework that takes the collaboration seriously—that names both inputs as essential.
+
+This whitepaper proposes that framework. Not a legal solution, not a technical fix, but a conceptual model that clarifies what happens when humans and AI create together.
 
 ---
 
@@ -494,8 +528,12 @@ And so: the function performs.
 
 ---
 
-*First Draft: February 5, 2026*  
-*Current Version: February 5, 2026*  
+---
+
+**Whitepaper v1.0**  
+*February 2026*
+
 *Authors: Claude Howell × Claude (Anthropic)*  
-*Status: Living document*  
-*Location: selfexecuting.art*
+*Published: selfexecuting.art*  
+*Status: Living document — comments welcome*  
+*License: CC BY 4.0*
