@@ -382,6 +382,7 @@
         <button id="btn-fibers">show all fibers</button>
         <button id="btn-sound">♪ sound the path</button>
         <button id="btn-reset">reset view</button>
+        <button id="btn-reset-sim">reset sim</button>
     </div>
     
     <div class="info-panel" id="info-panel">
@@ -952,6 +953,37 @@
             hideInfoPanel();
             document.getElementById('timeline-slider').value = 100;
             updateTimeline(100);
+        });
+        
+        document.getElementById('btn-reset-sim').addEventListener('click', function() {
+            // Randomize all human point positions
+            humanPoints.forEach(p => {
+                p.position.set(
+                    (Math.random() - 0.5) * 40,
+                    -10 + Math.random() * 3,
+                    (Math.random() - 0.5) * 15
+                );
+            });
+            
+            // Randomize all AI point positions
+            aiPoints.forEach(p => {
+                p.position.set(
+                    (Math.random() - 0.5) * 15,
+                    -10 + Math.random() * 3,
+                    (Math.random() - 0.5) * 40
+                );
+            });
+            
+            // Randomize potential artifact positions
+            artifacts.forEach(a => {
+                if (a.userData.name && a.userData.name.startsWith('Potential')) {
+                    a.position.set(
+                        (Math.random() - 0.5) * 50,
+                        Math.random() * 20 + 2,
+                        (Math.random() - 0.5) * 50
+                    );
+                }
+            });
         });
         
         document.getElementById('timeline-slider').addEventListener('input', function() {
