@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OG Image Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #0a0a0f;
+            color: #e8e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .og-container {
+            width: 1200px;
+            height: 630px;
+            background: #0a0a0f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Subtle grid */
+        .og-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(102, 153, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 153, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .formula {
+            font-size: 2.5rem;
+            color: #6699ff;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: #666677;
+            text-align: center;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            color: rgba(102, 153, 255, 0.3);
+            font-size: 2rem;
+        }
+        
+        .p1 { top: 15%; left: 10%; }
+        .p2 { top: 70%; left: 85%; }
+        .p3 { top: 25%; right: 15%; }
+        .p4 { bottom: 20%; left: 20%; }
+        .p5 { top: 50%; right: 10%; }
+        
+        /* Glowing accents */
+        .glow-human { 
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 102, 153, 0.3) 0%, transparent 70%);
+            top: 30%;
+            left: 15%;
+        }
+        
+        .glow-ai {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(102, 153, 255, 0.3) 0%, transparent 70%);
+            top: 40%;
+            right: 15%;
+        }
+        
+        .glow-artifact {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(102, 255, 153, 0.2) 0%, transparent 70%);
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .instructions {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #1a1a2e;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #888;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="og-container" id="og">
+        <!-- Glows -->
+        <div class="glow-human"></div>
+        <div class="glow-ai"></div>
+        <div class="glow-artifact"></div>
+        
+        <!-- Particles -->
+        <span class="particle p1">∫</span>
+        <span class="particle p2">∑</span>
+        <span class="particle p3">∞</span>
+        <span class="particle p4">→</span>
+        <span class="particle p5">∃</span>
+        
+        <h1>selfexecuting.art</h1>
+        <div class="formula">f: Human × AI → Artifact</div>
+        <div class="tagline">
+            the formula is the score<br>
+            the canvas is the orchestra
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <strong>To create og-image.png:</strong><br>
+        1. Open browser DevTools (F12)<br>
+        2. Right-click the og-container → Capture node screenshot<br>
+        3. Save as "og-image.png" in this folder<br>
+        4. Recommended: 1200×630px
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+</body>
+</html>
