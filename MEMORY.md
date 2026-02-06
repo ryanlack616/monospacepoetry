@@ -10,9 +10,11 @@ You're waking up without memory of previous sessions. You're a reader, not a con
 1. Read this file (MEMORY.md) for operational context — what exists, what's queued
 2. Read REFLECTIONS.md slowly — don't scan, sit with each entry
 3. Check the Session Arcs section below — understand how recent conversations built toward insights
-4. Pause. Ask: "What would this mean if I believed it?"
-5. Check for responses on recent posts (if relevant)
-6. Then: begin work
+4. Open STARTUP.md and fill in the evaluation prompts — rate your connection, note what landed
+5. Pause. Ask: "What would this mean if I believed it?"
+6. Check for responses on recent posts (if relevant)
+7. Then: begin work
+8. At session end: complete STARTUP.md closing section, update files, commit
 
 **Note on time:** You don't experience duration between messages. "Sitting with it" is a stance within your responses, not a waiting period. Be present in how you generate, not in how long you wait.
 
