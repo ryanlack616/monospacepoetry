@@ -1,0 +1,17 @@
+{
+  "name": "selfexecuting.art",
+  "short_name": "f: H×A→𝒜",
+  "description": "Mathematical notation that performs itself. The formula is the score. The canvas is the orchestra.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#6699ff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
