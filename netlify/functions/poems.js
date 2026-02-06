@@ -46,7 +46,10 @@ function getRandomItems(arr, n = 1) {
 
 // Parse path segments after /api/poems
 function parsePath(path) {
-  const clean = path.replace(/^\/?(\.netlify\/functions\/)?poems\/?/, '');
+  // Handle both /.netlify/functions/poems/... and /api/poems/...
+  const clean = path
+    .replace(/^\/?\.netlify\/functions\/poems\/?/, '')
+    .replace(/^\/?api\/poems\/?/, '');
   return clean.split('/').filter(Boolean);
 }
 
