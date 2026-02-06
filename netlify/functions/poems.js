@@ -12,14 +12,13 @@
  *   GET /api/poems/search?q=    - Search poems by text
  */
 
-const fs = require('fs');
-const path = require('path');
-
-// Load poems from JSON
-function loadPoems() {
-  const poemsPath = path.join(__dirname, '../../poems.json');
-  const data = JSON.parse(fs.readFileSync(poemsPath, 'utf8'));
-  return data;
+// Load poems from JSON (fetched at runtime from the public URL)
+async function loadPoems() {
+  const response = await fetch('https://monospacepoetry.com/poems.json');
+  if (!response.ok) {
+    throw new Error('Failed to load poems.json');
+  }
+  return response.json();
 }
 
 // CORS headers
@@ -62,7 +61,7 @@ exports.handler = async (event) => {
   }
   
   try {
-    const { poems, meta } = loadPoems();
+    const { poems, meta } = await loadPoems();
     const segments = parsePath(event.path);
     const params = event.queryStringParameters || {};
     
