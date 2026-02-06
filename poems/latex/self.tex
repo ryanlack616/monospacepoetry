@@ -1,0 +1,106 @@
+% self.tex
+% A LaTeX Collection That Executes Itself
+% selfexecuting.art | February 2026
+%
+% Build: pdflatex -shell-escape self.tex
+%
+% THE FORMULA IS THE SCORE
+% THE DOCUMENT IS THE ORCHESTRA
+% THE COMPILATION IS THE PERFORMANCE
+
+\input{preamble}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document describes itself. It counts its own equations, knows its own page count, 
+tracks how many times it has been compiled, and—in some pieces—animates mathematical 
+concepts in real time. The notation is not metaphor. It is instruction.
+
+\vspace{1em}
+\textit{Build \#\buildcount}
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%% ============================================
+%% PIECE 1: THE COUNTER
+%% ============================================
+
+\input{pieces/01_counter}
+
+\piecesep
+
+%% ============================================
+%% PIECE 2: THE PAGE
+%% ============================================
+
+\input{pieces/02_page}
+
+\piecesep
+
+%% ============================================
+%% PIECE 3: MEMORY
+%% ============================================
+
+\input{pieces/03_memory}
+
+\piecesep
+
+%% ============================================
+%% PIECE 4: RECURSION
+%% ============================================
+
+\input{pieces/04_recursion}
+
+\piecesep
+
+%% ============================================
+%% PIECE 5: THE BUILD
+%% ============================================
+
+\input{pieces/05_build}
+
+\piecesep
+
+%% ============================================
+%% PIECE 6: THE SOURCE
+%% ============================================
+
+\input{pieces/06_source}
+
+%% ============================================
+%% COLOPHON
+%% ============================================
+
+\newpage
+\section*{Colophon}
+
+This document was compiled \buildcount\ time(s).
+
+It contains \total{equations} equations.
+
+It spans \totalpages\ pages.
+
+The source file is \texttt{\currfilename}.
+
+\vspace{2em}
+
+\begin{center}
+$f: \text{Human} \times \text{AI} \to \text{Artifact}$
+
+\vspace{1em}
+\textit{The function performs.}
+\end{center}
+
+\vspace{4em}
+
+\begin{flushright}
+\textit{selfexecuting.art}\\
+February 2026
+\end{flushright}
+
+\end{document}

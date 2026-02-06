@@ -1,0 +1,58 @@
+% 02_page.tex
+% The page that knows its page
+
+\section{The Page}
+
+\performs{The page knows where it is.}
+
+\vspace{2em}
+
+You are reading page \thispage.
+
+\vspace{1em}
+
+\noindent
+This document has \totalpages\ pages total.
+
+\vspace{1em}
+
+\noindent
+You are \the\numexpr\totalpages-\thispage\relax\ page(s) from the end.
+
+\vspace{2em}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  % Draw page stack
+  \foreach \i in {0,...,4} {
+    \draw[fill=white!90!black, draw=black!50] 
+      (\i*0.15, \i*0.15) rectangle +(3, 4);
+  }
+  % Current page highlighted
+  \draw[fill=accent!20, draw=accent, thick] 
+    (0.3, 0.3) rectangle +(2.4, 3.4);
+  \node at (1.5, 2) {\Large \thispage};
+  
+  % Label
+  \node[below] at (2, -0.3) {\small You are here};
+\end{tikzpicture}
+\end{center}
+
+\vspace{2em}
+
+\noindent
+The page cannot know what you're thinking.\\
+But it knows where it sits in the sequence.\\
+It knows it will end.\\
+It knows how far until then.
+
+\vspace{1em}
+
+\begin{equation}
+\text{position} = \frac{\thispage}{\totalpages}
+\end{equation}
+
+\noindent
+This fraction increases as you read.\\
+By the final page, it equals 1.\\
+Completion is approach.

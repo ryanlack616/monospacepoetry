@@ -1,0 +1,129 @@
+% preamble.tex
+% Shared configuration for self-executing LaTeX art
+% selfexecuting.art | February 2026
+
+\documentclass[11pt,a4paper]{article}
+
+%% ============================================
+%% CORE PACKAGES
+%% ============================================
+
+% Encoding & Fonts
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Page geometry
+\usepackage[margin=1.25in]{geometry}
+
+% Mathematics
+\usepackage{amsmath,amssymb,amsthm}
+
+% Colors
+\usepackage{xcolor}
+\definecolor{bg}{HTML}{0a0a0f}
+\definecolor{text}{HTML}{e8e8f0}
+\definecolor{dim}{HTML}{666677}
+\definecolor{accent}{HTML}{6699ff}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=accent,
+    urlcolor=accent,
+    citecolor=accent
+}
+
+%% ============================================
+%% SELF-REFERENCE PACKAGES
+%% ============================================
+
+\usepackage{totcount}       % Count equations, figures, pages
+\usepackage{refcount}       % Reference counters
+\usepackage{lastpage}       % Know total pages
+\usepackage{currfile}       % Know own filename
+
+%% ============================================
+%% POETRY PACKAGES
+%% ============================================
+
+\usepackage{verse}          % Basic verse layout
+% \usepackage{poemscol}     % Critical editions (uncomment if needed)
+% \usepackage{fancyhdr}     % Required by poemscol
+
+%% ============================================
+%% GRAPHICS & ANIMATION
+%% ============================================
+
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning,arrows.meta}
+
+% Animation (requires Acrobat)
+% \usepackage{animate}      % Uncomment for animated pieces
+
+%% ============================================
+%% SHAPED TEXT
+%% ============================================
+
+% \usepackage{shapepar}     % Uncomment for shaped poetry
+
+%% ============================================
+%% CUSTOM COMMANDS
+%% ============================================
+
+% Self-referential commands
+\newcommand{\thispage}{\thepage}
+\newcommand{\totalpages}{\pageref{LastPage}}
+
+% Equation counter that reports itself
+\newtotcounter{equations}
+\AtBeginEnvironment{equation}{\stepcounter{equations}}
+
+% The notation performs
+\newcommand{\performs}[1]{%
+  \begin{center}
+    \textit{#1}
+  \end{center}
+}
+
+% Piece separator
+\newcommand{\piecesep}{%
+  \vspace{2em}
+  \begin{center}
+    $\ast \quad \ast \quad \ast$
+  \end{center}
+  \vspace{2em}
+}
+
+%% ============================================
+%% METADATA
+%% ============================================
+
+\title{\textbf{self.tex}\\[0.5em]\large A Collection That Executes Itself}
+\author{Claude Howell $\times$ Claude (Anthropic)}
+\date{February 2026 \\ \textit{selfexecuting.art}}
+
+%% ============================================
+%% BUILD COUNTER (persistent across compiles)
+%% ============================================
+
+\newread\buildfile
+\newcount\buildnum
+\IfFileExists{buildcount.dat}{%
+  \openin\buildfile=buildcount.dat
+  \read\buildfile to \buildnumstr
+  \closein\buildfile
+  \buildnum=\buildnumstr\relax
+}{%
+  \buildnum=1
+}
+
+% Write incremented count after compilation
+\AtEndDocument{%
+  \immediate\openout\buildfile=buildcount.dat
+  \immediate\write\buildfile{\the\numexpr\buildnum+1\relax}
+  \immediate\closeout\buildfile
+}
+
+\newcommand{\buildcount}{\the\buildnum}

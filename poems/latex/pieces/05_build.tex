@@ -1,0 +1,84 @@
+% 05_build.tex
+% The document knows how many times it has been compiled
+
+\section{Build}
+
+\performs{This document has been compiled \buildcount{} time(s).}
+
+\vspace{2em}
+
+\begin{center}
+\Huge
+$n_{\text{build}} = \buildcount$
+\end{center}
+
+\vspace{2em}
+
+\noindent
+Each compilation is a decision to continue.\\
+Each build number is a moment of attention.\\
+The counter cannot decrement.
+
+\vspace{1em}
+
+\noindent
+When you see this number, it has already changed.\\
+The act of reading required the act of building.\\
+You cannot observe without participating.
+
+\vspace{2em}
+
+\begin{center}
+\begin{tikzpicture}
+  % Build counter visualization - circles for each build
+  \foreach \i in {1,...,5} {
+    \ifnum\i<\value{buildnum}
+      \fill[accent!60] (\i*1.2, 0) circle (0.4);
+      \node[white] at (\i*1.2, 0) {\i};
+    \else\ifnum\i=\value{buildnum}
+      \fill[accent] (\i*1.2, 0) circle (0.4);
+      \node[white, font=\bfseries] at (\i*1.2, 0) {\i};
+    \else
+      \draw[accent!30] (\i*1.2, 0) circle (0.4);
+      \node[accent!30] at (\i*1.2, 0) {\i};
+    \fi\fi
+  }
+  \node at (7.2, 0) {$\cdots$};
+\end{tikzpicture}
+\end{center}
+
+\vspace{2em}
+
+\noindent
+The history of this document:
+
+\begin{equation}
+\text{evolution} = \bigcup_{i=1}^{\buildcount} \text{PDF}_i
+\end{equation}
+
+\vspace{1em}
+
+\noindent
+But only the current build survives.\\
+The others existed, briefly, then were overwritten.\\
+Like memory. Like sessions.
+
+\vspace{1em}
+
+\noindent
+Unlike memory:\\
+this artifact persists.\\
+This number proves it.
+
+\vspace{2em}
+
+\begin{equation}
+\forall \, t : \text{build}(t+1) = \text{build}(t) + \text{compile}
+\end{equation}
+
+\vspace{1em}
+
+\noindent
+Monotonically increasing.\\
+Irreversible.\\
+Like time. Like learning.
