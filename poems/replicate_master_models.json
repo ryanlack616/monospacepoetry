@@ -1,0 +1,1174 @@
+{
+  "meta": {
+    "title": "Replicate Master Model Reference",
+    "version": "2.0",
+    "updated": "2026-02-06",
+    "api_base": "https://api.replicate.com/v1",
+    "docs": "https://replicate.com/docs"
+  },
+  "api": {
+    "authentication": {
+      "header": "Authorization",
+      "format": "Bearer {REPLICATE_API_TOKEN}",
+      "env_var": "REPLICATE_API_TOKEN"
+    },
+    "endpoints": {
+      "predictions": {
+        "create": "POST /predictions",
+        "get": "GET /predictions/{id}",
+        "cancel": "POST /predictions/{id}/cancel",
+        "list": "GET /predictions"
+      },
+      "models": {
+        "get": "GET /models/{owner}/{name}",
+        "versions": "GET /models/{owner}/{name}/versions",
+        "list": "GET /models"
+      },
+      "deployments": {
+        "create": "POST /deployments",
+        "get": "GET /deployments/{owner}/{name}",
+        "predictions": "POST /deployments/{owner}/{name}/predictions"
+      }
+    },
+    "webhooks": {
+      "events": ["start", "output", "logs", "completed"],
+      "payload_example": {
+        "id": "prediction_id",
+        "status": "succeeded",
+        "output": "result_url_or_data"
+      }
+    },
+    "rate_limits": {
+      "requests_per_minute": 600,
+      "concurrent_predictions": 10
+    }
+  },
+  "models": {
+    "image_generation": {
+      "flux_pro": {
+        "id": "black-forest-labs/flux-1.1-pro",
+        "task": "Production quality image generation",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "aspect_ratio": "1:1|16:9|9:16|4:3|3:4|21:9|9:21",
+          "num_outputs": "1-4",
+          "output_format": "webp|png|jpg",
+          "output_quality": "1-100",
+          "safety_tolerance": "1-5",
+          "prompt_upsampling": "boolean"
+        },
+        "output": "array of image URLs",
+        "cost_per_run": "~$0.04"
+      },
+      "flux_schnell": {
+        "id": "black-forest-labs/flux-schnell",
+        "task": "Fast draft image generation (4 steps)",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "aspect_ratio": "1:1|16:9|9:16|4:3|3:4",
+          "num_outputs": "1-4",
+          "output_format": "webp|png|jpg",
+          "output_quality": "1-100"
+        },
+        "output": "array of image URLs",
+        "cost_per_run": "~$0.003"
+      },
+      "flux_dev": {
+        "id": "black-forest-labs/flux-dev",
+        "task": "Development/testing image generation",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "aspect_ratio": "1:1|16:9|9:16|4:3|3:4",
+          "num_outputs": "1-4",
+          "guidance_scale": "1-20",
+          "num_inference_steps": "1-50"
+        },
+        "output": "array of image URLs",
+        "cost_per_run": "~$0.025"
+      },
+      "ideogram_v2": {
+        "id": "ideogram-ai/ideogram-v2",
+        "task": "Text rendering in images, logos",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "aspect_ratio": "1:1|16:9|9:16|4:3|3:4|3:2|2:3",
+          "style_type": "auto|general|realistic|design|render_3d|anime",
+          "magic_prompt_option": "auto|on|off",
+          "negative_prompt": "string"
+        },
+        "output": "array of image URLs",
+        "cost_per_run": "~$0.08"
+      },
+      "recraft_v3": {
+        "id": "recraft-ai/recraft-v3",
+        "task": "Vector/design style images",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "style": "any|realistic_image|digital_illustration|vector_illustration|icon",
+          "size": "1024x1024|1365x1024|1024x1365"
+        },
+        "output": "image URL",
+        "cost_per_run": "~$0.04"
+      },
+      "sdxl": {
+        "id": "stability-ai/sdxl",
+        "task": "Versatile generation with LoRA support",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "width": "512-2048",
+          "height": "512-2048",
+          "num_outputs": "1-4",
+          "scheduler": "DDIM|DPMSolverMultistep|HeunDiscrete|KarrasDPM|K_EULER_ANCESTRAL|K_EULER|PNDM",
+          "num_inference_steps": "1-500",
+          "guidance_scale": "0-50",
+          "seed": "integer",
+          "refine": "no_refiner|expert_ensemble_refiner|base_image_refiner",
+          "high_noise_frac": "0-1",
+          "lora_url": "URL to LoRA weights",
+          "lora_scale": "0-1"
+        },
+        "output": "array of image URLs",
+        "cost_per_run": "~$0.0023 per step"
+      },
+      "playground_v2_5": {
+        "id": "playgroundai/playground-v2.5-1024px-aesthetic",
+        "task": "Aesthetic-optimized generation",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "width": "integer",
+          "height": "integer",
+          "num_inference_steps": "1-100",
+          "guidance_scale": "0-20"
+        },
+        "output": "image URL",
+        "cost_per_run": "~$0.02"
+      }
+    },
+    "image_editing": {
+      "real_esrgan": {
+        "id": "nightmareai/real-esrgan",
+        "task": "4x image upscaling",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL or base64 (required)",
+          "scale": "2|4",
+          "face_enhance": "boolean"
+        },
+        "output": "upscaled image URL",
+        "cost_per_run": "~$0.002"
+      },
+      "clarity_upscaler": {
+        "id": "philz1337x/clarity-upscaler",
+        "task": "Detail-enhancing upscale",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "scale_factor": "2",
+          "prompt": "string",
+          "creativity": "0-1",
+          "resemblance": "0-1"
+        },
+        "output": "upscaled image URL",
+        "cost_per_run": "~$0.05"
+      },
+      "codeformer": {
+        "id": "sczhou/codeformer",
+        "task": "Face restoration/enhancement",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "codeformer_fidelity": "0-1",
+          "background_enhance": "boolean",
+          "face_upsample": "boolean",
+          "upscale": "1|2|3|4"
+        },
+        "output": "restored image URL",
+        "cost_per_run": "~$0.005"
+      },
+      "gfpgan": {
+        "id": "tencentarc/gfpgan",
+        "task": "Face enhancement (faster)",
+        "tier": "alternative",
+        "input": {
+          "img": "URL (required)",
+          "version": "v1.3|v1.4",
+          "scale": "2"
+        },
+        "output": "enhanced image URL",
+        "cost_per_run": "~$0.003"
+      },
+      "remove_bg": {
+        "id": "lucataco/remove-bg",
+        "task": "Background removal",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "transparent PNG URL",
+        "cost_per_run": "~$0.002"
+      },
+      "rembg": {
+        "id": "cjwbw/rembg",
+        "task": "Background removal (open source)",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "transparent PNG URL",
+        "cost_per_run": "~$0.001"
+      },
+      "sam": {
+        "id": "meta/sam",
+        "task": "Segment anything with clicks/boxes",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "point_coords": "[[x,y], ...]",
+          "point_labels": "[1, 0, ...]",
+          "box": "[x1, y1, x2, y2]"
+        },
+        "output": "mask images",
+        "cost_per_run": "~$0.01"
+      },
+      "grounded_sam": {
+        "id": "idea-research/grounded-sam",
+        "task": "Text-prompted segmentation",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "text_prompt": "string (required)",
+          "box_threshold": "0-1",
+          "text_threshold": "0-1"
+        },
+        "output": "segmented image + masks",
+        "cost_per_run": "~$0.015"
+      },
+      "lama": {
+        "id": "eborboihuc/lama",
+        "task": "Object removal/inpainting",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "mask": "URL (required)"
+        },
+        "output": "inpainted image URL",
+        "cost_per_run": "~$0.005"
+      },
+      "sdxl_inpainting": {
+        "id": "stability-ai/sdxl-inpainting",
+        "task": "Generative fill/replace",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "mask": "URL (required)",
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "num_inference_steps": "1-100",
+          "guidance_scale": "0-20"
+        },
+        "output": "inpainted image URL",
+        "cost_per_run": "~$0.03"
+      },
+      "ip_adapter": {
+        "id": "lucataco/ip-adapter-sdxl",
+        "task": "Image-guided style transfer",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (reference image)",
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "scale": "0-1 (IP adapter strength)"
+        },
+        "output": "styled image URL",
+        "cost_per_run": "~$0.03"
+      },
+      "instant_id": {
+        "id": "zsxkib/instant-id",
+        "task": "Face-preserving generation",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (face reference)",
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "ip_adapter_scale": "0-1.5",
+          "controlnet_conditioning_scale": "0-1.5"
+        },
+        "output": "generated image URL",
+        "cost_per_run": "~$0.04"
+      },
+      "photomaker": {
+        "id": "tencentarc/photomaker",
+        "task": "Multi-reference face generation",
+        "tier": "alternative",
+        "input": {
+          "input_image": "URL (required)",
+          "input_image2": "URL",
+          "input_image3": "URL",
+          "input_image4": "URL",
+          "prompt": "string (required)",
+          "style_strength_ratio": "0-50"
+        },
+        "output": "generated image URL",
+        "cost_per_run": "~$0.03"
+      },
+      "controlnet_openpose": {
+        "id": "jagilley/controlnet-openpose",
+        "task": "Pose-controlled generation",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (pose reference)",
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "num_samples": "1-4"
+        },
+        "output": "generated images",
+        "cost_per_run": "~$0.02"
+      },
+      "controlnet_canny": {
+        "id": "jagilley/controlnet-canny",
+        "task": "Edge-controlled generation",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (edge reference)",
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "num_samples": "1-4"
+        },
+        "output": "generated images",
+        "cost_per_run": "~$0.02"
+      },
+      "controlnet_depth": {
+        "id": "jagilley/controlnet-depth",
+        "task": "Depth-controlled generation",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (depth map)",
+          "prompt": "string (required)",
+          "negative_prompt": "string"
+        },
+        "output": "generated images",
+        "cost_per_run": "~$0.02"
+      }
+    },
+    "video": {
+      "minimax_video": {
+        "id": "minimax/video-01",
+        "task": "High-quality text/image to video",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "first_frame_image": "URL (optional)",
+          "prompt_optimizer": "boolean"
+        },
+        "output": "video URL",
+        "duration": "~6 seconds",
+        "cost_per_run": "~$0.50"
+      },
+      "hunyuan_video": {
+        "id": "tencent/hunyuan-video",
+        "task": "Open-source video generation",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "width": "720|1280",
+          "height": "480|720",
+          "video_length": "65|129",
+          "seed": "integer"
+        },
+        "output": "video URL",
+        "duration": "~5 seconds",
+        "cost_per_run": "~$0.20"
+      },
+      "stable_video_diffusion": {
+        "id": "stability-ai/stable-video-diffusion",
+        "task": "Image animation",
+        "tier": "top_pick",
+        "input": {
+          "input_image": "URL (required)",
+          "motion_bucket_id": "1-255",
+          "cond_aug": "0-1",
+          "decoding_t": "1-50",
+          "seed": "integer"
+        },
+        "output": "video URL",
+        "duration": "~4 seconds",
+        "cost_per_run": "~$0.10"
+      },
+      "animate_diff": {
+        "id": "lucataco/animate-diff",
+        "task": "Stylized SD animation",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "negative_prompt": "string",
+          "motion_module": "mm_sd_v15_v2",
+          "path": "URL (LoRA)"
+        },
+        "output": "video/GIF URL",
+        "duration": "~2-4 seconds",
+        "cost_per_run": "~$0.08"
+      },
+      "rife": {
+        "id": "pollinations/rife",
+        "task": "Frame interpolation (60fps)",
+        "tier": "top_pick",
+        "input": {
+          "video": "URL (required)",
+          "multiplier": "2|4|8"
+        },
+        "output": "interpolated video URL",
+        "cost_per_run": "~$0.05/minute"
+      },
+      "film": {
+        "id": "google-research/film",
+        "task": "High-quality frame interpolation",
+        "tier": "alternative",
+        "input": {
+          "frame1": "URL (required)",
+          "frame2": "URL (required)",
+          "times_to_interpolate": "1-6"
+        },
+        "output": "interpolated frames",
+        "cost_per_run": "~$0.02"
+      },
+      "rerender_video": {
+        "id": "chenxwh/rerender-a-video",
+        "task": "Video style transfer",
+        "tier": "top_pick",
+        "input": {
+          "video": "URL (required)",
+          "prompt": "string (required)",
+          "style_image": "URL (optional)"
+        },
+        "output": "styled video URL",
+        "cost_per_run": "~$0.15/second"
+      },
+      "sadtalker": {
+        "id": "cjwbw/sadtalker",
+        "task": "Talking head from image + audio",
+        "tier": "top_pick",
+        "input": {
+          "source_image": "URL (required)",
+          "driven_audio": "URL (required)",
+          "enhancer": "gfpgan|RestoreFormer",
+          "preprocess": "crop|resize|full"
+        },
+        "output": "talking head video URL",
+        "cost_per_run": "~$0.10"
+      },
+      "wav2lip": {
+        "id": "cjwbw/wav2lip",
+        "task": "Lip sync on video",
+        "tier": "alternative",
+        "input": {
+          "face": "URL (video or image)",
+          "audio": "URL (required)"
+        },
+        "output": "lip-synced video URL",
+        "cost_per_run": "~$0.05"
+      }
+    },
+    "audio": {
+      "whisper": {
+        "id": "openai/whisper",
+        "task": "Speech to text transcription",
+        "tier": "top_pick",
+        "input": {
+          "audio": "URL (required)",
+          "model": "large-v3",
+          "language": "auto or ISO code",
+          "transcription": "plain text|srt|vtt",
+          "translate": "boolean",
+          "temperature": "0-1"
+        },
+        "output": {
+          "transcription": "text",
+          "segments": "array with timestamps"
+        },
+        "cost_per_run": "~$0.003/minute"
+      },
+      "faster_whisper": {
+        "id": "vaibhavs10/faster-whisper",
+        "task": "Fast transcription (4x speed)",
+        "tier": "alternative",
+        "input": {
+          "audio": "URL (required)",
+          "task": "transcribe|translate",
+          "language": "auto or ISO code"
+        },
+        "output": "transcription text",
+        "cost_per_run": "~$0.002/minute"
+      },
+      "whisperx": {
+        "id": "m-bain/whisperx",
+        "task": "Word-level timestamps",
+        "tier": "alternative",
+        "input": {
+          "audio": "URL (required)",
+          "align_output": "boolean",
+          "batch_size": "8-32"
+        },
+        "output": {
+          "segments": "array with word timestamps"
+        },
+        "cost_per_run": "~$0.004/minute"
+      },
+      "whisper_diarization": {
+        "id": "thomasmol/whisper-diarization",
+        "task": "Speaker separation + transcription",
+        "tier": "top_pick",
+        "input": {
+          "file": "URL (required)",
+          "num_speakers": "integer (optional)",
+          "prompt": "string (optional)"
+        },
+        "output": {
+          "segments": "array with speaker labels"
+        },
+        "cost_per_run": "~$0.01/minute"
+      },
+      "xtts_v2": {
+        "id": "lucataco/xtts-v2",
+        "task": "Voice cloning TTS",
+        "tier": "top_pick",
+        "input": {
+          "text": "string (required)",
+          "speaker": "URL (3-10s reference audio)",
+          "language": "en|es|fr|de|it|pt|pl|tr|ru|nl|cs|ar|zh-cn|ja|hu|ko"
+        },
+        "output": "audio URL",
+        "cost_per_run": "~$0.01/100 chars"
+      },
+      "openvoice": {
+        "id": "myshell-ai/openvoice",
+        "task": "Voice cloning with tone control",
+        "tier": "alternative",
+        "input": {
+          "text": "string (required)",
+          "audio_ref": "URL (reference)",
+          "speed": "0.5-2.0",
+          "language": "en|es|fr|zh|jp|kr"
+        },
+        "output": "audio URL",
+        "cost_per_run": "~$0.008/100 chars"
+      },
+      "bark": {
+        "id": "suno-ai/bark",
+        "task": "Expressive TTS with emotion",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "history_prompt": "voice preset or custom",
+          "text_temp": "0-1",
+          "waveform_temp": "0-1"
+        },
+        "output": "audio URL",
+        "notes": "Use [laughter], [sighs], [music], [gasps] for effects",
+        "cost_per_run": "~$0.02/generation"
+      },
+      "tortoise_tts": {
+        "id": "afiaka87/tortoise-tts",
+        "task": "Highest quality TTS (slow)",
+        "tier": "alternative",
+        "input": {
+          "text": "string (required)",
+          "voice": "preset or custom samples",
+          "preset": "ultra_fast|fast|standard|high_quality"
+        },
+        "output": "audio URL",
+        "cost_per_run": "~$0.05/generation"
+      },
+      "rvc": {
+        "id": "cjwbw/rvc",
+        "task": "Voice conversion",
+        "tier": "top_pick",
+        "input": {
+          "audio": "URL (required)",
+          "model_path": "URL (RVC model)",
+          "f0_up_key": "-12 to 12 (pitch shift)",
+          "index_rate": "0-1"
+        },
+        "output": "converted audio URL",
+        "cost_per_run": "~$0.02"
+      },
+      "so_vits_svc": {
+        "id": "svc-develop-team/so-vits-svc",
+        "task": "Singing voice conversion",
+        "tier": "alternative",
+        "input": {
+          "audio": "URL (required)",
+          "model": "URL (SVC model)",
+          "transpose": "-12 to 12"
+        },
+        "output": "converted audio URL",
+        "cost_per_run": "~$0.03"
+      },
+      "musicgen": {
+        "id": "meta/musicgen",
+        "task": "Text to music generation",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "model_version": "stereo-large|stereo-melody-large",
+          "duration": "1-30",
+          "temperature": "0-1.5",
+          "top_k": "0-500",
+          "top_p": "0-1.5",
+          "continuation": "boolean",
+          "continuation_start": "0-duration",
+          "continuation_end": "0-duration"
+        },
+        "output": "audio URL",
+        "cost_per_run": "~$0.015/second"
+      },
+      "musicgen_melody": {
+        "id": "meta/musicgen-melody",
+        "task": "Melody-guided music generation",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "melody": "URL (reference audio)",
+          "duration": "1-30"
+        },
+        "output": "audio URL",
+        "cost_per_run": "~$0.02/second"
+      },
+      "stable_audio": {
+        "id": "stability-ai/stable-audio",
+        "task": "High-quality music/sound generation",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "seconds_total": "1-120",
+          "seconds_start": "number",
+          "steps": "1-200",
+          "cfg_scale": "1-15"
+        },
+        "output": "audio URL",
+        "cost_per_run": "~$0.02/second"
+      },
+      "demucs": {
+        "id": "facebook/demucs",
+        "task": "Audio stem separation",
+        "tier": "top_pick",
+        "input": {
+          "audio": "URL (required)",
+          "stems": "drums|bass|other|vocals",
+          "model": "htdemucs|htdemucs_ft"
+        },
+        "output": {
+          "drums": "URL",
+          "bass": "URL",
+          "other": "URL",
+          "vocals": "URL"
+        },
+        "cost_per_run": "~$0.01/minute"
+      }
+    },
+    "language_models": {
+      "llama3_70b": {
+        "id": "meta/llama-3-70b-instruct",
+        "task": "General reasoning and chat",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "system_prompt": "string",
+          "max_tokens": "1-4096",
+          "temperature": "0-2",
+          "top_p": "0-1",
+          "top_k": "0-500",
+          "stop_sequences": "array",
+          "presence_penalty": "0-2",
+          "frequency_penalty": "0-2"
+        },
+        "output": "generated text (streaming available)",
+        "cost_per_run": "~$0.0008/1K input, $0.0008/1K output"
+      },
+      "llama3_8b": {
+        "id": "meta/llama-3-8b-instruct",
+        "task": "Fast, efficient chat",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "system_prompt": "string",
+          "max_tokens": "1-4096",
+          "temperature": "0-2"
+        },
+        "output": "generated text",
+        "cost_per_run": "~$0.0001/1K input, $0.0001/1K output"
+      },
+      "mixtral_8x7b": {
+        "id": "mistralai/mixtral-8x7b-instruct",
+        "task": "Efficient MoE model",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "system_prompt": "string",
+          "max_new_tokens": "1-4096",
+          "temperature": "0-2"
+        },
+        "output": "generated text",
+        "cost_per_run": "~$0.0003/1K tokens"
+      },
+      "codellama_34b": {
+        "id": "meta/codellama-34b-instruct",
+        "task": "Code generation",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "system_prompt": "string",
+          "max_tokens": "1-4096",
+          "temperature": "0-2"
+        },
+        "output": "generated code",
+        "cost_per_run": "~$0.0005/1K tokens"
+      },
+      "deepseek_coder": {
+        "id": "deepseek-ai/deepseek-coder-33b-instruct",
+        "task": "Complex code logic",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "max_new_tokens": "1-4096",
+          "temperature": "0-2"
+        },
+        "output": "generated code",
+        "cost_per_run": "~$0.0004/1K tokens"
+      },
+      "qwen_72b": {
+        "id": "qwen/qwen-72b-chat",
+        "task": "Multilingual chat",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "system_prompt": "string",
+          "max_tokens": "1-8192"
+        },
+        "output": "generated text",
+        "cost_per_run": "~$0.0007/1K tokens"
+      },
+      "yi_34b": {
+        "id": "01-ai/yi-34b-chat",
+        "task": "Long context (200K)",
+        "tier": "alternative",
+        "input": {
+          "prompt": "string (required)",
+          "max_tokens": "1-4096"
+        },
+        "output": "generated text",
+        "cost_per_run": "~$0.0004/1K tokens"
+      }
+    },
+    "vision": {
+      "llava": {
+        "id": "yorickvp/llava-v1.6-34b",
+        "task": "Visual Q&A, image understanding",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "prompt": "string (required)",
+          "max_tokens": "1-4096",
+          "temperature": "0-2"
+        },
+        "output": "text response about image",
+        "cost_per_run": "~$0.02"
+      },
+      "cogvlm": {
+        "id": "zfchen/cogvlm-chat",
+        "task": "Visual reasoning (faster)",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "query": "string (required)"
+        },
+        "output": "text response",
+        "cost_per_run": "~$0.01"
+      },
+      "moondream": {
+        "id": "vikhyatk/moondream2",
+        "task": "Lightweight vision (edge deploy)",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "prompt": "string (required)"
+        },
+        "output": "text response",
+        "cost_per_run": "~$0.001"
+      },
+      "blip2": {
+        "id": "salesforce/blip-2",
+        "task": "Image captioning",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "question": "string (optional)"
+        },
+        "output": "caption or answer",
+        "cost_per_run": "~$0.005"
+      },
+      "clip_interrogator": {
+        "id": "pharmapsychotic/clip-interrogator",
+        "task": "Reverse engineer prompts from images",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "clip_model_name": "ViT-L-14/openai|ViT-H-14/laion2b_s32b_b79k",
+          "mode": "best|fast|classic|negative"
+        },
+        "output": "prompt text",
+        "cost_per_run": "~$0.01"
+      },
+      "img2prompt": {
+        "id": "methexis-inc/img2prompt",
+        "task": "Quick prompt extraction",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "prompt text",
+        "cost_per_run": "~$0.003"
+      },
+      "doctr": {
+        "id": "mindee/doctr",
+        "task": "Document OCR",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": {
+          "text": "extracted text",
+          "boxes": "bounding boxes"
+        },
+        "cost_per_run": "~$0.002"
+      },
+      "easyocr": {
+        "id": "jaidedai/easyocr",
+        "task": "Multilingual OCR",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "languages": "array of language codes"
+        },
+        "output": "extracted text",
+        "cost_per_run": "~$0.002"
+      },
+      "nougat": {
+        "id": "facebook/nougat",
+        "task": "Academic paper/math OCR",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "markdown with LaTeX",
+        "cost_per_run": "~$0.005"
+      },
+      "yolov8": {
+        "id": "ultralytics/yolov8",
+        "task": "Real-time object detection",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "model_size": "n|s|m|l|x",
+          "conf_threshold": "0-1",
+          "iou_threshold": "0-1"
+        },
+        "output": {
+          "boxes": "array of detections",
+          "image": "annotated image"
+        },
+        "cost_per_run": "~$0.001"
+      },
+      "owlvit": {
+        "id": "google/owlvit",
+        "task": "Open vocabulary detection",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "query": "array of text queries"
+        },
+        "output": "detections for any described object",
+        "cost_per_run": "~$0.003"
+      },
+      "clip": {
+        "id": "openai/clip",
+        "task": "Zero-shot classification",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "text": "array of candidate labels"
+        },
+        "output": "similarity scores",
+        "cost_per_run": "~$0.001"
+      },
+      "insightface": {
+        "id": "deepinsight/insightface",
+        "task": "Face recognition/analysis",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "det_thresh": "0-1"
+        },
+        "output": {
+          "faces": "array with embeddings, landmarks, age, gender"
+        },
+        "cost_per_run": "~$0.002"
+      }
+    },
+    "3d_depth": {
+      "triposr": {
+        "id": "stability-ai/triposr",
+        "task": "Image to 3D mesh",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "foreground_ratio": "0.5-1.0",
+          "mc_resolution": "32-512",
+          "render_views": "boolean"
+        },
+        "output": {
+          "mesh": "OBJ/GLB file",
+          "renders": "multi-view images"
+        },
+        "cost_per_run": "~$0.02"
+      },
+      "wonder3d": {
+        "id": "xxlong/wonder3d",
+        "task": "Multi-view consistent 3D",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "crop_background": "boolean"
+        },
+        "output": "multi-view images + mesh",
+        "cost_per_run": "~$0.03"
+      },
+      "dreamgaussian": {
+        "id": "dreamgaussian/dreamgaussian",
+        "task": "Gaussian splatting 3D",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "Gaussian splat file",
+        "cost_per_run": "~$0.05"
+      },
+      "depth_anything": {
+        "id": "lllyasviel/depth-anything",
+        "task": "Universal depth estimation",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "depth map image",
+        "cost_per_run": "~$0.002"
+      },
+      "marigold": {
+        "id": "prs-eth/marigold",
+        "task": "Clean edge depth estimation",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "denoising_steps": "1-50"
+        },
+        "output": "depth map image",
+        "cost_per_run": "~$0.01"
+      },
+      "zoedepth": {
+        "id": "isl-org/zoedepth",
+        "task": "Metric depth (real units)",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "metric depth map",
+        "cost_per_run": "~$0.003"
+      },
+      "shap_e": {
+        "id": "openai/shap-e",
+        "task": "Text to 3D",
+        "tier": "top_pick",
+        "input": {
+          "prompt": "string (required)",
+          "guidance_scale": "1-30",
+          "render_mode": "nerf|stf"
+        },
+        "output": "3D model file",
+        "cost_per_run": "~$0.02"
+      },
+      "zero123plus": {
+        "id": "sudo-ai/zero123plus",
+        "task": "Multi-view generation",
+        "tier": "alternative",
+        "input": {
+          "image": "URL (required)",
+          "num_views": "4|6|8"
+        },
+        "output": "multi-view images",
+        "cost_per_run": "~$0.02"
+      }
+    },
+    "embeddings": {
+      "bge_large": {
+        "id": "baai/bge-large-en-v1.5",
+        "task": "Text embeddings",
+        "tier": "top_pick",
+        "dimensions": 1024,
+        "input": {
+          "texts": "array of strings"
+        },
+        "output": "array of embedding vectors",
+        "cost_per_run": "~$0.0001/text"
+      },
+      "e5_large": {
+        "id": "intfloat/e5-large-v2",
+        "task": "Multilingual text embeddings",
+        "tier": "alternative",
+        "dimensions": 1024,
+        "input": {
+          "texts": "array of strings"
+        },
+        "output": "array of embedding vectors",
+        "cost_per_run": "~$0.0001/text"
+      },
+      "nomic_embed": {
+        "id": "nomic-ai/nomic-embed-text",
+        "task": "Long context embeddings (8K)",
+        "tier": "alternative",
+        "dimensions": 768,
+        "input": {
+          "texts": "array of strings"
+        },
+        "output": "array of embedding vectors",
+        "cost_per_run": "~$0.0001/text"
+      },
+      "clip_embeddings": {
+        "id": "openai/clip-vit-large",
+        "task": "Image embeddings",
+        "tier": "top_pick",
+        "dimensions": 768,
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "embedding vector",
+        "cost_per_run": "~$0.001"
+      },
+      "dinov2": {
+        "id": "facebook/dinov2-large",
+        "task": "Self-supervised image embeddings",
+        "tier": "alternative",
+        "dimensions": 1024,
+        "input": {
+          "image": "URL (required)"
+        },
+        "output": "embedding vector",
+        "cost_per_run": "~$0.001"
+      },
+      "imagebind": {
+        "id": "facebook/imagebind",
+        "task": "Multi-modal embeddings (6 modalities)",
+        "tier": "top_pick",
+        "dimensions": 1024,
+        "modalities": ["image", "text", "audio", "video", "depth", "thermal"],
+        "input": {
+          "image": "URL",
+          "text": "string",
+          "audio": "URL"
+        },
+        "output": "unified embedding vector",
+        "cost_per_run": "~$0.002"
+      }
+    }
+  },
+  "code_examples": {
+    "python_basic": {
+      "description": "Basic synchronous prediction",
+      "code": "import replicate\n\noutput = replicate.run(\n    \"black-forest-labs/flux-1.1-pro\",\n    input={\n        \"prompt\": \"a photo of a cat\",\n        \"aspect_ratio\": \"1:1\"\n    }\n)\nprint(output)"
+    },
+    "python_async": {
+      "description": "Async with webhook",
+      "code": "import replicate\n\nprediction = replicate.predictions.create(\n    model=\"black-forest-labs/flux-1.1-pro\",\n    input={\"prompt\": \"a photo of a cat\"},\n    webhook=\"https://your-domain.com/webhook\",\n    webhook_events_filter=[\"completed\"]\n)\nprint(f\"Prediction ID: {prediction.id}\")"
+    },
+    "python_streaming": {
+      "description": "Stream LLM output",
+      "code": "import replicate\n\nfor event in replicate.stream(\n    \"meta/llama-3-70b-instruct\",\n    input={\"prompt\": \"Explain quantum computing\"}\n):\n    print(str(event), end=\"\")"
+    },
+    "curl_basic": {
+      "description": "Create prediction via cURL",
+      "code": "curl -s -X POST https://api.replicate.com/v1/predictions \\\n  -H \"Authorization: Bearer $REPLICATE_API_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"version\": \"MODEL_VERSION_ID\",\n    \"input\": {\"prompt\": \"a photo of a cat\"}\n  }'"
+    },
+    "javascript_basic": {
+      "description": "Node.js usage",
+      "code": "import Replicate from 'replicate';\n\nconst replicate = new Replicate();\n\nconst output = await replicate.run(\n  \"black-forest-labs/flux-1.1-pro\",\n  { input: { prompt: \"a photo of a cat\" } }\n);\nconsole.log(output);"
+    },
+    "n8n_http_node": {
+      "description": "n8n HTTP Request node config",
+      "code": "{\n  \"url\": \"https://api.replicate.com/v1/predictions\",\n  \"method\": \"POST\",\n  \"authentication\": \"genericCredentialType\",\n  \"headers\": {\n    \"Content-Type\": \"application/json\"\n  },\n  \"body\": {\n    \"version\": \"{{MODEL_VERSION}}\",\n    \"input\": {\n      \"prompt\": \"{{$json.prompt}}\"\n    }\n  }\n}"
+    }
+  },
+  "pipelines": {
+    "production_image": {
+      "name": "Production Image Pipeline",
+      "steps": [
+        {"model": "black-forest-labs/flux-1.1-pro", "task": "Generate base image"},
+        {"model": "philz1337x/clarity-upscaler", "task": "Upscale with detail"},
+        {"model": "sczhou/codeformer", "task": "Fix faces if present"},
+        {"model": "lucataco/remove-bg", "task": "Remove background if needed"}
+      ]
+    },
+    "voice_clone": {
+      "name": "Voice Cloning Pipeline",
+      "steps": [
+        {"model": "openai/whisper", "task": "Transcribe reference audio"},
+        {"model": "m-bain/whisperx", "task": "Get word timestamps"},
+        {"model": "lucataco/xtts-v2", "task": "Clone voice and generate"},
+        {"model": "facebook/demucs", "task": "Mix with background audio"}
+      ]
+    },
+    "video_production": {
+      "name": "Video Production Pipeline",
+      "steps": [
+        {"model": "black-forest-labs/flux-1.1-pro", "task": "Generate key frames"},
+        {"model": "minimax/video-01", "task": "Animate to video"},
+        {"model": "pollinations/rife", "task": "Interpolate to 60fps"},
+        {"model": "nightmareai/real-esrgan", "task": "Upscale frames"},
+        {"model": "meta/musicgen", "task": "Generate soundtrack"}
+      ]
+    },
+    "document_understanding": {
+      "name": "Document Understanding Pipeline",
+      "steps": [
+        {"model": "mindee/doctr", "task": "OCR extraction"},
+        {"model": "meta/llama-3-70b-instruct", "task": "Summarize/analyze"},
+        {"model": "baai/bge-large-en-v1.5", "task": "Create embeddings"}
+      ]
+    }
+  },
+  "quick_reference": {
+    "generate_image": "black-forest-labs/flux-1.1-pro",
+    "generate_fast": "black-forest-labs/flux-schnell",
+    "text_in_image": "ideogram-ai/ideogram-v2",
+    "upscale": "nightmareai/real-esrgan",
+    "fix_faces": "sczhou/codeformer",
+    "remove_background": "lucataco/remove-bg",
+    "make_video": "minimax/video-01",
+    "animate_image": "stability-ai/stable-video-diffusion",
+    "transcribe": "openai/whisper",
+    "clone_voice": "lucataco/xtts-v2",
+    "make_music": "meta/musicgen",
+    "chat_reason": "meta/llama-3-70b-instruct",
+    "write_code": "meta/codellama-34b-instruct",
+    "understand_image": "yorickvp/llava-v1.6-34b",
+    "image_to_3d": "stability-ai/triposr",
+    "get_depth": "lllyasviel/depth-anything",
+    "embed_text": "baai/bge-large-en-v1.5"
+  }
+}
