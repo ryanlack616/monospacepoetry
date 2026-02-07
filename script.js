@@ -3,14 +3,28 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
-    initRandomButton();
-    initShareButtons();
+    initGallery();
     initCopyToast();
     initCharPalette();
     initLivePreview();
-    initKeyboardNav();
     initScrollProgress();
 });
+
+// Gallery init - loads poems from JSON, then wires up features
+async function initGallery() {
+    if (typeof Gallery !== 'undefined') {
+        await Gallery.init();
+        initRandomButtonDynamic();
+        initKeyboardNav();
+    }
+}
+
+// Random button wired to Gallery
+function initRandomButtonDynamic() {
+    const btn = document.querySelector('.random-btn');
+    if (!btn || typeof Gallery === 'undefined') return;
+    btn.addEventListener('click', () => Gallery.showRandom());
+}
 
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // THEME TOGGLE (Dark/Light)
@@ -46,80 +60,8 @@ function updateToggleIcon(toggle) {
     toggle.title = isLight ? 'Switch to dark mode' : 'Switch to light mode';
 }
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// RANDOM POEM BUTTON
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function initRandomButton() {
-    const btn = document.querySelector('.random-btn');
-    if (!btn) return;
 
-    const allItems = Array.from(document.querySelectorAll('.gallery-item'));
-    if (allItems.length === 0) return;
-
-    const VISIBLE_COUNT = 8;
-    let visible = [];   // Currently displayed poems
-    let pool = [];      // Poems waiting to appear
-
-    // Shuffle helper
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    // Initial setup: hide all, pick 8 random
-    function initDisplay() {
-        allItems.forEach(item => item.style.display = 'none');
-        
-        const shuffled = shuffle([...allItems]);
-        visible = shuffled.slice(0, VISIBLE_COUNT);
-        pool = shuffled.slice(VISIBLE_COUNT);
-        
-        visible.forEach(item => item.style.display = 'block');
-    }
-
-    // Rolling window: add one new, drop the oldest
-    function rollOne() {
-        if (pool.length === 0) {
-            // Pool exhausted - refill with all hidden items
-            pool = shuffle([...allItems.filter(item => !visible.includes(item))]);
-        }
-
-        // Get next poem from pool
-        const newItem = pool.shift();
-        
-        // Remove oldest (first) from visible, add to pool
-        const oldest = visible.shift();
-        oldest.style.display = 'none';
-        pool.push(oldest);
-
-        // Add new to end of visible
-        visible.push(newItem);
-        newItem.style.display = 'block';
-
-        // Smooth scroll to keep new poem in view
-        newItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    // Initialize on load
-    initDisplay();
-
-    // Button click rolls in one new poem
-    btn.addEventListener('click', rollOne);
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-function initShareButtons() {
-    document.querySelectorAll('.share-trigger').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const poemEl = btn.closest('.gallery-item');
-            const poemText = poemEl?.querySelector('pre')?.textContent || '';
-            const poemTitle = poemEl?.dataset.title || 'Monospace Poetry';
-            showShareModal(poemTitle, poemText);
-        });
-    });
-}
-
+// Share modal (used by gallery.js event delegation)
 function showShareModal(title, content) {
     const url = window.location.href;
     
@@ -437,32 +379,32 @@ function initLivePreview() {
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // KEYBOARD NAVIGATION
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════
+// KEYBOARD NAVIGATION (works with dynamic gallery items)
+// ═══════════════════════════════════════════════════════════
 function initKeyboardNav() {
-    const items = document.querySelectorAll('.gallery-item');
-    if (items.length === 0) return;
-    
     let currentIndex = -1;
     let helpVisible = false;
     
     const helpPanel = document.createElement('div');
     helpPanel.className = 'dos-help';
     helpPanel.innerHTML = `<pre>
-â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
-â•‘           KEYBOARD NAVIGATION            â•‘
-â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£
-â•‘                                          â•‘
-â•‘   â†“ / j     next piece                   â•‘
-â•‘   â†‘ / k     previous piece               â•‘
-â•‘   Home      first piece                  â•‘
-â•‘   End       last piece                   â•‘
-â•‘   r         random piece                 â•‘
-â•‘   t         toggle theme                 â•‘
-â•‘   ?         toggle this help             â•‘
-â•‘   Esc       close                        â•‘
-â•‘                                          â•‘
-â• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£
-â•‘       Press any key to continue...       â•‘
-â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•</pre>`;
+╔═══════════════════════════════════════════╗
+║           KEYBOARD NAVIGATION            ║
+╠═══════════════════════════════════════════╣
+║                                          ║
+║   ↓ / j     next piece                   ║
+║   ↑ / k     previous piece               ║
+║   ← / h     previous page                ║
+║   → / l     next page                    ║
+║   r         random piece                 ║
+║   t         toggle theme                 ║
+║   ?         toggle this help             ║
+║   Esc       close                        ║
+║                                          ║
+╠═══════════════════════════════════════════╣
+║       Press any key to continue...       ║
+╚═══════════════════════════════════════════╝</pre>`;
     document.body.appendChild(helpPanel);
     
     const hint = document.createElement('div');
@@ -477,7 +419,13 @@ function initKeyboardNav() {
         helpPanel.classList.toggle('visible', helpVisible);
     }
     
+    // Re-query items each time (they change with pagination)
+    function getItems() {
+        return document.querySelectorAll('.gallery-item');
+    }
+    
     function scrollToItem(index) {
+        const items = getItems();
         if (index >= 0 && index < items.length) {
             currentIndex = index;
             items[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -494,6 +442,8 @@ function initKeyboardNav() {
             if (e.key === 'Escape') return;
         }
         
+        const items = getItems();
+        
         switch(e.key) {
             case '?':
                 e.preventDefault();
@@ -509,6 +459,22 @@ function initKeyboardNav() {
                 e.preventDefault();
                 scrollToItem(Math.max(currentIndex - 1, 0));
                 break;
+            case 'ArrowLeft':
+            case 'h':
+                e.preventDefault();
+                if (typeof Gallery !== 'undefined') {
+                    const p = Gallery.getPage();
+                    if (p > 1) { Gallery.goToPage(p - 1); currentIndex = -1; }
+                }
+                break;
+            case 'ArrowRight':
+            case 'l':
+                e.preventDefault();
+                if (typeof Gallery !== 'undefined') {
+                    const p = Gallery.getPage();
+                    if (p < Gallery.getTotalPages()) { Gallery.goToPage(p + 1); currentIndex = -1; }
+                }
+                break;
             case 'Home':
                 e.preventDefault();
                 scrollToItem(0);
@@ -519,7 +485,7 @@ function initKeyboardNav() {
                 break;
             case 'r':
                 e.preventDefault();
-                scrollToItem(Math.floor(Math.random() * items.length));
+                if (typeof Gallery !== 'undefined') Gallery.showRandom();
                 break;
             case 't':
                 e.preventDefault();
