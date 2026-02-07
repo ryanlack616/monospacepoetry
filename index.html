@@ -58,7 +58,7 @@ const closeBtn = document.getElementById('close-modal');
 
 openBtn.addEventListener('click', () => modal.classList.add('active'));
 closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-modal.addEventListener('click', (e) => { if (e.target ═══ modal) modal.classList.remove('active'); });
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
 
 document.getElementById('quick-submit').addEventListener('click', async () => {
     const content = document.getElementById('quick-poem').value.trim();
