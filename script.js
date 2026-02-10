@@ -730,8 +730,8 @@ document.head.appendChild(styles);
         'every character takes the same width · that is the only rule',
         'the grid remembers what you show it',
         'some things exist only in the looking',
-        'the blank space isn't empty · it's listening',
-        'you don't need to know everything',
+        "the blank space isn't empty · it's listening",
+        "you don't need to know everything",
         'start anywhere · the grid will hold you',
         'what you delete also matters'
     ];
