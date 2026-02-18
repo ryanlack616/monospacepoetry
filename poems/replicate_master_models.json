@@ -815,6 +815,18 @@
         "output": "caption or answer",
         "cost_per_run": "~$0.005"
       },
+      "image_to_color": {
+        "id": "yuni-eng/image-to-color",
+        "task": "Extract dominant color palette hex codes from image",
+        "tier": "top_pick",
+        "input": {
+          "image": "URL (required)",
+          "question": "string (optional, default: 'Describe this picture')"
+        },
+        "output": "caption + dominant hex color codes",
+        "cost_per_run": "~$0.0014",
+        "notes": "Uses BLIP-2 backbone. Good for design palette extraction, pottery glaze color matching. ~2s per run on L40S. Ryan wants to use for Jan Sadowski image work."
+      },
       "clip_interrogator": {
         "id": "pharmapsychotic/clip-interrogator",
         "task": "Reverse engineer prompts from images",
@@ -1167,6 +1179,7 @@
     "chat_reason": "meta/llama-3-70b-instruct",
     "write_code": "meta/codellama-34b-instruct",
     "understand_image": "yorickvp/llava-v1.6-34b",
+    "extract_colors": "yuni-eng/image-to-color",
     "image_to_3d": "stability-ai/triposr",
     "get_depth": "lllyasviel/depth-anything",
     "embed_text": "baai/bge-large-en-v1.5"

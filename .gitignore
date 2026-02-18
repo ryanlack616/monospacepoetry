@@ -4,4 +4,11 @@ __pycache__/
 *.bat
 *.tex
 *.txt
+*.db
 .vscode/
+.howell.json
+.continue/
+poems/.continue/
+poems/*.png
+poems/*.db
+poems/*.md
