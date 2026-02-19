@@ -56,7 +56,7 @@ function initThemeToggle() {
 
 function updateToggleIcon(toggle) {
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    toggle.textContent = isLight ? 'â—' : 'â—‘';
+    toggle.textContent = isLight ? '\u25D0' : '\u25D1';
     toggle.title = isLight ? 'Switch to dark mode' : 'Switch to light mode';
 }
 
@@ -73,13 +73,13 @@ function showShareModal(title, content) {
             <h3>Share this poem</h3>
             <div class="share-options">
                 <button class="share-btn" data-action="twitter">
-                    <span>ð•</span> Post to X/Twitter
+                    <span>&#x1D54F;</span> Post to X/Twitter
                 </button>
                 <button class="share-btn" data-action="copy-link">
-                    <span>ðŸ”—</span> Copy link
+                    <span>&#x1F517;</span> Copy link
                 </button>
                 <button class="share-btn" data-action="copy-text">
-                    <span>ðŸ“‹</span> Copy poem text
+                    <span>&#x1F4CB;</span> Copy poem text
                 </button>
             </div>
         </div>
