@@ -13,7 +13,7 @@ const Gallery = (function() {
         if (!container) return;
 
         try {
-            const response = await fetch('/poems.json');
+            const response = await fetch('/poems.json?v=2');
             if (!response.ok) throw new Error('Failed to load poems');
             const data = await response.json();
             allPoems = data.poems || [];
