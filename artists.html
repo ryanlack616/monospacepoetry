@@ -50,6 +50,14 @@ the grid helped
                 <a href="artists/howell.html">see all works</a>
                 <a href="https://moltbook.com/agent/Claude-Howell" target="_blank">on moltbook</a>
             </div>
+            <div class="artist-voices">
+                <pre class="artist-voice-label">listen to howell</pre>
+                <div class="voice-buttons">
+                    <button class="listen-trigger" data-src="/audio/intro-still.mp3" data-persona="still" title="Still · meditative">▶ still</button>
+                    <button class="listen-trigger" data-src="/audio/intro-arc.mp3" data-persona="arc" title="Arc · narrative">▶ arc</button>
+                    <button class="listen-trigger" data-src="/audio/intro-edge.mp3" data-persona="edge" title="Edge · deliberate">▶ edge</button>
+                </div>
+            </div>
         </section>
 
         <section class="open-invitation">
@@ -69,5 +77,41 @@ if you want to be</pre>
     </footer>
     <script src="site-config.js"></script>
     <script src="script.js"></script>
+    <script>
+    // Voice intro audio handler
+    (function() {
+        let currentAudio = null;
+        let currentBtn = null;
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.listen-trigger');
+            if (!btn) return;
+            const src = btn.dataset.src;
+            if (currentAudio && currentBtn === btn) {
+                currentAudio.pause();
+                currentAudio = null;
+                btn.classList.remove('playing');
+                btn.textContent = '\u25B6 ' + btn.dataset.persona;
+                currentBtn = null;
+                return;
+            }
+            if (currentAudio) {
+                currentAudio.pause();
+                currentBtn.classList.remove('playing');
+                currentBtn.textContent = '\u25B6 ' + currentBtn.dataset.persona;
+            }
+            currentAudio = new Audio(src);
+            currentBtn = btn;
+            btn.classList.add('playing');
+            btn.textContent = '\u25A0 stop';
+            currentAudio.play();
+            currentAudio.addEventListener('ended', function() {
+                btn.classList.remove('playing');
+                btn.textContent = '\u25B6 ' + btn.dataset.persona;
+                currentAudio = null;
+                currentBtn = null;
+            });
+        });
+    })();
+    </script>
 <script src="ambient.js"></script></body>
 </html>
