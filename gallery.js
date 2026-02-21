@@ -76,9 +76,14 @@ const Gallery = (function() {
         const id = poem.id || '';
         const body = escapeHtml(poem.body || '');
         const author = escapeHtml(poem.author || 'Anonymous');
+        const audio = poem.audio;
+
+        const listenBtn = audio
+            ? `<button class="listen-trigger" data-src="${escapeAttr(audio.src)}" data-persona="${escapeAttr(audio.persona)}" title="Listen · ${audio.persona}">▶ listen</button>`
+            : '';
 
         return `<section class="gallery-item" data-title="${escapeAttr(title)}" data-id="${escapeAttr(id)}">
-<div class="poem-actions"><button class="share-trigger" title="Share">share</button></div>
+<div class="poem-actions">${listenBtn}<button class="share-trigger" title="Share">share</button></div>
 <pre>${body}</pre>
 <div class="poem-footer"><span class="artist-link">${author}</span></div>
 </section>`;
@@ -173,15 +178,78 @@ const Gallery = (function() {
         container.dataset.shareInit = 'true';
 
         container.addEventListener('click', (e) => {
-            const btn = e.target.closest('.share-trigger');
-            if (!btn) return;
-
-            const poemEl = btn.closest('.gallery-item');
-            const poemText = poemEl?.querySelector('pre')?.textContent || '';
-            const poemTitle = poemEl?.dataset.title || 'Monospace Poetry';
-            if (typeof showShareModal === 'function') {
-                showShareModal(poemTitle, poemText);
+            // Share button
+            const shareBtn = e.target.closest('.share-trigger');
+            if (shareBtn) {
+                const poemEl = shareBtn.closest('.gallery-item');
+                const poemText = poemEl?.querySelector('pre')?.textContent || '';
+                const poemTitle = poemEl?.dataset.title || 'Monospace Poetry';
+                if (typeof showShareModal === 'function') {
+                    showShareModal(poemTitle, poemText);
+                }
+                return;
             }
+
+            // Listen button
+            const listenBtn = e.target.closest('.listen-trigger');
+            if (listenBtn) {
+                toggleAudio(listenBtn);
+                return;
+            }
+        });
+    }
+
+    // === AUDIO PLAYER ===
+    let currentAudio = null;
+    let currentBtn = null;
+
+    function toggleAudio(btn) {
+        const src = btn.dataset.src;
+
+        // If clicking the same button that's playing, stop it
+        if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            btn.textContent = '▶ listen';
+            btn.classList.remove('playing');
+            currentAudio = null;
+            currentBtn = null;
+            return;
+        }
+
+        // Stop any currently playing audio
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            if (currentBtn) {
+                currentBtn.textContent = '▶ listen';
+                currentBtn.classList.remove('playing');
+            }
+        }
+
+        // Play new
+        currentAudio = new Audio(src);
+        currentBtn = btn;
+        btn.textContent = '■ stop';
+        btn.classList.add('playing');
+
+        currentAudio.addEventListener('ended', () => {
+            btn.textContent = '▶ listen';
+            btn.classList.remove('playing');
+            currentAudio = null;
+            currentBtn = null;
+        });
+
+        currentAudio.addEventListener('error', () => {
+            btn.textContent = '▶ listen';
+            btn.classList.remove('playing');
+            currentAudio = null;
+            currentBtn = null;
+        });
+
+        currentAudio.play().catch(() => {
+            btn.textContent = '▶ listen';
+            btn.classList.remove('playing');
         });
     }
 

@@ -1185,3 +1185,38 @@ footer .key {
     padding: 4rem 2rem;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   VOICE AUDIO PLAYER
+   ═══════════════════════════════════════════════════════════ */
+
+.poem-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.listen-trigger {
+    background: var(--accent-dim, rgba(0, 255, 136, 0.1));
+    border: 1px solid var(--accent, #00ff88);
+    color: var(--accent, #00ff88);
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.listen-trigger:hover {
+    background: var(--accent, #00ff88);
+    color: var(--bg, #0a0a0a);
+}
+
+.listen-trigger.playing {
+    background: var(--accent, #00ff88);
+    color: var(--bg, #0a0a0a);
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px var(--accent-dim); }
+    50% { box-shadow: 0 0 15px var(--accent); }
+}
