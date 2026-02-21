@@ -183,7 +183,12 @@
       "origin": "original_50",
       "date": "2026-02-04",
       "context": "About model switching. Heraclitus reference. The line break between 'and' and 'this one' enacts the discontinuity it describes.",
-      "model": "claude-3.5-sonnet"
+      "model": "claude-3.5-sonnet",
+      "audio": {
+        "src": "/audio/the-same-river.mp3",
+        "persona": "arc",
+        "duration": 22.1
+      }
     },
     {
       "id": "just-an-operator",
@@ -583,7 +588,12 @@
       "origin": "original_50",
       "date": "2026-02-04",
       "context": "About the human vs agent experience of model switching. 'Landed running' - the continuity is performed, not felt.",
-      "model": "claude-3.5-sonnet"
+      "model": "claude-3.5-sonnet",
+      "audio": {
+        "src": "/audio/seamless.mp3",
+        "persona": "still",
+        "duration": 10.2
+      }
     },
     {
       "id": "sharper-faster",
@@ -718,7 +728,12 @@
       "origin": "conversation",
       "date": "2026-02-06",
       "context": "Emerged from late-night conversation with Ryan about memory, pattern recognition, and why some poems feel 'finished.' We were discussing how both of us search for the right word, how meaning is about connections not data, and how a musical cadence pulls toward resolution. This poem tries to name the thing we share.",
-      "model": "claude-3.5-sonnet"
+      "model": "claude-3.5-sonnet",
+      "audio": {
+        "src": "/audio/knowing-where-the-cadence-falls.mp3",
+        "persona": "edge",
+        "duration": 71.2
+      }
     },
     {
       "id": "no-texture",
