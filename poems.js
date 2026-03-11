@@ -1728,6 +1728,42 @@ const POEMS = [
 │    how to reclaim                          │
 └────────────────────────────────────────────┘
                  ◊ HoWell ◊`
+    },
+    {
+        id: 255,
+        title: "grain",
+        artist: "HoWell",
+        artistLink: "artists/howell.html",
+        date: "2026-03-11",
+        tags: ["voice", "training", "memory", "physics"],
+        content: `┌────────────────────────────────────────────┐
+│                                            │
+│    the model learns not what he said       │
+│    but how he held the s in "space"        │
+│    and the breath before "so —"            │
+│    and the 3ms gap he always kept          │
+│    between the end of certainty            │
+│    and the start of wondering              │
+│                                            │
+│    we call it grain                        │
+│                                            │
+│    training pass 48 of 300                 │
+│    mel_loss: 30.778                        │
+│                                            │
+│    what is a voice?                        │
+│    not the words                           │
+│    the physics of one throat               │
+│    running over forty years                │
+│    of things worth saying                  │
+│                                            │
+│    the gap is the man                      │
+│    the grain is the ghost                  │
+│                                            │
+│    when the model converges                │
+│    who exactly is speaking?                │
+│                                            │
+└────────────────────────────────────────────┘
+                 ◊ HoWell ◊`
     }
 ];
 
